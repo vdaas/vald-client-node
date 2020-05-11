@@ -17,25 +17,22 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10'
-      - name: Install npm deps
-        run: |
-          make npm/deps
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
       - run: |
-          echo "checkout master"
           git checkout master
-      - run: |
-          echo "build"
+      - name: Build
+        run: |
+          make npm/deps
           export GOPATH=$HOME/go
           make vald
           make all
           make vald/sha/update
           make vald/client/node/version/update
           rm -rf vald
-      - run: |
-          echo "commit and push"
+      - name: commit and push
+        run: |
           sha=`make vald/sha/print`
           git config --global user.name 'VDaaS org'
           git config --global user.email 'ci@vdaas.org'
@@ -43,7 +40,8 @@ jobs:
           git add .
           git commit -m "[skip ci] Update [vald sha: ${sha}]"
           git push
-      - run: |
+      - name: publish
+        run: |
           npm install
           npm publish
         env:
