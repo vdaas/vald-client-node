@@ -27,7 +27,7 @@ VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 PROTO_ROOT  = vald/apis/proto
 NODE_ROOT   = src
 
-PROTOS      = gateway/vald/vald.proto agent/agent.proto payload/payload.proto
+PROTOS      = gateway/vald/vald.proto agent/core/agent.proto payload/payload.proto
 PROTOS     := $(PROTOS:%=$(PROTO_ROOT)/%)
 NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
@@ -53,6 +53,10 @@ pink   = /bin/echo -e "\x1b[35m\#\# $1\x1b[0m"
 cyan   = /bin/echo -e "\x1b[36m\#\# $1\x1b[0m"
 
 define go-get
+	GO111MODULE=on go get -u $1
+endef
+
+define go-get-no-mod
 	GO111MODULE=off go get -u $1
 endef
 
@@ -177,22 +181,22 @@ $(GOPATH)/src/google.golang.org/genproto:
 	$(call go-get, google.golang.org/genproto/...)
 
 $(GOPATH)/bin/protoc-gen-go:
-	$(call go-get, github.com/golang/protobuf/protoc-gen-go)
+	$(call go-get-no-mod, github.com/golang/protobuf/protoc-gen-go)
 
 $(GOPATH)/bin/protoc-gen-gogo:
-	$(call go-get, github.com/gogo/protobuf/protoc-gen-gogo)
+	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogo)
 
 $(GOPATH)/bin/protoc-gen-gofast:
-	$(call go-get, github.com/gogo/protobuf/protoc-gen-gofast)
+	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gofast)
 
 $(GOPATH)/bin/protoc-gen-gogofast:
-	$(call go-get, github.com/gogo/protobuf/protoc-gen-gogofast)
+	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogofast)
 
 $(GOPATH)/bin/protoc-gen-gogofaster:
-	$(call go-get, github.com/gogo/protobuf/protoc-gen-gogofaster)
+	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogofaster)
 
 $(GOPATH)/bin/protoc-gen-gogoslick:
-	$(call go-get, github.com/gogo/protobuf/protoc-gen-gogoslick)
+	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogoslick)
 
 $(GOPATH)/bin/protoc-gen-grpc-gateway:
 	$(call go-get, github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway)
@@ -210,4 +214,4 @@ $(GOPATH)/bin/protoc-gen-doc:
 	$(call go-get, github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc)
 
 $(GOPATH)/bin/swagger:
-	$(call go-get, github.com/go-swagger/go-swagger/cmd/swagger)
+	$(call go-get-no-mod, github.com/go-swagger/go-swagger/cmd/swagger)
