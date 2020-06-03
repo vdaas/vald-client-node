@@ -1,10 +1,10 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: agent
-// file: agent.proto
+// package: core
+// file: core/agent.proto
 
-import * as agent_pb from "./agent_pb";
-import * as payload_pb from "./payload_pb";
+import * as core_agent_pb from "../core/agent_pb";
+import * as payload_pb from "../payload_pb";
 import * as grpc from "grpc";
 
 interface IAgentService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {

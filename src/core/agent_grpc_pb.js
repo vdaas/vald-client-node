@@ -19,8 +19,8 @@
 //
 'use strict';
 var grpc = require('grpc');
-var payload_pb = require('./payload_pb.js');
-var google_api_annotations_pb = require('./google/api/annotations_pb.js');
+var payload_pb = require('../payload_pb.js');
+var google_api_annotations_pb = require('../google/api/annotations_pb.js');
 
 function serialize_payload_Control_CreateIndexRequest(arg) {
   if (!(arg instanceof payload_pb.Control.CreateIndexRequest)) {
@@ -135,7 +135,7 @@ function deserialize_payload_Search_Response(buffer_arg) {
 
 var AgentService = exports.AgentService = {
   exists: {
-    path: '/agent.Agent/Exists',
+    path: '/core.Agent/Exists',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.ID,
@@ -146,7 +146,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Object_ID,
   },
   search: {
-    path: '/agent.Agent/Search',
+    path: '/core.Agent/Search',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Search.Request,
@@ -157,7 +157,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Search_Response,
   },
   searchByID: {
-    path: '/agent.Agent/SearchByID',
+    path: '/core.Agent/SearchByID',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Search.IDRequest,
@@ -168,7 +168,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Search_Response,
   },
   streamSearch: {
-    path: '/agent.Agent/StreamSearch',
+    path: '/core.Agent/StreamSearch',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Search.Request,
@@ -179,7 +179,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Search_Response,
   },
   streamSearchByID: {
-    path: '/agent.Agent/StreamSearchByID',
+    path: '/core.Agent/StreamSearchByID',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Search.IDRequest,
@@ -190,7 +190,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Search_Response,
   },
   insert: {
-    path: '/agent.Agent/Insert',
+    path: '/core.Agent/Insert',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.Vector,
@@ -201,7 +201,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   streamInsert: {
-    path: '/agent.Agent/StreamInsert',
+    path: '/core.Agent/StreamInsert',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Object.Vector,
@@ -212,7 +212,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   multiInsert: {
-    path: '/agent.Agent/MultiInsert',
+    path: '/core.Agent/MultiInsert',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.Vectors,
@@ -223,7 +223,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   update: {
-    path: '/agent.Agent/Update',
+    path: '/core.Agent/Update',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.Vector,
@@ -234,7 +234,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   streamUpdate: {
-    path: '/agent.Agent/StreamUpdate',
+    path: '/core.Agent/StreamUpdate',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Object.Vector,
@@ -245,7 +245,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   multiUpdate: {
-    path: '/agent.Agent/MultiUpdate',
+    path: '/core.Agent/MultiUpdate',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.Vectors,
@@ -256,7 +256,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   remove: {
-    path: '/agent.Agent/Remove',
+    path: '/core.Agent/Remove',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.ID,
@@ -267,7 +267,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   streamRemove: {
-    path: '/agent.Agent/StreamRemove',
+    path: '/core.Agent/StreamRemove',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Object.ID,
@@ -278,7 +278,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   multiRemove: {
-    path: '/agent.Agent/MultiRemove',
+    path: '/core.Agent/MultiRemove',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.IDs,
@@ -289,7 +289,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   getObject: {
-    path: '/agent.Agent/GetObject',
+    path: '/core.Agent/GetObject',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Object.ID,
@@ -300,7 +300,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Object_Vector,
   },
   streamGetObject: {
-    path: '/agent.Agent/StreamGetObject',
+    path: '/core.Agent/StreamGetObject',
     requestStream: true,
     responseStream: true,
     requestType: payload_pb.Object.ID,
@@ -311,7 +311,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Object_Vector,
   },
   createIndex: {
-    path: '/agent.Agent/CreateIndex',
+    path: '/core.Agent/CreateIndex',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Control.CreateIndexRequest,
@@ -322,7 +322,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   saveIndex: {
-    path: '/agent.Agent/SaveIndex',
+    path: '/core.Agent/SaveIndex',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Empty,
@@ -333,7 +333,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   createAndSaveIndex: {
-    path: '/agent.Agent/CreateAndSaveIndex',
+    path: '/core.Agent/CreateAndSaveIndex',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Control.CreateIndexRequest,
@@ -344,7 +344,7 @@ var AgentService = exports.AgentService = {
     responseDeserialize: deserialize_payload_Empty,
   },
   indexInfo: {
-    path: '/agent.Agent/IndexInfo',
+    path: '/core.Agent/IndexInfo',
     requestStream: false,
     responseStream: false,
     requestType: payload_pb.Empty,
