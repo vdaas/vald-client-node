@@ -41,6 +41,12 @@ jobs:
           git add .
           git commit -m "[skip ci] Update [vald sha: ${sha}]"
           git push
+      - name: tag
+        continue-on-error: true
+        run: |
+          version=`make vald/client/node/version/print`
+          git tag ${version}
+          git push --tags
       - name: publish
         run: |
           npm install
