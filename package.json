@@ -1,6 +1,6 @@
 {
   "name": "vald-client-node",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "description": "A gRPC client library for Vald",
   "main": "src/vald/vald_grpc_pb.js",
   "dependencies": {},
