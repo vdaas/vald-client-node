@@ -5,8 +5,8 @@
   "main": "src/vald/vald_grpc_pb.js",
   "dependencies": {},
   "devDependencies": {
-    "grpc-tools": "^1.8.1",
-    "ts-protoc-gen": "^0.12.0"
+    "grpc-tools": "^1.9.1",
+    "ts-protoc-gen": "^0.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
