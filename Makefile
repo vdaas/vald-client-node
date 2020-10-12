@@ -49,8 +49,6 @@ PROTOS = \
 PROTOS     := $(PROTOS:%=$(PROTO_ROOT)/%)
 NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
-PROTODIRS   = $(shell find $(PROTO_ROOT) -type d | sed -e "s%$(PROTO_ROOT)/%%g" | grep -v "$(PROTO_ROOT)")
-
 PROTO_PATHS = \
 	$(PWD) \
 	$(PWD)/$(VALD_DIR) \
