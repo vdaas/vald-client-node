@@ -165,28 +165,8 @@ $(GRPC_TOOLS_PROTOC_PLUGIN_PATH):
 .PHONY: proto/deps
 ## install proto deps
 proto/deps: \
-	$(GOPATH)/bin/protoc-gen-doc \
-	$(GOPATH)/bin/protoc-gen-go \
-	$(GOPATH)/bin/protoc-gen-gogo \
-	$(GOPATH)/bin/protoc-gen-gofast \
-	$(GOPATH)/bin/protoc-gen-gogofast \
-	$(GOPATH)/bin/protoc-gen-gogofaster \
-	$(GOPATH)/bin/protoc-gen-gogoslick \
-	$(GOPATH)/bin/protoc-gen-grpc-gateway \
-	$(GOPATH)/bin/protoc-gen-swagger \
-	$(GOPATH)/bin/protoc-gen-validate \
-	$(GOPATH)/bin/prototool \
-	$(GOPATH)/bin/swagger \
-	$(GOPATH)/src/google.golang.org/genproto \
-	$(GOPATH)/src/github.com/protocolbuffers/protobuf \
 	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
-
-$(GOPATH)/src/github.com/protocolbuffers/protobuf:
-	git clone \
-		--depth 1 \
-		https://github.com/protocolbuffers/protobuf \
-		$(GOPATH)/src/github.com/protocolbuffers/protobuf
 
 $(GOPATH)/src/github.com/googleapis/googleapis:
 	git clone \
@@ -199,42 +179,3 @@ $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate:
 		--depth 1 \
 		https://github.com/envoyproxy/protoc-gen-validate \
 		$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
-
-$(GOPATH)/src/google.golang.org/genproto:
-	$(call go-get, google.golang.org/genproto/...)
-
-$(GOPATH)/bin/protoc-gen-go:
-	$(call go-get-no-mod, github.com/golang/protobuf/protoc-gen-go)
-
-$(GOPATH)/bin/protoc-gen-gogo:
-	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogo)
-
-$(GOPATH)/bin/protoc-gen-gofast:
-	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gofast)
-
-$(GOPATH)/bin/protoc-gen-gogofast:
-	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogofast)
-
-$(GOPATH)/bin/protoc-gen-gogofaster:
-	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogofaster)
-
-$(GOPATH)/bin/protoc-gen-gogoslick:
-	$(call go-get-no-mod, github.com/gogo/protobuf/protoc-gen-gogoslick)
-
-$(GOPATH)/bin/protoc-gen-grpc-gateway:
-	$(call go-get, github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway)
-
-$(GOPATH)/bin/protoc-gen-swagger:
-	$(call go-get, github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger)
-
-$(GOPATH)/bin/protoc-gen-validate:
-	$(call go-get-no-mod, github.com/envoyproxy/protoc-gen-validate)
-
-$(GOPATH)/bin/prototool:
-	$(call go-get, github.com/uber/prototool/cmd/prototool)
-
-$(GOPATH)/bin/protoc-gen-doc:
-	$(call go-get, github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc)
-
-$(GOPATH)/bin/swagger:
-	$(call go-get-no-mod, github.com/go-swagger/go-swagger/cmd/swagger)
