@@ -21,7 +21,7 @@ LANGUAGE    = node
 PKGNAME     = $(NAME)-client-$(LANGUAGE)
 PKGREPO     = github.com/$(REPO)/$(PKGNAME)
 
-VALD_DIR    = vald
+VALD_DIR    = vald-origin
 VALD_SHA    = VALD_SHA
 VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 
@@ -30,6 +30,8 @@ GOPATH := $(eval GOPATH := $(shell go env GOPATH))$(GOPATH)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
 NODE_ROOT   = src
+
+SHADOW_ROOT = vald
 
 PROTOS = \
 	gateway/vald/vald.proto \
@@ -47,13 +49,17 @@ PROTOS = \
 	v1/payload/payload.proto
 
 PROTOS     := $(PROTOS:%=$(PROTO_ROOT)/%)
-NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
+SHADOWS     = $(PROTOS:$(PROTO_ROOT)/%.proto=$(SHADOW_ROOT)/%.proto)
+NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js)
+NODE_VALIDATE = $(NODE_ROOT)/validate/validate_grpc_pb.js
 
 PROTO_PATHS = \
 	$(PWD) \
 	$(PWD)/$(VALD_DIR) \
+	$(PWD)/$(PROTO_ROOT) \
 	$(GOPATH)/src \
-	$(GOPATH)/src/github.com/googleapis/googleapis
+	$(GOPATH)/src/github.com/googleapis/googleapis \
+	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
 
 PROTOC_GEN_TS_PATH = ./node_modules/ts-protoc-gen/bin/protoc-gen-ts
 GRPC_TOOLS_PROTOC_PLUGIN_PATH = ./node_modules/grpc-tools/bin/protoc_plugin.js
@@ -73,10 +79,6 @@ endef
 
 define go-get-no-mod
 	GO111MODULE=off go get -u $1
-endef
-
-define mkdir
-	mkdir -p $1
 endef
 
 .PHONY: all
@@ -104,29 +106,57 @@ help:
 clean:
 	rm -rf $(NODE_ROOT)
 	rm -rf $(VALD_DIR)
+	rm -rf $(SHADOW_ROOT)
 	rm -rf node_modules
 
 .PHONY: proto
 ## build proto
-proto: $(NODESOURCES)
+proto: \
+	$(NODESOURCES) \
+	$(NODE_VALIDATE)
+
+$(PROTOS): $(VALD_DIR)
+$(SHADOWS): $(PROTOS)
+$(SHADOW_ROOT)/%.proto: $(PROTO_ROOT)/%.proto
+	mkdir -p $(dir $@)
+	cp $< $@
+	sed -i -e 's:^import "apis/proto/:import "$(SHADOW_ROOT)/:' $@
+	sed -i -e 's:^import "github.com/envoyproxy/protoc-gen-validate/:import ":' $@
 
 $(NODE_ROOT):
-	$(call mkdir, $@)
-	$(call rm, -rf, $@/*)
+	mkdir -p $@
 
-$(NODESOURCES): vald proto/deps $(NODE_ROOT) $(PROTOC_GEN_TS_PATH) $(GRPC_TOOLS_PROTOC_PLUGIN_PATH)
+$(NODESOURCES): proto/deps $(NODE_ROOT) $(SHADOWS)
+$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_ROOT)/%.proto
 	@$(call green, "generating node files...")
 	protoc \
 		$(PROTO_PATHS:%=-I %) \
-		--plugin=protoc-gen-ts=$(PROTOC_GEN_TS_PATH) \
-		--plugin=protoc-gen-grpc=$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-		--js_out="import_style=commonjs,binary:${NODE_ROOT}" \
-		--ts_out="service=grpc-node:${NODE_ROOT}" \
-		--grpc_out="${NODE_ROOT}" \
-		$(patsubst $(NODE_ROOT)/%_grpc_pb.js,$(PROTO_ROOT)/%.proto,$@)
+		--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
+		--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
+		--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
+		--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
+		--grpc_out="$(PWD)/$(NODE_ROOT)" \
+		$<
+
+$(NODE_VALIDATE): \
+	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
+	proto/deps \
+	$(NODE_ROOT)
+	@$(call green, "generating node files for validate...")
+	(cd $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate; \
+		protoc \
+			$(PROTO_PATHS:%=-I %) \
+			-I $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
+			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
+			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
+			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
+			--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
+			--grpc_out="$(PWD)/$(NODE_ROOT)" \
+			validate/validate.proto)
 
 $(VALD_DIR):
-	git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
+	# git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
+	git clone --depth 1 -b feature/all/new-design-apis https://$(VALDREPO) $(VALD_DIR)
 
 .PHONY: vald/sha/print
 ## print VALD_SHA value
@@ -165,6 +195,7 @@ $(GRPC_TOOLS_PROTOC_PLUGIN_PATH):
 .PHONY: proto/deps
 ## install proto deps
 proto/deps: \
+	npm/deps \
 	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
 
