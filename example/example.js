@@ -1,18 +1,16 @@
 var grpc = require('grpc');
 var vald = require('vald-client-node');
 
-var insert = vald.v1_vald.insert;
-var search = vald.v1_vald.search;
-var update = vald.v1_vald.update;
-var remove = vald.v1_vald.remove;
+var insert = vald.v1_vald.insert_grpc;
+var search = vald.v1_vald.search_grpc;
+var update = vald.v1_vald.update_grpc;
+var remove = vald.v1_vald.remove_grpc;
 
 var payload = vald.v1_payload.payload;
 
 // create clients
-var iclient = new insert.grpc.InsertClient('localhost:8081', grpc.credentials.createInsecure());
-var sclient = new search.grpc.SearchClient('localhost:8081', grpc.credentials.createInsecure());
-var uclient = new update.grpc.UpdateClient('localhost:8081', grpc.credentials.createInsecure());
-var rclient = new remove.grpc.RemoveClient('localhost:8081', grpc.credentials.createInsecure());
+var iclient = new insert.InsertClient('localhost:8081', grpc.credentials.createInsecure());
+var sclient = new search.SearchClient('localhost:8081', grpc.credentials.createInsecure());
 
 
 // insert

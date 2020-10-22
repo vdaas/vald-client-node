@@ -49,6 +49,7 @@ SHADOWS     = $(PROTOS:$(PROTO_ROOT)/%.proto=$(SHADOW_ROOT)/%.proto)
 NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js)
 NODE_IDXDIR = $(dir $(NODESOURCES))
 NODE_IDXJS = $(NODE_IDXDIR:%=%index.js)
+NODE_IDXDTS = $(NODE_IDXDIR:%=%index.d.ts)
 
 NODE_VALIDATE = $(NODE_ROOT)/validate/validate_grpc_pb.js
 
@@ -120,6 +121,7 @@ clean:
 proto: \
 	$(NODESOURCES) \
 	$(NODE_IDXJS) \
+	$(NODE_IDXDTS) \
 	$(NODE_VALIDATE) \
 	$(NODE_GOOGLEAPIS) \
 	index.js \
@@ -141,6 +143,9 @@ $(NODE_IDXDIR): \
 $(NODE_IDXJS): \
 	$(NODE_IDXDIR) \
 	$(NODESOURCES)
+$(NODE_IDXDTS): \
+	$(NODE_IDXDIR) \
+	$(NODESOURCES)
 $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.js: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 	rm -rf $@
 	for v in $(filter $</%.js,$(NODESOURCES)); \
@@ -149,8 +154,32 @@ $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.js: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 		sed -e "s:$</::" | \
 		sed -e "s:_grpc_pb.js::"`; \
 	    echo "module.exports.$${name} = require(\"./$${name}_pb\");" >> $@; \
-	    echo "module.exports.$${name}.grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+	    echo "module.exports.$${name}_grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
 	    done
+$(NODE_ROOT)/$(SHADOW_ROOT)/%/index.d.ts: $(NODE_ROOT)/$(SHADOW_ROOT)/%
+	rm -rf $@
+	ss=""; \
+	for v in $(filter $</%.js,$(NODESOURCES)); \
+	    do \
+	    name=`echo "$$v" | \
+		sed -e "s:$</::" | \
+		sed -e "s:_grpc_pb.js::"`; \
+	    echo "import $${name} = require(\"./$${name}_pb\");" >> $@; \
+	    if [ ! "$${name}" = "payload" ]; then \
+		echo "import $${name}_grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+	    fi; \
+	    ss="$$ss $$name"; \
+	    done; \
+	echo "declare const _default: {" >> $@; \
+	for s in $$ss; \
+	    do \
+	    echo "    $$s: typeof $$s," >> $@; \
+	    if [ ! "$${s}" = "payload" ]; then \
+		echo "    $${s}_grpc: typeof $${s}_grpc," >> $@; \
+	    fi; \
+	    done
+	echo "};" >> $@
+	echo "export = _default;" >> $@
 
 index.js: $(NODE_IDXJS)
 	rm -rf $@
@@ -164,9 +193,26 @@ index.js: $(NODE_IDXJS)
 	    echo "module.exports.$$s = require(\"./$$d\");" >> $@; \
 	    done
 
-index.d.ts: $(NODE_IDXJS)
+index.d.ts: $(NODE_IDXDTS)
 	rm -rf $@
-	touch $@
+	ss=""; \
+	for i in $$(find $(NODE_ROOT)/$(SHADOW_ROOT) -type f -name "index.js"); \
+	    do \
+	    d=`echo $$i | \
+		sed -e "s:/index.js::"`; \
+	    s=`echo $$d | \
+		sed -e "s:$(NODE_ROOT)/$(SHADOW_ROOT)/::" | \
+		sed -e "s:/:_:g"`; \
+	    echo "import $$s = require(\"./$$d\");" >> $@; \
+	    ss="$$ss $$s"; \
+	    done; \
+	echo "declare const _default: {" >> $@; \
+	for s in $$ss; \
+	    do \
+	    echo "    $$s: typeof $$s," >> $@; \
+	    done
+	echo "};" >> $@
+	echo "export = _default;" >> $@
 
 $(NODESOURCES): \
 	$(GOPATH)/src/github.com/googleapis/googleapis \
@@ -223,8 +269,7 @@ $(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/googleapis/googleapis
 			$(patsubst $(GOPATH)/src/github.com/googleapis/googleapis/%,%,$<))
 
 $(VALD_DIR):
-	# git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
-	git clone --depth 1 -b feature/all/new-design-apis https://$(VALDREPO) $(VALD_DIR)
+	git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
 
 .PHONY: vald/sha/print
 ## print VALD_SHA value
