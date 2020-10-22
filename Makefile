@@ -34,9 +34,6 @@ NODE_ROOT   = src
 SHADOW_ROOT = vald
 
 PROTOS = \
-	gateway/vald/vald.proto \
-	agent/core/agent.proto \
-	payload/payload.proto \
 	v1/agent/core/agent.proto \
 	v1/gateway/vald/vald.proto \
 	v1/vald/filter.proto \
@@ -50,6 +47,8 @@ PROTOS = \
 PROTOS     := $(PROTOS:%=$(PROTO_ROOT)/%)
 SHADOWS     = $(PROTOS:$(PROTO_ROOT)/%.proto=$(SHADOW_ROOT)/%.proto)
 NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js)
+NODE_IDXDIR = $(dir $(NODESOURCES))
+NODE_IDXJS = $(NODE_IDXDIR:%=%index.js)
 
 NODE_VALIDATE = $(NODE_ROOT)/validate/validate_grpc_pb.js
 
@@ -110,6 +109,7 @@ help:
 .PHONY: clean
 ## clean
 clean:
+	rm -rf index.js index.d.ts
 	rm -rf $(NODE_ROOT)
 	rm -rf $(VALD_DIR)
 	rm -rf $(SHADOW_ROOT)
@@ -119,8 +119,11 @@ clean:
 ## build proto
 proto: \
 	$(NODESOURCES) \
+	$(NODE_IDXJS) \
 	$(NODE_VALIDATE) \
-	$(NODE_GOOGLEAPIS)
+	$(NODE_GOOGLEAPIS) \
+	index.js \
+	index.d.ts
 
 $(PROTOS): $(VALD_DIR)
 $(SHADOWS): $(PROTOS)
@@ -132,6 +135,38 @@ $(SHADOW_ROOT)/%.proto: $(PROTO_ROOT)/%.proto
 
 $(NODE_ROOT):
 	mkdir -p $@
+
+$(NODE_IDXDIR): \
+	$(NODESOURCES)
+$(NODE_IDXJS): \
+	$(NODE_IDXDIR) \
+	$(NODESOURCES)
+$(NODE_ROOT)/$(SHADOW_ROOT)/%/index.js: $(NODE_ROOT)/$(SHADOW_ROOT)/%
+	rm -rf $@
+	for v in $(filter $</%.js,$(NODESOURCES)); \
+	    do \
+	    name=`echo "$$v" | \
+		sed -e "s:$</::" | \
+		sed -e "s:_grpc_pb.js::"`; \
+	    echo "module.exports.$${name} = require(\"./$${name}_pb\");" >> $@; \
+	    echo "module.exports.$${name}.grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+	    done
+
+index.js: $(NODE_IDXJS)
+	rm -rf $@
+	for i in $$(find $(NODE_ROOT)/$(SHADOW_ROOT) -type f -name "index.js"); \
+	    do \
+	    d=`echo $$i | \
+		sed -e "s:/index.js::"`; \
+	    s=`echo $$d | \
+		sed -e "s:$(NODE_ROOT)/$(SHADOW_ROOT)/::" | \
+		sed -e "s:/:_:g"`; \
+	    echo "module.exports.$$s = require(\"./$$d\");" >> $@; \
+	    done
+
+index.d.ts: $(NODE_IDXJS)
+	rm -rf $@
+	touch $@
 
 $(NODESOURCES): \
 	$(GOPATH)/src/github.com/googleapis/googleapis \

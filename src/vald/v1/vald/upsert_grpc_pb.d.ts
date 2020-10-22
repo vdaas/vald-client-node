@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: vald
+// package: vald.v1
 // file: vald/v1/vald/upsert.proto
 
 import * as vald_v1_vald_upsert_pb from "../../../vald/v1/vald/upsert_pb";

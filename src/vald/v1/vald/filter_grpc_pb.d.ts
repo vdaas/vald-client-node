@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: filter
+// package: vald.v1
 // file: vald/v1/vald/filter.proto
 
 import * as vald_v1_vald_filter_pb from "../../../vald/v1/vald/filter_pb";

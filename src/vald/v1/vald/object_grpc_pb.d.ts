@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: vald
+// package: vald.v1
 // file: vald/v1/vald/object.proto
 
 import * as vald_v1_vald_object_pb from "../../../vald/v1/vald/object_pb";

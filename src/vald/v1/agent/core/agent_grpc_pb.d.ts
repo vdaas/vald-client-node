@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: core
+// package: core.v1
 // file: vald/v1/agent/core/agent.proto
 
 import * as vald_v1_agent_core_agent_pb from "../../../../vald/v1/agent/core/agent_pb";

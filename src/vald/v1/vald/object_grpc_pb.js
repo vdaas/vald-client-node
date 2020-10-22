@@ -22,62 +22,62 @@ var grpc = require('grpc');
 var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
 var google_api_annotations_pb = require('../../../google/api/annotations_pb.js');
 
-function serialize_payload_Object_ID(arg) {
+function serialize_payload_v1_Object_ID(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Object.ID)) {
-    throw new Error('Expected argument of type payload.Object.ID');
+    throw new Error('Expected argument of type payload.v1.Object.ID');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Object_ID(buffer_arg) {
+function deserialize_payload_v1_Object_ID(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.ID.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Object_Vector(arg) {
+function serialize_payload_v1_Object_Vector(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Object.Vector)) {
-    throw new Error('Expected argument of type payload.Object.Vector');
+    throw new Error('Expected argument of type payload.v1.Object.Vector');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Object_Vector(buffer_arg) {
+function deserialize_payload_v1_Object_Vector(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.Vector.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
 var ObjectService = exports.ObjectService = {
   exists: {
-    path: '/vald.Object/Exists',
+    path: '/vald.v1.Object/Exists',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Object.ID,
     responseType: vald_v1_payload_payload_pb.Object.ID,
-    requestSerialize: serialize_payload_Object_ID,
-    requestDeserialize: deserialize_payload_Object_ID,
-    responseSerialize: serialize_payload_Object_ID,
-    responseDeserialize: deserialize_payload_Object_ID,
+    requestSerialize: serialize_payload_v1_Object_ID,
+    requestDeserialize: deserialize_payload_v1_Object_ID,
+    responseSerialize: serialize_payload_v1_Object_ID,
+    responseDeserialize: deserialize_payload_v1_Object_ID,
   },
   getObject: {
-    path: '/vald.Object/GetObject',
+    path: '/vald.v1.Object/GetObject',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Object.ID,
     responseType: vald_v1_payload_payload_pb.Object.Vector,
-    requestSerialize: serialize_payload_Object_ID,
-    requestDeserialize: deserialize_payload_Object_ID,
-    responseSerialize: serialize_payload_Object_Vector,
-    responseDeserialize: deserialize_payload_Object_Vector,
+    requestSerialize: serialize_payload_v1_Object_ID,
+    requestDeserialize: deserialize_payload_v1_Object_ID,
+    responseSerialize: serialize_payload_v1_Object_Vector,
+    responseDeserialize: deserialize_payload_v1_Object_Vector,
   },
   streamGetObject: {
-    path: '/vald.Object/StreamGetObject',
+    path: '/vald.v1.Object/StreamGetObject',
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Object.ID,
     responseType: vald_v1_payload_payload_pb.Object.Vector,
-    requestSerialize: serialize_payload_Object_ID,
-    requestDeserialize: deserialize_payload_Object_ID,
-    responseSerialize: serialize_payload_Object_Vector,
-    responseDeserialize: deserialize_payload_Object_Vector,
+    requestSerialize: serialize_payload_v1_Object_ID,
+    requestDeserialize: deserialize_payload_v1_Object_ID,
+    responseSerialize: serialize_payload_v1_Object_Vector,
+    responseDeserialize: deserialize_payload_v1_Object_Vector,
   },
 };
 

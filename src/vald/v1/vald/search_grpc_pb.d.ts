@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: vald
+// package: vald.v1
 // file: vald/v1/vald/search.proto
 
 import * as vald_v1_vald_search_pb from "../../../vald/v1/vald/search_pb";

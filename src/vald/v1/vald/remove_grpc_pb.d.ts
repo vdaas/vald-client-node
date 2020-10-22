@@ -1,6 +1,6 @@
 // GENERATED CODE -- DO NOT EDIT!
 
-// package: vald
+// package: vald.v1
 // file: vald/v1/vald/remove.proto
 
 import * as vald_v1_vald_remove_pb from "../../../vald/v1/vald/remove_pb";

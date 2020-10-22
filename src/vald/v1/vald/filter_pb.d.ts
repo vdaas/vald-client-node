@@ -1,4 +1,4 @@
-// package: filter
+// package: vald.v1
 // file: vald/v1/vald/filter.proto
 
 import * as jspb from "google-protobuf";

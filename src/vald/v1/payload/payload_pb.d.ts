@@ -1,4 +1,4 @@
-// package: payload
+// package: payload.v1
 // file: vald/v1/payload/payload.proto
 
 import * as jspb from "google-protobuf";
@@ -1455,7 +1455,7 @@ export namespace Backup {
     }
   }
 
-  export class MetaVector extends jspb.Message {
+  export class Vector extends jspb.Message {
     getUuid(): string;
     setUuid(value: string): void;
 
@@ -1470,16 +1470,16 @@ export namespace Backup {
     addIps(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): MetaVector.AsObject;
-    static toObject(includeInstance: boolean, msg: MetaVector): MetaVector.AsObject;
+    toObject(includeInstance?: boolean): Vector.AsObject;
+    static toObject(includeInstance: boolean, msg: Vector): Vector.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: MetaVector, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): MetaVector;
-    static deserializeBinaryFromReader(message: MetaVector, reader: jspb.BinaryReader): MetaVector;
+    static serializeBinaryToWriter(message: Vector, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Vector;
+    static deserializeBinaryFromReader(message: Vector, reader: jspb.BinaryReader): Vector;
   }
 
-  export namespace MetaVector {
+  export namespace Vector {
     export type AsObject = {
       uuid: string,
       vectorList: Array<number>,
@@ -1487,25 +1487,25 @@ export namespace Backup {
     }
   }
 
-  export class MetaVectors extends jspb.Message {
+  export class Vectors extends jspb.Message {
     clearVectorsList(): void;
-    getVectorsList(): Array<Backup.MetaVector>;
-    setVectorsList(value: Array<Backup.MetaVector>): void;
-    addVectors(value?: Backup.MetaVector, index?: number): Backup.MetaVector;
+    getVectorsList(): Array<Backup.Vector>;
+    setVectorsList(value: Array<Backup.Vector>): void;
+    addVectors(value?: Backup.Vector, index?: number): Backup.Vector;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): MetaVectors.AsObject;
-    static toObject(includeInstance: boolean, msg: MetaVectors): MetaVectors.AsObject;
+    toObject(includeInstance?: boolean): Vectors.AsObject;
+    static toObject(includeInstance: boolean, msg: Vectors): Vectors.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: MetaVectors, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): MetaVectors;
-    static deserializeBinaryFromReader(message: MetaVectors, reader: jspb.BinaryReader): MetaVectors;
+    static serializeBinaryToWriter(message: Vectors, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Vectors;
+    static deserializeBinaryFromReader(message: Vectors, reader: jspb.BinaryReader): Vectors;
   }
 
-  export namespace MetaVectors {
+  export namespace Vectors {
     export type AsObject = {
-      vectorsList: Array<Backup.MetaVector.AsObject>,
+      vectorsList: Array<Backup.Vector.AsObject>,
     }
   }
 
@@ -1524,7 +1524,7 @@ export namespace Backup {
     export type AsObject = {
     }
 
-    export class MetaVector extends jspb.Message {
+    export class Vector extends jspb.Message {
       getUuid(): string;
       setUuid(value: string): void;
 
@@ -1539,16 +1539,16 @@ export namespace Backup {
       addIps(value: string, index?: number): string;
 
       serializeBinary(): Uint8Array;
-      toObject(includeInstance?: boolean): MetaVector.AsObject;
-      static toObject(includeInstance: boolean, msg: MetaVector): MetaVector.AsObject;
+      toObject(includeInstance?: boolean): Vector.AsObject;
+      static toObject(includeInstance: boolean, msg: Vector): Vector.AsObject;
       static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
       static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-      static serializeBinaryToWriter(message: MetaVector, writer: jspb.BinaryWriter): void;
-      static deserializeBinary(bytes: Uint8Array): MetaVector;
-      static deserializeBinaryFromReader(message: MetaVector, reader: jspb.BinaryReader): MetaVector;
+      static serializeBinaryToWriter(message: Vector, writer: jspb.BinaryWriter): void;
+      static deserializeBinary(bytes: Uint8Array): Vector;
+      static deserializeBinaryFromReader(message: Vector, reader: jspb.BinaryReader): Vector;
     }
 
-    export namespace MetaVector {
+    export namespace Vector {
       export type AsObject = {
         uuid: string,
         vector: Uint8Array | string,
@@ -1556,25 +1556,25 @@ export namespace Backup {
       }
     }
 
-    export class MetaVectors extends jspb.Message {
+    export class Vectors extends jspb.Message {
       clearVectorsList(): void;
-      getVectorsList(): Array<Backup.Compressed.MetaVector>;
-      setVectorsList(value: Array<Backup.Compressed.MetaVector>): void;
-      addVectors(value?: Backup.Compressed.MetaVector, index?: number): Backup.Compressed.MetaVector;
+      getVectorsList(): Array<Backup.Compressed.Vector>;
+      setVectorsList(value: Array<Backup.Compressed.Vector>): void;
+      addVectors(value?: Backup.Compressed.Vector, index?: number): Backup.Compressed.Vector;
 
       serializeBinary(): Uint8Array;
-      toObject(includeInstance?: boolean): MetaVectors.AsObject;
-      static toObject(includeInstance: boolean, msg: MetaVectors): MetaVectors.AsObject;
+      toObject(includeInstance?: boolean): Vectors.AsObject;
+      static toObject(includeInstance: boolean, msg: Vectors): Vectors.AsObject;
       static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
       static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-      static serializeBinaryToWriter(message: MetaVectors, writer: jspb.BinaryWriter): void;
-      static deserializeBinary(bytes: Uint8Array): MetaVectors;
-      static deserializeBinaryFromReader(message: MetaVectors, reader: jspb.BinaryReader): MetaVectors;
+      static serializeBinaryToWriter(message: Vectors, writer: jspb.BinaryWriter): void;
+      static deserializeBinary(bytes: Uint8Array): Vectors;
+      static deserializeBinaryFromReader(message: Vectors, reader: jspb.BinaryReader): Vectors;
     }
 
-    export namespace MetaVectors {
+    export namespace Vectors {
       export type AsObject = {
-        vectorsList: Array<Backup.Compressed.MetaVector.AsObject>,
+        vectorsList: Array<Backup.Compressed.Vector.AsObject>,
       }
     }
   }

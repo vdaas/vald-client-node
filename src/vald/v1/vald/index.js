@@ -1,0 +1,14 @@
+module.exports.filter = require("./filter_pb");
+module.exports.filter.grpc = require("./filter_grpc_pb");
+module.exports.insert = require("./insert_pb");
+module.exports.insert.grpc = require("./insert_grpc_pb");
+module.exports.object = require("./object_pb");
+module.exports.object.grpc = require("./object_grpc_pb");
+module.exports.remove = require("./remove_pb");
+module.exports.remove.grpc = require("./remove_grpc_pb");
+module.exports.search = require("./search_pb");
+module.exports.search.grpc = require("./search_grpc_pb");
+module.exports.update = require("./update_pb");
+module.exports.update.grpc = require("./update_grpc_pb");
+module.exports.upsert = require("./upsert_pb");
+module.exports.upsert.grpc = require("./upsert_grpc_pb");

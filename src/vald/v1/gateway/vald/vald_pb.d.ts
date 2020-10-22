@@ -1,4 +1,4 @@
-// package: vald
+// package: vald.v1
 // file: vald/v1/gateway/vald/vald.proto
 
 import * as jspb from "google-protobuf";

@@ -1,4 +1,4 @@
-// package: core
+// package: core.v1
 // file: vald/v1/agent/core/agent.proto
 
 import * as jspb from "google-protobuf";

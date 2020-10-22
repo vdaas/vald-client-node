@@ -1,4 +1,4 @@
-// package: vald
+// package: vald.v1
 // file: vald/v1/vald/remove.proto
 
 import * as jspb from "google-protobuf";

@@ -22,139 +22,139 @@ var grpc = require('grpc');
 var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
 var google_api_annotations_pb = require('../../../google/api/annotations_pb.js');
 
-function serialize_payload_Search_IDRequest(arg) {
+function serialize_payload_v1_Search_IDRequest(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.IDRequest)) {
-    throw new Error('Expected argument of type payload.Search.IDRequest');
+    throw new Error('Expected argument of type payload.v1.Search.IDRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_IDRequest(buffer_arg) {
+function deserialize_payload_v1_Search_IDRequest(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.IDRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Search_MultiIDRequest(arg) {
+function serialize_payload_v1_Search_MultiIDRequest(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.MultiIDRequest)) {
-    throw new Error('Expected argument of type payload.Search.MultiIDRequest');
+    throw new Error('Expected argument of type payload.v1.Search.MultiIDRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_MultiIDRequest(buffer_arg) {
+function deserialize_payload_v1_Search_MultiIDRequest(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.MultiIDRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Search_MultiRequest(arg) {
+function serialize_payload_v1_Search_MultiRequest(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.MultiRequest)) {
-    throw new Error('Expected argument of type payload.Search.MultiRequest');
+    throw new Error('Expected argument of type payload.v1.Search.MultiRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_MultiRequest(buffer_arg) {
+function deserialize_payload_v1_Search_MultiRequest(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.MultiRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Search_Request(arg) {
+function serialize_payload_v1_Search_Request(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.Request)) {
-    throw new Error('Expected argument of type payload.Search.Request');
+    throw new Error('Expected argument of type payload.v1.Search.Request');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_Request(buffer_arg) {
+function deserialize_payload_v1_Search_Request(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.Request.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Search_Response(arg) {
+function serialize_payload_v1_Search_Response(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.Response)) {
-    throw new Error('Expected argument of type payload.Search.Response');
+    throw new Error('Expected argument of type payload.v1.Search.Response');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_Response(buffer_arg) {
+function deserialize_payload_v1_Search_Response(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.Response.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_payload_Search_Responses(arg) {
+function serialize_payload_v1_Search_Responses(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.Responses)) {
-    throw new Error('Expected argument of type payload.Search.Responses');
+    throw new Error('Expected argument of type payload.v1.Search.Responses');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_Search_Responses(buffer_arg) {
+function deserialize_payload_v1_Search_Responses(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.Responses.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
 var SearchService = exports.SearchService = {
   search: {
-    path: '/vald.Search/Search',
+    path: '/vald.v1.Search/Search',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Search.Request,
     responseType: vald_v1_payload_payload_pb.Search.Response,
-    requestSerialize: serialize_payload_Search_Request,
-    requestDeserialize: deserialize_payload_Search_Request,
-    responseSerialize: serialize_payload_Search_Response,
-    responseDeserialize: deserialize_payload_Search_Response,
+    requestSerialize: serialize_payload_v1_Search_Request,
+    requestDeserialize: deserialize_payload_v1_Search_Request,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
   },
   searchByID: {
-    path: '/vald.Search/SearchByID',
+    path: '/vald.v1.Search/SearchByID',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Search.IDRequest,
     responseType: vald_v1_payload_payload_pb.Search.Response,
-    requestSerialize: serialize_payload_Search_IDRequest,
-    requestDeserialize: deserialize_payload_Search_IDRequest,
-    responseSerialize: serialize_payload_Search_Response,
-    responseDeserialize: deserialize_payload_Search_Response,
+    requestSerialize: serialize_payload_v1_Search_IDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_IDRequest,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
   },
   streamSearch: {
-    path: '/vald.Search/StreamSearch',
+    path: '/vald.v1.Search/StreamSearch',
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Search.Request,
     responseType: vald_v1_payload_payload_pb.Search.Response,
-    requestSerialize: serialize_payload_Search_Request,
-    requestDeserialize: deserialize_payload_Search_Request,
-    responseSerialize: serialize_payload_Search_Response,
-    responseDeserialize: deserialize_payload_Search_Response,
+    requestSerialize: serialize_payload_v1_Search_Request,
+    requestDeserialize: deserialize_payload_v1_Search_Request,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
   },
   streamSearchByID: {
-    path: '/vald.Search/StreamSearchByID',
+    path: '/vald.v1.Search/StreamSearchByID',
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Search.IDRequest,
     responseType: vald_v1_payload_payload_pb.Search.Response,
-    requestSerialize: serialize_payload_Search_IDRequest,
-    requestDeserialize: deserialize_payload_Search_IDRequest,
-    responseSerialize: serialize_payload_Search_Response,
-    responseDeserialize: deserialize_payload_Search_Response,
+    requestSerialize: serialize_payload_v1_Search_IDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_IDRequest,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
   },
   multiSearch: {
-    path: '/vald.Search/MultiSearch',
+    path: '/vald.v1.Search/MultiSearch',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Search.MultiRequest,
     responseType: vald_v1_payload_payload_pb.Search.Responses,
-    requestSerialize: serialize_payload_Search_MultiRequest,
-    requestDeserialize: deserialize_payload_Search_MultiRequest,
-    responseSerialize: serialize_payload_Search_Responses,
-    responseDeserialize: deserialize_payload_Search_Responses,
+    requestSerialize: serialize_payload_v1_Search_MultiRequest,
+    requestDeserialize: deserialize_payload_v1_Search_MultiRequest,
+    responseSerialize: serialize_payload_v1_Search_Responses,
+    responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
   multiSearchByID: {
-    path: '/vald.Search/MultiSearchByID',
+    path: '/vald.v1.Search/MultiSearchByID',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Search.MultiIDRequest,
     responseType: vald_v1_payload_payload_pb.Search.Responses,
-    requestSerialize: serialize_payload_Search_MultiIDRequest,
-    requestDeserialize: deserialize_payload_Search_MultiIDRequest,
-    responseSerialize: serialize_payload_Search_Responses,
-    responseDeserialize: deserialize_payload_Search_Responses,
+    requestSerialize: serialize_payload_v1_Search_MultiIDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_MultiIDRequest,
+    responseSerialize: serialize_payload_v1_Search_Responses,
+    responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
 };
 
