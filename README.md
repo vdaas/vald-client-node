@@ -13,3 +13,5 @@ npm install vald-client-node
 ```
 
 ## Usage
+
+Please see [example/example.js](example/example.js)
