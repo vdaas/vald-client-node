@@ -7,20 +7,20 @@ const search = vald.v1_vald.search_grpc;
 const payload = vald.v1_payload.payload;
 
 // create clients
-let iclient = new insert.InsertClient('localhost:8081', grpc.credentials.createInsecure());
-let sclient = new search.SearchClient('localhost:8081', grpc.credentials.createInsecure());
+const iclient = new insert.InsertClient('localhost:8081', grpc.credentials.createInsecure());
+const sclient = new search.SearchClient('localhost:8081', grpc.credentials.createInsecure());
 
 
 // insert
 
-let ivec = new payload.Object.Vector();
+const ivec = new payload.Object.Vector();
 ivec.setId("id_1");
 ivec.setVectorList([0.1, 0.2, 0.3, 0.4]);
 
-let icfg = new payload.Insert.Config();
+const icfg = new payload.Insert.Config();
 icfg.setSkipStrictExistCheck(false);
 
-let ireq = new payload.Insert.Request();
+const ireq = new payload.Insert.Request();
 ireq.setVector(ivec);
 ireq.setConfig(icfg);
 
@@ -36,13 +36,13 @@ iclient.insert(ireq, (err, resp) => {
 
 // search
 
-let scfg = new payload.Search.Config();
+const scfg = new payload.Search.Config();
 scfg.setNum(10);
 scfg.setRadius(-1.0);
 scfg.setEpsilon(0.01);
 scfg.setTimeout(3000000000);
 
-let sreq = new payload.Search.Request();
+const sreq = new payload.Search.Request();
 sreq.setVectorList([0.1, 0.2, 0.3, 0.4]);
 sreq.setConfig(scfg);
 
