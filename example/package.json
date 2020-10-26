@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Vald authors (https://vald.vdaas.org)",
+  "license": "Apache-2.0",
   "dependencies": {
     "vald-client-node": "file:.."
   }
