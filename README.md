@@ -15,3 +15,5 @@ npm install vald-client-node
 ## Usage
 
 Please see [example/example.js](example/example.js) or [example-ts/example.ts](example-ts/example.ts).
+
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B21465%2Fvald-client-node.svg?type=large)](https://app.fossa.com/projects/custom%2B21465%2Fvald-client-node?ref=badge_large)
