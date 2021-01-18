@@ -10,8 +10,8 @@ import * as grpc from "grpc";
 interface ISearchService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   search: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.Response>;
   searchByID: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.Response>;
-  streamSearch: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.Response>;
-  streamSearchByID: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.Response>;
+  streamSearch: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.StreamResponse>;
+  streamSearchByID: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.StreamResponse>;
   multiSearch: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.MultiRequest, vald_v1_payload_payload_pb.Search.Responses>;
   multiSearchByID: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.MultiIDRequest, vald_v1_payload_payload_pb.Search.Responses>;
 }
@@ -26,10 +26,10 @@ export class SearchClient extends grpc.Client {
   searchByID(argument: vald_v1_payload_payload_pb.Search.IDRequest, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Response>): grpc.ClientUnaryCall;
   searchByID(argument: vald_v1_payload_payload_pb.Search.IDRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Response>): grpc.ClientUnaryCall;
   searchByID(argument: vald_v1_payload_payload_pb.Search.IDRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Response>): grpc.ClientUnaryCall;
-  streamSearch(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.Response>;
-  streamSearch(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.Response>;
-  streamSearchByID(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.Response>;
-  streamSearchByID(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.Response>;
+  streamSearch(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.StreamResponse>;
+  streamSearch(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.StreamResponse>;
+  streamSearchByID(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.StreamResponse>;
+  streamSearchByID(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Search.IDRequest, vald_v1_payload_payload_pb.Search.StreamResponse>;
   multiSearch(argument: vald_v1_payload_payload_pb.Search.MultiRequest, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Responses>): grpc.ClientUnaryCall;
   multiSearch(argument: vald_v1_payload_payload_pb.Search.MultiRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Responses>): grpc.ClientUnaryCall;
   multiSearch(argument: vald_v1_payload_payload_pb.Search.MultiRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Search.Responses>): grpc.ClientUnaryCall;

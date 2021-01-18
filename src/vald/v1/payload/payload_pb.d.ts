@@ -2,6 +2,7 @@
 // file: vald/v1/payload/payload.proto
 
 import * as jspb from "google-protobuf";
+import * as vald_v1_errors_errors_pb from "../../../vald/v1/errors/errors_pb";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 
 export class Search extends jspb.Message {
@@ -232,6 +233,41 @@ export namespace Search {
   export namespace Responses {
     export type AsObject = {
       responsesList: Array<Search.Response.AsObject>,
+    }
+  }
+
+  export class StreamResponse extends jspb.Message {
+    hasResponse(): boolean;
+    clearResponse(): void;
+    getResponse(): Search.Response | undefined;
+    setResponse(value?: Search.Response): void;
+
+    hasError(): boolean;
+    clearError(): void;
+    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
+    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+
+    getPayloadCase(): StreamResponse.PayloadCase;
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StreamResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: StreamResponse): StreamResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StreamResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StreamResponse;
+    static deserializeBinaryFromReader(message: StreamResponse, reader: jspb.BinaryReader): StreamResponse;
+  }
+
+  export namespace StreamResponse {
+    export type AsObject = {
+      response?: Search.Response.AsObject,
+      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+    }
+
+    export enum PayloadCase {
+      PAYLOAD_NOT_SET = 0,
+      RESPONSE = 1,
+      ERROR = 2,
     }
   }
 }
@@ -845,6 +881,41 @@ export namespace Object {
     }
   }
 
+  export class StreamDistance extends jspb.Message {
+    hasDistance(): boolean;
+    clearDistance(): void;
+    getDistance(): Object.Distance | undefined;
+    setDistance(value?: Object.Distance): void;
+
+    hasError(): boolean;
+    clearError(): void;
+    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
+    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+
+    getPayloadCase(): StreamDistance.PayloadCase;
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StreamDistance.AsObject;
+    static toObject(includeInstance: boolean, msg: StreamDistance): StreamDistance.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StreamDistance, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StreamDistance;
+    static deserializeBinaryFromReader(message: StreamDistance, reader: jspb.BinaryReader): StreamDistance;
+  }
+
+  export namespace StreamDistance {
+    export type AsObject = {
+      distance?: Object.Distance.AsObject,
+      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+    }
+
+    export enum PayloadCase {
+      PAYLOAD_NOT_SET = 0,
+      DISTANCE = 1,
+      ERROR = 2,
+    }
+  }
+
   export class ID extends jspb.Message {
     getId(): string;
     setId(value: string): void;
@@ -935,6 +1006,41 @@ export namespace Object {
     }
   }
 
+  export class StreamVector extends jspb.Message {
+    hasVector(): boolean;
+    clearVector(): void;
+    getVector(): Object.Vector | undefined;
+    setVector(value?: Object.Vector): void;
+
+    hasError(): boolean;
+    clearError(): void;
+    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
+    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+
+    getPayloadCase(): StreamVector.PayloadCase;
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StreamVector.AsObject;
+    static toObject(includeInstance: boolean, msg: StreamVector): StreamVector.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StreamVector, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StreamVector;
+    static deserializeBinaryFromReader(message: StreamVector, reader: jspb.BinaryReader): StreamVector;
+  }
+
+  export namespace StreamVector {
+    export type AsObject = {
+      vector?: Object.Vector.AsObject,
+      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+    }
+
+    export enum PayloadCase {
+      PAYLOAD_NOT_SET = 0,
+      VECTOR = 1,
+      ERROR = 2,
+    }
+  }
+
   export class Blob extends jspb.Message {
     getId(): string;
     setId(value: string): void;
@@ -958,6 +1064,41 @@ export namespace Object {
     export type AsObject = {
       id: string,
       object: Uint8Array | string,
+    }
+  }
+
+  export class StreamBlob extends jspb.Message {
+    hasBlob(): boolean;
+    clearBlob(): void;
+    getBlob(): Object.Blob | undefined;
+    setBlob(value?: Object.Blob): void;
+
+    hasError(): boolean;
+    clearError(): void;
+    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
+    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+
+    getPayloadCase(): StreamBlob.PayloadCase;
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StreamBlob.AsObject;
+    static toObject(includeInstance: boolean, msg: StreamBlob): StreamBlob.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StreamBlob, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StreamBlob;
+    static deserializeBinaryFromReader(message: StreamBlob, reader: jspb.BinaryReader): StreamBlob;
+  }
+
+  export namespace StreamBlob {
+    export type AsObject = {
+      blob?: Object.Blob.AsObject,
+      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+    }
+
+    export enum PayloadCase {
+      PAYLOAD_NOT_SET = 0,
+      BLOB = 1,
+      ERROR = 2,
     }
   }
 
@@ -988,6 +1129,41 @@ export namespace Object {
       name: string,
       uuid: string,
       ipsList: Array<string>,
+    }
+  }
+
+  export class StreamLocation extends jspb.Message {
+    hasLocation(): boolean;
+    clearLocation(): void;
+    getLocation(): Object.Location | undefined;
+    setLocation(value?: Object.Location): void;
+
+    hasError(): boolean;
+    clearError(): void;
+    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
+    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+
+    getPayloadCase(): StreamLocation.PayloadCase;
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StreamLocation.AsObject;
+    static toObject(includeInstance: boolean, msg: StreamLocation): StreamLocation.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StreamLocation, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StreamLocation;
+    static deserializeBinaryFromReader(message: StreamLocation, reader: jspb.BinaryReader): StreamLocation;
+  }
+
+  export namespace StreamLocation {
+    export type AsObject = {
+      location?: Object.Location.AsObject,
+      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+    }
+
+    export enum PayloadCase {
+      PAYLOAD_NOT_SET = 0,
+      LOCATION = 1,
+      ERROR = 2,
     }
   }
 

@@ -10,7 +10,7 @@ import * as grpc from "grpc";
 interface IObjectService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   exists: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.ID>;
   getObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.Vector>;
-  streamGetObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.Vector>;
+  streamGetObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.StreamVector>;
 }
 
 export const ObjectService: IObjectService;
@@ -23,6 +23,6 @@ export class ObjectClient extends grpc.Client {
   getObject(argument: vald_v1_payload_payload_pb.Object.ID, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Vector>): grpc.ClientUnaryCall;
   getObject(argument: vald_v1_payload_payload_pb.Object.ID, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Vector>): grpc.ClientUnaryCall;
   getObject(argument: vald_v1_payload_payload_pb.Object.ID, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Vector>): grpc.ClientUnaryCall;
-  streamGetObject(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.Vector>;
-  streamGetObject(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.Vector>;
+  streamGetObject(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.StreamVector>;
+  streamGetObject(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.StreamVector>;
 }

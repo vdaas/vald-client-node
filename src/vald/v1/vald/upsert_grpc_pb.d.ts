@@ -9,7 +9,7 @@ import * as grpc from "grpc";
 
 interface IUpsertService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   upsert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.Location>;
-  streamUpsert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.Location>;
+  streamUpsert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.StreamLocation>;
   multiUpsert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Upsert.MultiRequest, vald_v1_payload_payload_pb.Object.Locations>;
 }
 
@@ -20,8 +20,8 @@ export class UpsertClient extends grpc.Client {
   upsert(argument: vald_v1_payload_payload_pb.Upsert.Request, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Location>): grpc.ClientUnaryCall;
   upsert(argument: vald_v1_payload_payload_pb.Upsert.Request, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Location>): grpc.ClientUnaryCall;
   upsert(argument: vald_v1_payload_payload_pb.Upsert.Request, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Location>): grpc.ClientUnaryCall;
-  streamUpsert(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.Location>;
-  streamUpsert(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.Location>;
+  streamUpsert(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.StreamLocation>;
+  streamUpsert(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.StreamLocation>;
   multiUpsert(argument: vald_v1_payload_payload_pb.Upsert.MultiRequest, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Locations>): grpc.ClientUnaryCall;
   multiUpsert(argument: vald_v1_payload_payload_pb.Upsert.MultiRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Locations>): grpc.ClientUnaryCall;
   multiUpsert(argument: vald_v1_payload_payload_pb.Upsert.MultiRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Locations>): grpc.ClientUnaryCall;

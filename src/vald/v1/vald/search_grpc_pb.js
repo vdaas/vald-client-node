@@ -2,7 +2,7 @@
 
 // Original file comments:
 //
-// Copyright (C) 2019-2020 Vdaas.org Vald team ( kpango, rinx, kmrmt )
+// Copyright (C) 2019-2021 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -88,6 +88,17 @@ function deserialize_payload_v1_Search_Responses(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.Responses.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Search_StreamResponse(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Search.StreamResponse)) {
+    throw new Error('Expected argument of type payload.v1.Search.StreamResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Search_StreamResponse(buffer_arg) {
+  return vald_v1_payload_payload_pb.Search.StreamResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var SearchService = exports.SearchService = {
   search: {
@@ -117,22 +128,22 @@ var SearchService = exports.SearchService = {
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Search.Request,
-    responseType: vald_v1_payload_payload_pb.Search.Response,
+    responseType: vald_v1_payload_payload_pb.Search.StreamResponse,
     requestSerialize: serialize_payload_v1_Search_Request,
     requestDeserialize: deserialize_payload_v1_Search_Request,
-    responseSerialize: serialize_payload_v1_Search_Response,
-    responseDeserialize: deserialize_payload_v1_Search_Response,
+    responseSerialize: serialize_payload_v1_Search_StreamResponse,
+    responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
   streamSearchByID: {
     path: '/vald.v1.Search/StreamSearchByID',
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Search.IDRequest,
-    responseType: vald_v1_payload_payload_pb.Search.Response,
+    responseType: vald_v1_payload_payload_pb.Search.StreamResponse,
     requestSerialize: serialize_payload_v1_Search_IDRequest,
     requestDeserialize: deserialize_payload_v1_Search_IDRequest,
-    responseSerialize: serialize_payload_v1_Search_Response,
-    responseDeserialize: deserialize_payload_v1_Search_Response,
+    responseSerialize: serialize_payload_v1_Search_StreamResponse,
+    responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
   multiSearch: {
     path: '/vald.v1.Search/MultiSearch',

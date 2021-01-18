@@ -2,7 +2,7 @@
 
 // Original file comments:
 //
-// Copyright (C) 2019-2020 Vdaas.org Vald team ( kpango, rinx, kmrmt )
+// Copyright (C) 2019-2021 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,6 +31,17 @@ function serialize_payload_v1_Object_ID(arg) {
 
 function deserialize_payload_v1_Object_ID(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.ID.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Object_StreamVector(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.StreamVector)) {
+    throw new Error('Expected argument of type payload.v1.Object.StreamVector');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_StreamVector(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.StreamVector.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_payload_v1_Object_Vector(arg) {
@@ -73,11 +84,11 @@ var ObjectService = exports.ObjectService = {
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Object.ID,
-    responseType: vald_v1_payload_payload_pb.Object.Vector,
+    responseType: vald_v1_payload_payload_pb.Object.StreamVector,
     requestSerialize: serialize_payload_v1_Object_ID,
     requestDeserialize: deserialize_payload_v1_Object_ID,
-    responseSerialize: serialize_payload_v1_Object_Vector,
-    responseDeserialize: deserialize_payload_v1_Object_Vector,
+    responseSerialize: serialize_payload_v1_Object_StreamVector,
+    responseDeserialize: deserialize_payload_v1_Object_StreamVector,
   },
 };
 

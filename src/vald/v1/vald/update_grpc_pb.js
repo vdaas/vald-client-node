@@ -2,7 +2,7 @@
 
 // Original file comments:
 //
-// Copyright (C) 2019-2020 Vdaas.org Vald team ( kpango, rinx, kmrmt )
+// Copyright (C) 2019-2021 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,6 +42,17 @@ function serialize_payload_v1_Object_Locations(arg) {
 
 function deserialize_payload_v1_Object_Locations(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.Locations.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Object_StreamLocation(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.StreamLocation)) {
+    throw new Error('Expected argument of type payload.v1.Object.StreamLocation');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_StreamLocation(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.StreamLocation.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_payload_v1_Update_MultiRequest(arg) {
@@ -84,11 +95,11 @@ var UpdateService = exports.UpdateService = {
     requestStream: true,
     responseStream: true,
     requestType: vald_v1_payload_payload_pb.Update.Request,
-    responseType: vald_v1_payload_payload_pb.Object.Location,
+    responseType: vald_v1_payload_payload_pb.Object.StreamLocation,
     requestSerialize: serialize_payload_v1_Update_Request,
     requestDeserialize: deserialize_payload_v1_Update_Request,
-    responseSerialize: serialize_payload_v1_Object_Location,
-    responseDeserialize: deserialize_payload_v1_Object_Location,
+    responseSerialize: serialize_payload_v1_Object_StreamLocation,
+    responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
   multiUpdate: {
     path: '/vald.v1.Update/MultiUpdate',
