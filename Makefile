@@ -55,7 +55,8 @@ NODE_VALIDATE = $(NODE_ROOT)/validate/validate_grpc_pb.js
 
 GOOGLEAPI_PROTOS = \
 	google/api/annotations.proto \
-	google/api/http.proto
+	google/api/http.proto \
+	google/rpc/status.proto
 GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/gogo/googleapis/%)
 NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/gogo/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
