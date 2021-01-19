@@ -2,7 +2,8 @@
 // file: vald/v1/payload/payload.proto
 
 import * as jspb from "google-protobuf";
-import * as vald_v1_errors_errors_pb from "../../../vald/v1/errors/errors_pb";
+import * as gogoproto_gogo_pb from "../../../gogoproto/gogo_pb";
+import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 
 export class Search extends jspb.Message {
@@ -242,10 +243,10 @@ export namespace Search {
     getResponse(): Search.Response | undefined;
     setResponse(value?: Search.Response): void;
 
-    hasError(): boolean;
-    clearError(): void;
-    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
-    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+    hasStatus(): boolean;
+    clearStatus(): void;
+    getStatus(): google_rpc_status_pb.Status | undefined;
+    setStatus(value?: google_rpc_status_pb.Status): void;
 
     getPayloadCase(): StreamResponse.PayloadCase;
     serializeBinary(): Uint8Array;
@@ -261,13 +262,13 @@ export namespace Search {
   export namespace StreamResponse {
     export type AsObject = {
       response?: Search.Response.AsObject,
-      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+      status?: google_rpc_status_pb.Status.AsObject,
     }
 
     export enum PayloadCase {
       PAYLOAD_NOT_SET = 0,
       RESPONSE = 1,
-      ERROR = 2,
+      STATUS = 2,
     }
   }
 }
@@ -887,10 +888,10 @@ export namespace Object {
     getDistance(): Object.Distance | undefined;
     setDistance(value?: Object.Distance): void;
 
-    hasError(): boolean;
-    clearError(): void;
-    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
-    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+    hasStatus(): boolean;
+    clearStatus(): void;
+    getStatus(): google_rpc_status_pb.Status | undefined;
+    setStatus(value?: google_rpc_status_pb.Status): void;
 
     getPayloadCase(): StreamDistance.PayloadCase;
     serializeBinary(): Uint8Array;
@@ -906,13 +907,13 @@ export namespace Object {
   export namespace StreamDistance {
     export type AsObject = {
       distance?: Object.Distance.AsObject,
-      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+      status?: google_rpc_status_pb.Status.AsObject,
     }
 
     export enum PayloadCase {
       PAYLOAD_NOT_SET = 0,
       DISTANCE = 1,
-      ERROR = 2,
+      STATUS = 2,
     }
   }
 
@@ -1012,10 +1013,10 @@ export namespace Object {
     getVector(): Object.Vector | undefined;
     setVector(value?: Object.Vector): void;
 
-    hasError(): boolean;
-    clearError(): void;
-    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
-    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+    hasStatus(): boolean;
+    clearStatus(): void;
+    getStatus(): google_rpc_status_pb.Status | undefined;
+    setStatus(value?: google_rpc_status_pb.Status): void;
 
     getPayloadCase(): StreamVector.PayloadCase;
     serializeBinary(): Uint8Array;
@@ -1031,13 +1032,13 @@ export namespace Object {
   export namespace StreamVector {
     export type AsObject = {
       vector?: Object.Vector.AsObject,
-      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+      status?: google_rpc_status_pb.Status.AsObject,
     }
 
     export enum PayloadCase {
       PAYLOAD_NOT_SET = 0,
       VECTOR = 1,
-      ERROR = 2,
+      STATUS = 2,
     }
   }
 
@@ -1073,10 +1074,10 @@ export namespace Object {
     getBlob(): Object.Blob | undefined;
     setBlob(value?: Object.Blob): void;
 
-    hasError(): boolean;
-    clearError(): void;
-    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
-    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+    hasStatus(): boolean;
+    clearStatus(): void;
+    getStatus(): google_rpc_status_pb.Status | undefined;
+    setStatus(value?: google_rpc_status_pb.Status): void;
 
     getPayloadCase(): StreamBlob.PayloadCase;
     serializeBinary(): Uint8Array;
@@ -1092,13 +1093,13 @@ export namespace Object {
   export namespace StreamBlob {
     export type AsObject = {
       blob?: Object.Blob.AsObject,
-      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+      status?: google_rpc_status_pb.Status.AsObject,
     }
 
     export enum PayloadCase {
       PAYLOAD_NOT_SET = 0,
       BLOB = 1,
-      ERROR = 2,
+      STATUS = 2,
     }
   }
 
@@ -1138,10 +1139,10 @@ export namespace Object {
     getLocation(): Object.Location | undefined;
     setLocation(value?: Object.Location): void;
 
-    hasError(): boolean;
-    clearError(): void;
-    getError(): vald_v1_errors_errors_pb.Errors.RPC | undefined;
-    setError(value?: vald_v1_errors_errors_pb.Errors.RPC): void;
+    hasStatus(): boolean;
+    clearStatus(): void;
+    getStatus(): google_rpc_status_pb.Status | undefined;
+    setStatus(value?: google_rpc_status_pb.Status): void;
 
     getPayloadCase(): StreamLocation.PayloadCase;
     serializeBinary(): Uint8Array;
@@ -1157,13 +1158,13 @@ export namespace Object {
   export namespace StreamLocation {
     export type AsObject = {
       location?: Object.Location.AsObject,
-      error?: vald_v1_errors_errors_pb.Errors.RPC.AsObject,
+      status?: google_rpc_status_pb.Status.AsObject,
     }
 
     export enum PayloadCase {
       PAYLOAD_NOT_SET = 0,
       LOCATION = 1,
-      ERROR = 2,
+      STATUS = 2,
     }
   }
 

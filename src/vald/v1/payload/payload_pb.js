@@ -12,8 +12,10 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var vald_v1_errors_errors_pb = require('../../../vald/v1/errors/errors_pb.js');
-goog.object.extend(proto, vald_v1_errors_errors_pb);
+var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
+goog.object.extend(proto, gogoproto_gogo_pb);
+var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
+goog.object.extend(proto, google_rpc_status_pb);
 var validate_validate_pb = require('../../../validate/validate_pb.js');
 goog.object.extend(proto, validate_validate_pb);
 goog.exportSymbol('proto.payload.v1.Backup', null, global);
@@ -3683,7 +3685,7 @@ proto.payload.v1.Search.StreamResponse.oneofGroups_ = [[1,2]];
 proto.payload.v1.Search.StreamResponse.PayloadCase = {
   PAYLOAD_NOT_SET: 0,
   RESPONSE: 1,
-  ERROR: 2
+  STATUS: 2
 };
 
 /**
@@ -3725,7 +3727,7 @@ proto.payload.v1.Search.StreamResponse.prototype.toObject = function(opt_include
 proto.payload.v1.Search.StreamResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     response: (f = msg.getResponse()) && proto.payload.v1.Search.Response.toObject(includeInstance, f),
-    error: (f = msg.getError()) && vald_v1_errors_errors_pb.Errors.RPC.toObject(includeInstance, f)
+    status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3768,9 +3770,9 @@ proto.payload.v1.Search.StreamResponse.deserializeBinaryFromReader = function(ms
       msg.setResponse(value);
       break;
     case 2:
-      var value = new vald_v1_errors_errors_pb.Errors.RPC;
-      reader.readMessage(value,vald_v1_errors_errors_pb.Errors.RPC.deserializeBinaryFromReader);
-      msg.setError(value);
+      var value = new google_rpc_status_pb.Status;
+      reader.readMessage(value,google_rpc_status_pb.Status.deserializeBinaryFromReader);
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -3809,12 +3811,12 @@ proto.payload.v1.Search.StreamResponse.serializeBinaryToWriter = function(messag
       proto.payload.v1.Search.Response.serializeBinaryToWriter
     );
   }
-  f = message.getError();
+  f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      vald_v1_errors_errors_pb.Errors.RPC.serializeBinaryToWriter
+      google_rpc_status_pb.Status.serializeBinaryToWriter
     );
   }
 };
@@ -3858,20 +3860,20 @@ proto.payload.v1.Search.StreamResponse.prototype.hasResponse = function() {
 
 
 /**
- * optional errors.v1.Errors.RPC error = 2;
- * @return {?proto.errors.v1.Errors.RPC}
+ * optional google.rpc.Status status = 2;
+ * @return {?proto.google.rpc.Status}
  */
-proto.payload.v1.Search.StreamResponse.prototype.getError = function() {
-  return /** @type{?proto.errors.v1.Errors.RPC} */ (
-    jspb.Message.getWrapperField(this, vald_v1_errors_errors_pb.Errors.RPC, 2));
+proto.payload.v1.Search.StreamResponse.prototype.getStatus = function() {
+  return /** @type{?proto.google.rpc.Status} */ (
+    jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 2));
 };
 
 
 /**
- * @param {?proto.errors.v1.Errors.RPC|undefined} value
+ * @param {?proto.google.rpc.Status|undefined} value
  * @return {!proto.payload.v1.Search.StreamResponse} returns this
 */
-proto.payload.v1.Search.StreamResponse.prototype.setError = function(value) {
+proto.payload.v1.Search.StreamResponse.prototype.setStatus = function(value) {
   return jspb.Message.setOneofWrapperField(this, 2, proto.payload.v1.Search.StreamResponse.oneofGroups_[0], value);
 };
 
@@ -3880,8 +3882,8 @@ proto.payload.v1.Search.StreamResponse.prototype.setError = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.payload.v1.Search.StreamResponse} returns this
  */
-proto.payload.v1.Search.StreamResponse.prototype.clearError = function() {
-  return this.setError(undefined);
+proto.payload.v1.Search.StreamResponse.prototype.clearStatus = function() {
+  return this.setStatus(undefined);
 };
 
 
@@ -3889,7 +3891,7 @@ proto.payload.v1.Search.StreamResponse.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.payload.v1.Search.StreamResponse.prototype.hasError = function() {
+proto.payload.v1.Search.StreamResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -8107,7 +8109,7 @@ proto.payload.v1.Object.StreamDistance.oneofGroups_ = [[1,2]];
 proto.payload.v1.Object.StreamDistance.PayloadCase = {
   PAYLOAD_NOT_SET: 0,
   DISTANCE: 1,
-  ERROR: 2
+  STATUS: 2
 };
 
 /**
@@ -8149,7 +8151,7 @@ proto.payload.v1.Object.StreamDistance.prototype.toObject = function(opt_include
 proto.payload.v1.Object.StreamDistance.toObject = function(includeInstance, msg) {
   var f, obj = {
     distance: (f = msg.getDistance()) && proto.payload.v1.Object.Distance.toObject(includeInstance, f),
-    error: (f = msg.getError()) && vald_v1_errors_errors_pb.Errors.RPC.toObject(includeInstance, f)
+    status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -8192,9 +8194,9 @@ proto.payload.v1.Object.StreamDistance.deserializeBinaryFromReader = function(ms
       msg.setDistance(value);
       break;
     case 2:
-      var value = new vald_v1_errors_errors_pb.Errors.RPC;
-      reader.readMessage(value,vald_v1_errors_errors_pb.Errors.RPC.deserializeBinaryFromReader);
-      msg.setError(value);
+      var value = new google_rpc_status_pb.Status;
+      reader.readMessage(value,google_rpc_status_pb.Status.deserializeBinaryFromReader);
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -8233,12 +8235,12 @@ proto.payload.v1.Object.StreamDistance.serializeBinaryToWriter = function(messag
       proto.payload.v1.Object.Distance.serializeBinaryToWriter
     );
   }
-  f = message.getError();
+  f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      vald_v1_errors_errors_pb.Errors.RPC.serializeBinaryToWriter
+      google_rpc_status_pb.Status.serializeBinaryToWriter
     );
   }
 };
@@ -8282,20 +8284,20 @@ proto.payload.v1.Object.StreamDistance.prototype.hasDistance = function() {
 
 
 /**
- * optional errors.v1.Errors.RPC error = 2;
- * @return {?proto.errors.v1.Errors.RPC}
+ * optional google.rpc.Status status = 2;
+ * @return {?proto.google.rpc.Status}
  */
-proto.payload.v1.Object.StreamDistance.prototype.getError = function() {
-  return /** @type{?proto.errors.v1.Errors.RPC} */ (
-    jspb.Message.getWrapperField(this, vald_v1_errors_errors_pb.Errors.RPC, 2));
+proto.payload.v1.Object.StreamDistance.prototype.getStatus = function() {
+  return /** @type{?proto.google.rpc.Status} */ (
+    jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 2));
 };
 
 
 /**
- * @param {?proto.errors.v1.Errors.RPC|undefined} value
+ * @param {?proto.google.rpc.Status|undefined} value
  * @return {!proto.payload.v1.Object.StreamDistance} returns this
 */
-proto.payload.v1.Object.StreamDistance.prototype.setError = function(value) {
+proto.payload.v1.Object.StreamDistance.prototype.setStatus = function(value) {
   return jspb.Message.setOneofWrapperField(this, 2, proto.payload.v1.Object.StreamDistance.oneofGroups_[0], value);
 };
 
@@ -8304,8 +8306,8 @@ proto.payload.v1.Object.StreamDistance.prototype.setError = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.payload.v1.Object.StreamDistance} returns this
  */
-proto.payload.v1.Object.StreamDistance.prototype.clearError = function() {
-  return this.setError(undefined);
+proto.payload.v1.Object.StreamDistance.prototype.clearStatus = function() {
+  return this.setStatus(undefined);
 };
 
 
@@ -8313,7 +8315,7 @@ proto.payload.v1.Object.StreamDistance.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.payload.v1.Object.StreamDistance.prototype.hasError = function() {
+proto.payload.v1.Object.StreamDistance.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -8967,7 +8969,7 @@ proto.payload.v1.Object.StreamVector.oneofGroups_ = [[1,2]];
 proto.payload.v1.Object.StreamVector.PayloadCase = {
   PAYLOAD_NOT_SET: 0,
   VECTOR: 1,
-  ERROR: 2
+  STATUS: 2
 };
 
 /**
@@ -9009,7 +9011,7 @@ proto.payload.v1.Object.StreamVector.prototype.toObject = function(opt_includeIn
 proto.payload.v1.Object.StreamVector.toObject = function(includeInstance, msg) {
   var f, obj = {
     vector: (f = msg.getVector()) && proto.payload.v1.Object.Vector.toObject(includeInstance, f),
-    error: (f = msg.getError()) && vald_v1_errors_errors_pb.Errors.RPC.toObject(includeInstance, f)
+    status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -9052,9 +9054,9 @@ proto.payload.v1.Object.StreamVector.deserializeBinaryFromReader = function(msg,
       msg.setVector(value);
       break;
     case 2:
-      var value = new vald_v1_errors_errors_pb.Errors.RPC;
-      reader.readMessage(value,vald_v1_errors_errors_pb.Errors.RPC.deserializeBinaryFromReader);
-      msg.setError(value);
+      var value = new google_rpc_status_pb.Status;
+      reader.readMessage(value,google_rpc_status_pb.Status.deserializeBinaryFromReader);
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -9093,12 +9095,12 @@ proto.payload.v1.Object.StreamVector.serializeBinaryToWriter = function(message,
       proto.payload.v1.Object.Vector.serializeBinaryToWriter
     );
   }
-  f = message.getError();
+  f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      vald_v1_errors_errors_pb.Errors.RPC.serializeBinaryToWriter
+      google_rpc_status_pb.Status.serializeBinaryToWriter
     );
   }
 };
@@ -9142,20 +9144,20 @@ proto.payload.v1.Object.StreamVector.prototype.hasVector = function() {
 
 
 /**
- * optional errors.v1.Errors.RPC error = 2;
- * @return {?proto.errors.v1.Errors.RPC}
+ * optional google.rpc.Status status = 2;
+ * @return {?proto.google.rpc.Status}
  */
-proto.payload.v1.Object.StreamVector.prototype.getError = function() {
-  return /** @type{?proto.errors.v1.Errors.RPC} */ (
-    jspb.Message.getWrapperField(this, vald_v1_errors_errors_pb.Errors.RPC, 2));
+proto.payload.v1.Object.StreamVector.prototype.getStatus = function() {
+  return /** @type{?proto.google.rpc.Status} */ (
+    jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 2));
 };
 
 
 /**
- * @param {?proto.errors.v1.Errors.RPC|undefined} value
+ * @param {?proto.google.rpc.Status|undefined} value
  * @return {!proto.payload.v1.Object.StreamVector} returns this
 */
-proto.payload.v1.Object.StreamVector.prototype.setError = function(value) {
+proto.payload.v1.Object.StreamVector.prototype.setStatus = function(value) {
   return jspb.Message.setOneofWrapperField(this, 2, proto.payload.v1.Object.StreamVector.oneofGroups_[0], value);
 };
 
@@ -9164,8 +9166,8 @@ proto.payload.v1.Object.StreamVector.prototype.setError = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.payload.v1.Object.StreamVector} returns this
  */
-proto.payload.v1.Object.StreamVector.prototype.clearError = function() {
-  return this.setError(undefined);
+proto.payload.v1.Object.StreamVector.prototype.clearStatus = function() {
+  return this.setStatus(undefined);
 };
 
 
@@ -9173,7 +9175,7 @@ proto.payload.v1.Object.StreamVector.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.payload.v1.Object.StreamVector.prototype.hasError = function() {
+proto.payload.v1.Object.StreamVector.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -9379,7 +9381,7 @@ proto.payload.v1.Object.StreamBlob.oneofGroups_ = [[1,2]];
 proto.payload.v1.Object.StreamBlob.PayloadCase = {
   PAYLOAD_NOT_SET: 0,
   BLOB: 1,
-  ERROR: 2
+  STATUS: 2
 };
 
 /**
@@ -9421,7 +9423,7 @@ proto.payload.v1.Object.StreamBlob.prototype.toObject = function(opt_includeInst
 proto.payload.v1.Object.StreamBlob.toObject = function(includeInstance, msg) {
   var f, obj = {
     blob: (f = msg.getBlob()) && proto.payload.v1.Object.Blob.toObject(includeInstance, f),
-    error: (f = msg.getError()) && vald_v1_errors_errors_pb.Errors.RPC.toObject(includeInstance, f)
+    status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -9464,9 +9466,9 @@ proto.payload.v1.Object.StreamBlob.deserializeBinaryFromReader = function(msg, r
       msg.setBlob(value);
       break;
     case 2:
-      var value = new vald_v1_errors_errors_pb.Errors.RPC;
-      reader.readMessage(value,vald_v1_errors_errors_pb.Errors.RPC.deserializeBinaryFromReader);
-      msg.setError(value);
+      var value = new google_rpc_status_pb.Status;
+      reader.readMessage(value,google_rpc_status_pb.Status.deserializeBinaryFromReader);
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -9505,12 +9507,12 @@ proto.payload.v1.Object.StreamBlob.serializeBinaryToWriter = function(message, w
       proto.payload.v1.Object.Blob.serializeBinaryToWriter
     );
   }
-  f = message.getError();
+  f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      vald_v1_errors_errors_pb.Errors.RPC.serializeBinaryToWriter
+      google_rpc_status_pb.Status.serializeBinaryToWriter
     );
   }
 };
@@ -9554,20 +9556,20 @@ proto.payload.v1.Object.StreamBlob.prototype.hasBlob = function() {
 
 
 /**
- * optional errors.v1.Errors.RPC error = 2;
- * @return {?proto.errors.v1.Errors.RPC}
+ * optional google.rpc.Status status = 2;
+ * @return {?proto.google.rpc.Status}
  */
-proto.payload.v1.Object.StreamBlob.prototype.getError = function() {
-  return /** @type{?proto.errors.v1.Errors.RPC} */ (
-    jspb.Message.getWrapperField(this, vald_v1_errors_errors_pb.Errors.RPC, 2));
+proto.payload.v1.Object.StreamBlob.prototype.getStatus = function() {
+  return /** @type{?proto.google.rpc.Status} */ (
+    jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 2));
 };
 
 
 /**
- * @param {?proto.errors.v1.Errors.RPC|undefined} value
+ * @param {?proto.google.rpc.Status|undefined} value
  * @return {!proto.payload.v1.Object.StreamBlob} returns this
 */
-proto.payload.v1.Object.StreamBlob.prototype.setError = function(value) {
+proto.payload.v1.Object.StreamBlob.prototype.setStatus = function(value) {
   return jspb.Message.setOneofWrapperField(this, 2, proto.payload.v1.Object.StreamBlob.oneofGroups_[0], value);
 };
 
@@ -9576,8 +9578,8 @@ proto.payload.v1.Object.StreamBlob.prototype.setError = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.payload.v1.Object.StreamBlob} returns this
  */
-proto.payload.v1.Object.StreamBlob.prototype.clearError = function() {
-  return this.setError(undefined);
+proto.payload.v1.Object.StreamBlob.prototype.clearStatus = function() {
+  return this.setStatus(undefined);
 };
 
 
@@ -9585,7 +9587,7 @@ proto.payload.v1.Object.StreamBlob.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.payload.v1.Object.StreamBlob.prototype.hasError = function() {
+proto.payload.v1.Object.StreamBlob.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -9823,7 +9825,7 @@ proto.payload.v1.Object.StreamLocation.oneofGroups_ = [[1,2]];
 proto.payload.v1.Object.StreamLocation.PayloadCase = {
   PAYLOAD_NOT_SET: 0,
   LOCATION: 1,
-  ERROR: 2
+  STATUS: 2
 };
 
 /**
@@ -9865,7 +9867,7 @@ proto.payload.v1.Object.StreamLocation.prototype.toObject = function(opt_include
 proto.payload.v1.Object.StreamLocation.toObject = function(includeInstance, msg) {
   var f, obj = {
     location: (f = msg.getLocation()) && proto.payload.v1.Object.Location.toObject(includeInstance, f),
-    error: (f = msg.getError()) && vald_v1_errors_errors_pb.Errors.RPC.toObject(includeInstance, f)
+    status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -9908,9 +9910,9 @@ proto.payload.v1.Object.StreamLocation.deserializeBinaryFromReader = function(ms
       msg.setLocation(value);
       break;
     case 2:
-      var value = new vald_v1_errors_errors_pb.Errors.RPC;
-      reader.readMessage(value,vald_v1_errors_errors_pb.Errors.RPC.deserializeBinaryFromReader);
-      msg.setError(value);
+      var value = new google_rpc_status_pb.Status;
+      reader.readMessage(value,google_rpc_status_pb.Status.deserializeBinaryFromReader);
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -9949,12 +9951,12 @@ proto.payload.v1.Object.StreamLocation.serializeBinaryToWriter = function(messag
       proto.payload.v1.Object.Location.serializeBinaryToWriter
     );
   }
-  f = message.getError();
+  f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      vald_v1_errors_errors_pb.Errors.RPC.serializeBinaryToWriter
+      google_rpc_status_pb.Status.serializeBinaryToWriter
     );
   }
 };
@@ -9998,20 +10000,20 @@ proto.payload.v1.Object.StreamLocation.prototype.hasLocation = function() {
 
 
 /**
- * optional errors.v1.Errors.RPC error = 2;
- * @return {?proto.errors.v1.Errors.RPC}
+ * optional google.rpc.Status status = 2;
+ * @return {?proto.google.rpc.Status}
  */
-proto.payload.v1.Object.StreamLocation.prototype.getError = function() {
-  return /** @type{?proto.errors.v1.Errors.RPC} */ (
-    jspb.Message.getWrapperField(this, vald_v1_errors_errors_pb.Errors.RPC, 2));
+proto.payload.v1.Object.StreamLocation.prototype.getStatus = function() {
+  return /** @type{?proto.google.rpc.Status} */ (
+    jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 2));
 };
 
 
 /**
- * @param {?proto.errors.v1.Errors.RPC|undefined} value
+ * @param {?proto.google.rpc.Status|undefined} value
  * @return {!proto.payload.v1.Object.StreamLocation} returns this
 */
-proto.payload.v1.Object.StreamLocation.prototype.setError = function(value) {
+proto.payload.v1.Object.StreamLocation.prototype.setStatus = function(value) {
   return jspb.Message.setOneofWrapperField(this, 2, proto.payload.v1.Object.StreamLocation.oneofGroups_[0], value);
 };
 
@@ -10020,8 +10022,8 @@ proto.payload.v1.Object.StreamLocation.prototype.setError = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.payload.v1.Object.StreamLocation} returns this
  */
-proto.payload.v1.Object.StreamLocation.prototype.clearError = function() {
-  return this.setError(undefined);
+proto.payload.v1.Object.StreamLocation.prototype.clearStatus = function() {
+  return this.setStatus(undefined);
 };
 
 
@@ -10029,7 +10031,7 @@ proto.payload.v1.Object.StreamLocation.prototype.clearError = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.payload.v1.Object.StreamLocation.prototype.hasError = function() {
+proto.payload.v1.Object.StreamLocation.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 

@@ -14,5 +14,7 @@ var global = Function('return this')();
 
 var vald_v1_payload_payload_pb = require('../../../../vald/v1/payload/payload_pb.js');
 goog.object.extend(proto, vald_v1_payload_payload_pb);
+var gogoproto_gogo_pb = require('../../../../gogoproto/gogo_pb.js');
+goog.object.extend(proto, gogoproto_gogo_pb);
 var google_api_annotations_pb = require('../../../../google/api/annotations_pb.js');
 goog.object.extend(proto, google_api_annotations_pb);
