@@ -57,8 +57,8 @@ GOOGLEAPI_PROTOS = \
 	google/api/annotations.proto \
 	google/api/http.proto \
 	google/rpc/status.proto
-GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/gogo/googleapis/%)
-NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/gogo/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
+GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/googleapis/googleapis/%)
+NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/googleapis/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
 GOGO_PROTOS = gogoproto/gogo.proto
 GOGO_PROTOS := $(GOGO_PROTOS:%=$(GOPATH)/src/github.com/gogo/protobuf/%)
@@ -70,7 +70,8 @@ PROTO_PATHS = \
 	$(PWD)/$(PROTO_ROOT) \
 	$(GOPATH)/src \
 	$(GOPATH)/src/github.com/gogo/protobuf \
-	$(GOPATH)/src/github.com/gogo/googleapis \
+	$(GOPATH)/src/github.com/gogo/protobuf/protobuf \
+	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
 
 PROTOC_GEN_TS_PATH = ./node_modules/ts-protoc-gen/bin/protoc-gen-ts
@@ -226,10 +227,13 @@ index.d.ts: $(NODE_IDXDTS)
 
 $(NODESOURCES): \
 	$(GOPATH)/src/github.com/gogo/protobuf \
-	$(GOPATH)/src/github.com/gogo/googleapis \
+	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
 	$(PROTOC_GEN_TS_PATH) \
 	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
+	$(NODE_VALIDATE) \
+	$(NODE_GOOGLEAPIS) \
+	$(NODE_GOGO) \
 	$(NODE_ROOT) \
 	$(SHADOWS)
 $(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_ROOT)/%.proto
@@ -260,27 +264,27 @@ $(NODE_VALIDATE): \
 			--grpc_out="$(PWD)/$(NODE_ROOT)" \
 			validate/validate.proto)
 
-$(GOOGLEAPI_PROTOS): $(GOPATH)/src/github.com/gogo/googleapis
+$(GOOGLEAPI_PROTOS): $(GOPATH)/src/github.com/googleapis/googleapis
 $(NODE_GOOGLEAPIS): \
-	$(GOPATH)/src/github.com/gogo/googleapis \
+	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(PROTOC_GEN_TS_PATH) \
 	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 	$(NODE_ROOT)
-$(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/gogo/googleapis/google/%.proto
+$(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/googleapis/googleapis/google/%.proto
 	@$(call green, "generating node files for googleapis...")
-	(cd $(GOPATH)/src/github.com/gogo/googleapis; \
+	(cd $(GOPATH)/src/github.com/googleapis/googleapis; \
 		protoc \
 			$(PROTO_PATHS:%=-I %) \
-			-I $(GOPATH)/src/github.com/gogo/googleapis \
+			-I $(GOPATH)/src/github.com/googleapis/googleapis \
 			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
 			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
 			--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
 			--grpc_out="$(PWD)/$(NODE_ROOT)" \
-			$(patsubst $(GOPATH)/src/github.com/gogo/googleapis/%,%,$<))
+			$(patsubst $(GOPATH)/src/github.com/googleapis/googleapis/%,%,$<))
 
 $(GOGO_PROTOS): $(GOPATH)/src/github.com/gogo/protobuf
-$(NODE_GOOGLEAPIS): \
+$(NODE_GOGO): \
 	$(GOPATH)/src/github.com/gogo/protobuf \
 	$(PROTOC_GEN_TS_PATH) \
 	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
@@ -340,7 +344,7 @@ $(GRPC_TOOLS_PROTOC_PLUGIN_PATH):
 proto/deps: \
 	npm/deps \
 	$(GOPATH)/src/github.com/gogo/protobuf \
-	$(GOPATH)/src/github.com/gogo/googleapis \
+	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
 
 $(GOPATH)/src/github.com/gogo/protobuf:
@@ -349,11 +353,11 @@ $(GOPATH)/src/github.com/gogo/protobuf:
 		https://github.com/gogo/protobuf \
 		$(GOPATH)/src/github.com/gogo/protobuf
 
-$(GOPATH)/src/github.com/gogo/googleapis:
+$(GOPATH)/src/github.com/googleapis/googleapis:
 	git clone \
 		--depth 1 \
-		https://github.com/gogo/googleapis \
-		$(GOPATH)/src/github.com/gogo/googleapis
+		https://github.com/googleapis/googleapis \
+		$(GOPATH)/src/github.com/googleapis/googleapis
 
 $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate:
 	git clone \

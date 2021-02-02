@@ -1,5 +1,8 @@
 name: build protobuf
 on:
+  push:
+    branches:
+      - master
   repository_dispatch:
 
 jobs:
@@ -7,10 +10,8 @@ jobs:
     name: build and publish
     runs-on: ubuntu-latest
     steps:
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libprotobuf-dev libprotoc-dev protobuf-compiler
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
       - uses: actions/setup-node@v1
         with:
           node-version: '10'
