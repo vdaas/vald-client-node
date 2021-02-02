@@ -130,6 +130,11 @@ export namespace Search {
     getConfig(): Search.Config | undefined;
     setConfig(value?: Search.Config): void;
 
+    hasVectorizer(): boolean;
+    clearVectorizer(): void;
+    getVectorizer(): Filter.Target | undefined;
+    setVectorizer(value?: Filter.Target): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ObjectRequest.AsObject;
     static toObject(includeInstance: boolean, msg: ObjectRequest): ObjectRequest.AsObject;
@@ -144,6 +149,29 @@ export namespace Search {
     export type AsObject = {
       object: Uint8Array | string,
       config?: Search.Config.AsObject,
+      vectorizer?: Filter.Target.AsObject,
+    }
+  }
+
+  export class MultiObjectRequest extends jspb.Message {
+    clearRequestsList(): void;
+    getRequestsList(): Array<Search.ObjectRequest>;
+    setRequestsList(value: Array<Search.ObjectRequest>): void;
+    addRequests(value?: Search.ObjectRequest, index?: number): Search.ObjectRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): MultiObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: MultiObjectRequest): MultiObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: MultiObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): MultiObjectRequest;
+    static deserializeBinaryFromReader(message: MultiObjectRequest, reader: jspb.BinaryReader): MultiObjectRequest;
+  }
+
+  export namespace MultiObjectRequest {
+    export type AsObject = {
+      requestsList: Array<Search.ObjectRequest.AsObject>,
     }
   }
 
@@ -163,10 +191,15 @@ export namespace Search {
     getTimeout(): number;
     setTimeout(value: number): void;
 
-    hasFilters(): boolean;
-    clearFilters(): void;
-    getFilters(): Filter.Config | undefined;
-    setFilters(value?: Filter.Config): void;
+    hasIngressFilters(): boolean;
+    clearIngressFilters(): void;
+    getIngressFilters(): Filter.Config | undefined;
+    setIngressFilters(value?: Filter.Config): void;
+
+    hasEgressFilters(): boolean;
+    clearEgressFilters(): void;
+    getEgressFilters(): Filter.Config | undefined;
+    setEgressFilters(value?: Filter.Config): void;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
@@ -185,7 +218,8 @@ export namespace Search {
       radius: number,
       epsilon: number,
       timeout: number,
-      filters?: Filter.Config.AsObject,
+      ingressFilters?: Filter.Config.AsObject,
+      egressFilters?: Filter.Config.AsObject,
     }
   }
 
@@ -314,9 +348,9 @@ export namespace Filter {
 
   export class Config extends jspb.Message {
     clearTargetsList(): void;
-    getTargetsList(): Array<string>;
-    setTargetsList(value: Array<string>): void;
-    addTargets(value: string, index?: number): string;
+    getTargetsList(): Array<Filter.Target>;
+    setTargetsList(value: Array<Filter.Target>): void;
+    addTargets(value?: Filter.Target, index?: number): Filter.Target;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
@@ -330,7 +364,7 @@ export namespace Filter {
 
   export namespace Config {
     export type AsObject = {
-      targetsList: Array<string>,
+      targetsList: Array<Filter.Target.AsObject>,
     }
   }
 }
@@ -397,6 +431,62 @@ export namespace Insert {
   export namespace MultiRequest {
     export type AsObject = {
       requestsList: Array<Insert.Request.AsObject>,
+    }
+  }
+
+  export class ObjectRequest extends jspb.Message {
+    hasObject(): boolean;
+    clearObject(): void;
+    getObject(): Object.Blob | undefined;
+    setObject(value?: Object.Blob): void;
+
+    hasConfig(): boolean;
+    clearConfig(): void;
+    getConfig(): Insert.Config | undefined;
+    setConfig(value?: Insert.Config): void;
+
+    hasVectorizer(): boolean;
+    clearVectorizer(): void;
+    getVectorizer(): Filter.Target | undefined;
+    setVectorizer(value?: Filter.Target): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ObjectRequest): ObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ObjectRequest;
+    static deserializeBinaryFromReader(message: ObjectRequest, reader: jspb.BinaryReader): ObjectRequest;
+  }
+
+  export namespace ObjectRequest {
+    export type AsObject = {
+      object?: Object.Blob.AsObject,
+      config?: Insert.Config.AsObject,
+      vectorizer?: Filter.Target.AsObject,
+    }
+  }
+
+  export class MultiObjectRequest extends jspb.Message {
+    clearRequestsList(): void;
+    getRequestsList(): Array<Insert.ObjectRequest>;
+    setRequestsList(value: Array<Insert.ObjectRequest>): void;
+    addRequests(value?: Insert.ObjectRequest, index?: number): Insert.ObjectRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): MultiObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: MultiObjectRequest): MultiObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: MultiObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): MultiObjectRequest;
+    static deserializeBinaryFromReader(message: MultiObjectRequest, reader: jspb.BinaryReader): MultiObjectRequest;
+  }
+
+  export namespace MultiObjectRequest {
+    export type AsObject = {
+      requestsList: Array<Insert.ObjectRequest.AsObject>,
     }
   }
 
@@ -492,6 +582,62 @@ export namespace Update {
     }
   }
 
+  export class ObjectRequest extends jspb.Message {
+    hasObject(): boolean;
+    clearObject(): void;
+    getObject(): Object.Blob | undefined;
+    setObject(value?: Object.Blob): void;
+
+    hasConfig(): boolean;
+    clearConfig(): void;
+    getConfig(): Update.Config | undefined;
+    setConfig(value?: Update.Config): void;
+
+    hasVectorizer(): boolean;
+    clearVectorizer(): void;
+    getVectorizer(): Filter.Target | undefined;
+    setVectorizer(value?: Filter.Target): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ObjectRequest): ObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ObjectRequest;
+    static deserializeBinaryFromReader(message: ObjectRequest, reader: jspb.BinaryReader): ObjectRequest;
+  }
+
+  export namespace ObjectRequest {
+    export type AsObject = {
+      object?: Object.Blob.AsObject,
+      config?: Update.Config.AsObject,
+      vectorizer?: Filter.Target.AsObject,
+    }
+  }
+
+  export class MultiObjectRequest extends jspb.Message {
+    clearRequestsList(): void;
+    getRequestsList(): Array<Update.ObjectRequest>;
+    setRequestsList(value: Array<Update.ObjectRequest>): void;
+    addRequests(value?: Update.ObjectRequest, index?: number): Update.ObjectRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): MultiObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: MultiObjectRequest): MultiObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: MultiObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): MultiObjectRequest;
+    static deserializeBinaryFromReader(message: MultiObjectRequest, reader: jspb.BinaryReader): MultiObjectRequest;
+  }
+
+  export namespace MultiObjectRequest {
+    export type AsObject = {
+      requestsList: Array<Update.ObjectRequest.AsObject>,
+    }
+  }
+
   export class Config extends jspb.Message {
     getSkipStrictExistCheck(): boolean;
     setSkipStrictExistCheck(value: boolean): void;
@@ -581,6 +727,62 @@ export namespace Upsert {
   export namespace MultiRequest {
     export type AsObject = {
       requestsList: Array<Upsert.Request.AsObject>,
+    }
+  }
+
+  export class ObjectRequest extends jspb.Message {
+    hasObject(): boolean;
+    clearObject(): void;
+    getObject(): Object.Blob | undefined;
+    setObject(value?: Object.Blob): void;
+
+    hasConfig(): boolean;
+    clearConfig(): void;
+    getConfig(): Upsert.Config | undefined;
+    setConfig(value?: Upsert.Config): void;
+
+    hasVectorizer(): boolean;
+    clearVectorizer(): void;
+    getVectorizer(): Filter.Target | undefined;
+    setVectorizer(value?: Filter.Target): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ObjectRequest): ObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ObjectRequest;
+    static deserializeBinaryFromReader(message: ObjectRequest, reader: jspb.BinaryReader): ObjectRequest;
+  }
+
+  export namespace ObjectRequest {
+    export type AsObject = {
+      object?: Object.Blob.AsObject,
+      config?: Upsert.Config.AsObject,
+      vectorizer?: Filter.Target.AsObject,
+    }
+  }
+
+  export class MultiObjectRequest extends jspb.Message {
+    clearRequestsList(): void;
+    getRequestsList(): Array<Upsert.ObjectRequest>;
+    setRequestsList(value: Array<Upsert.ObjectRequest>): void;
+    addRequests(value?: Upsert.ObjectRequest, index?: number): Upsert.ObjectRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): MultiObjectRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: MultiObjectRequest): MultiObjectRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: MultiObjectRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): MultiObjectRequest;
+    static deserializeBinaryFromReader(message: MultiObjectRequest, reader: jspb.BinaryReader): MultiObjectRequest;
+  }
+
+  export namespace MultiObjectRequest {
+    export type AsObject = {
+      requestsList: Array<Upsert.ObjectRequest.AsObject>,
     }
   }
 
@@ -697,152 +899,6 @@ export namespace Remove {
   }
 }
 
-export class Meta extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Meta.AsObject;
-  static toObject(includeInstance: boolean, msg: Meta): Meta.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: Meta, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Meta;
-  static deserializeBinaryFromReader(message: Meta, reader: jspb.BinaryReader): Meta;
-}
-
-export namespace Meta {
-  export type AsObject = {
-  }
-
-  export class Key extends jspb.Message {
-    getKey(): string;
-    setKey(value: string): void;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Key.AsObject;
-    static toObject(includeInstance: boolean, msg: Key): Key.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Key, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Key;
-    static deserializeBinaryFromReader(message: Key, reader: jspb.BinaryReader): Key;
-  }
-
-  export namespace Key {
-    export type AsObject = {
-      key: string,
-    }
-  }
-
-  export class Keys extends jspb.Message {
-    clearKeysList(): void;
-    getKeysList(): Array<string>;
-    setKeysList(value: Array<string>): void;
-    addKeys(value: string, index?: number): string;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Keys.AsObject;
-    static toObject(includeInstance: boolean, msg: Keys): Keys.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Keys, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Keys;
-    static deserializeBinaryFromReader(message: Keys, reader: jspb.BinaryReader): Keys;
-  }
-
-  export namespace Keys {
-    export type AsObject = {
-      keysList: Array<string>,
-    }
-  }
-
-  export class Val extends jspb.Message {
-    getVal(): string;
-    setVal(value: string): void;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Val.AsObject;
-    static toObject(includeInstance: boolean, msg: Val): Val.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Val, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Val;
-    static deserializeBinaryFromReader(message: Val, reader: jspb.BinaryReader): Val;
-  }
-
-  export namespace Val {
-    export type AsObject = {
-      val: string,
-    }
-  }
-
-  export class Vals extends jspb.Message {
-    clearValsList(): void;
-    getValsList(): Array<string>;
-    setValsList(value: Array<string>): void;
-    addVals(value: string, index?: number): string;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): Vals.AsObject;
-    static toObject(includeInstance: boolean, msg: Vals): Vals.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: Vals, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): Vals;
-    static deserializeBinaryFromReader(message: Vals, reader: jspb.BinaryReader): Vals;
-  }
-
-  export namespace Vals {
-    export type AsObject = {
-      valsList: Array<string>,
-    }
-  }
-
-  export class KeyVal extends jspb.Message {
-    getKey(): string;
-    setKey(value: string): void;
-
-    getVal(): string;
-    setVal(value: string): void;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): KeyVal.AsObject;
-    static toObject(includeInstance: boolean, msg: KeyVal): KeyVal.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: KeyVal, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): KeyVal;
-    static deserializeBinaryFromReader(message: KeyVal, reader: jspb.BinaryReader): KeyVal;
-  }
-
-  export namespace KeyVal {
-    export type AsObject = {
-      key: string,
-      val: string,
-    }
-  }
-
-  export class KeyVals extends jspb.Message {
-    clearKvsList(): void;
-    getKvsList(): Array<Meta.KeyVal>;
-    setKvsList(value: Array<Meta.KeyVal>): void;
-    addKvs(value?: Meta.KeyVal, index?: number): Meta.KeyVal;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): KeyVals.AsObject;
-    static toObject(includeInstance: boolean, msg: KeyVals): KeyVals.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: KeyVals, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): KeyVals;
-    static deserializeBinaryFromReader(message: KeyVals, reader: jspb.BinaryReader): KeyVals;
-  }
-
-  export namespace KeyVals {
-    export type AsObject = {
-      kvsList: Array<Meta.KeyVal.AsObject>,
-    }
-  }
-}
-
 export class Object extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Object.AsObject;
@@ -856,6 +912,34 @@ export class Object extends jspb.Message {
 
 export namespace Object {
   export type AsObject = {
+  }
+
+  export class VectorRequest extends jspb.Message {
+    hasId(): boolean;
+    clearId(): void;
+    getId(): Object.ID | undefined;
+    setId(value?: Object.ID): void;
+
+    hasFilters(): boolean;
+    clearFilters(): void;
+    getFilters(): Filter.Config | undefined;
+    setFilters(value?: Filter.Config): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): VectorRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: VectorRequest): VectorRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: VectorRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): VectorRequest;
+    static deserializeBinaryFromReader(message: VectorRequest, reader: jspb.BinaryReader): VectorRequest;
+  }
+
+  export namespace VectorRequest {
+    export type AsObject = {
+      id?: Object.ID.AsObject,
+      filters?: Filter.Config.AsObject,
+    }
   }
 
   export class Distance extends jspb.Message {
@@ -1187,6 +1271,152 @@ export namespace Object {
   export namespace Locations {
     export type AsObject = {
       locationsList: Array<Object.Location.AsObject>,
+    }
+  }
+}
+
+export class Meta extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Meta.AsObject;
+  static toObject(includeInstance: boolean, msg: Meta): Meta.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Meta, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Meta;
+  static deserializeBinaryFromReader(message: Meta, reader: jspb.BinaryReader): Meta;
+}
+
+export namespace Meta {
+  export type AsObject = {
+  }
+
+  export class Key extends jspb.Message {
+    getKey(): string;
+    setKey(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Key.AsObject;
+    static toObject(includeInstance: boolean, msg: Key): Key.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Key, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Key;
+    static deserializeBinaryFromReader(message: Key, reader: jspb.BinaryReader): Key;
+  }
+
+  export namespace Key {
+    export type AsObject = {
+      key: string,
+    }
+  }
+
+  export class Keys extends jspb.Message {
+    clearKeysList(): void;
+    getKeysList(): Array<string>;
+    setKeysList(value: Array<string>): void;
+    addKeys(value: string, index?: number): string;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Keys.AsObject;
+    static toObject(includeInstance: boolean, msg: Keys): Keys.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Keys, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Keys;
+    static deserializeBinaryFromReader(message: Keys, reader: jspb.BinaryReader): Keys;
+  }
+
+  export namespace Keys {
+    export type AsObject = {
+      keysList: Array<string>,
+    }
+  }
+
+  export class Val extends jspb.Message {
+    getVal(): string;
+    setVal(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Val.AsObject;
+    static toObject(includeInstance: boolean, msg: Val): Val.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Val, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Val;
+    static deserializeBinaryFromReader(message: Val, reader: jspb.BinaryReader): Val;
+  }
+
+  export namespace Val {
+    export type AsObject = {
+      val: string,
+    }
+  }
+
+  export class Vals extends jspb.Message {
+    clearValsList(): void;
+    getValsList(): Array<string>;
+    setValsList(value: Array<string>): void;
+    addVals(value: string, index?: number): string;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Vals.AsObject;
+    static toObject(includeInstance: boolean, msg: Vals): Vals.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Vals, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Vals;
+    static deserializeBinaryFromReader(message: Vals, reader: jspb.BinaryReader): Vals;
+  }
+
+  export namespace Vals {
+    export type AsObject = {
+      valsList: Array<string>,
+    }
+  }
+
+  export class KeyVal extends jspb.Message {
+    getKey(): string;
+    setKey(value: string): void;
+
+    getVal(): string;
+    setVal(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): KeyVal.AsObject;
+    static toObject(includeInstance: boolean, msg: KeyVal): KeyVal.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: KeyVal, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): KeyVal;
+    static deserializeBinaryFromReader(message: KeyVal, reader: jspb.BinaryReader): KeyVal;
+  }
+
+  export namespace KeyVal {
+    export type AsObject = {
+      key: string,
+      val: string,
+    }
+  }
+
+  export class KeyVals extends jspb.Message {
+    clearKvsList(): void;
+    getKvsList(): Array<Meta.KeyVal>;
+    setKvsList(value: Array<Meta.KeyVal>): void;
+    addKvs(value?: Meta.KeyVal, index?: number): Meta.KeyVal;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): KeyVals.AsObject;
+    static toObject(includeInstance: boolean, msg: KeyVals): KeyVals.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: KeyVals, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): KeyVals;
+    static deserializeBinaryFromReader(message: KeyVals, reader: jspb.BinaryReader): KeyVals;
+  }
+
+  export namespace KeyVals {
+    export type AsObject = {
+      kvsList: Array<Meta.KeyVal.AsObject>,
     }
   }
 }

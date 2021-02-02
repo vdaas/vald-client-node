@@ -23,15 +23,26 @@ var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js
 var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
 var google_api_annotations_pb = require('../../../google/api/annotations_pb.js');
 
-function serialize_payload_v1_Object_Blob(arg) {
-  if (!(arg instanceof vald_v1_payload_payload_pb.Object.Blob)) {
-    throw new Error('Expected argument of type payload.v1.Object.Blob');
+function serialize_payload_v1_Insert_MultiObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Insert.MultiObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Insert.MultiObjectRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_payload_v1_Object_Blob(buffer_arg) {
-  return vald_v1_payload_payload_pb.Object.Blob.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_payload_v1_Insert_MultiObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Insert.MultiObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Insert_ObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Insert.ObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Insert.ObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Insert_ObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Insert.ObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_payload_v1_Object_Location(arg) {
@@ -67,6 +78,17 @@ function deserialize_payload_v1_Object_StreamLocation(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.StreamLocation.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Search_MultiObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Search.MultiObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Search.MultiObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Search_MultiObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Search.MultiObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_payload_v1_Search_ObjectRequest(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.ObjectRequest)) {
     throw new Error('Expected argument of type payload.v1.Search.ObjectRequest');
@@ -89,6 +111,17 @@ function deserialize_payload_v1_Search_Response(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.Response.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Search_Responses(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Search.Responses)) {
+    throw new Error('Expected argument of type payload.v1.Search.Responses');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Search_Responses(buffer_arg) {
+  return vald_v1_payload_payload_pb.Search.Responses.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_payload_v1_Search_StreamResponse(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.StreamResponse)) {
     throw new Error('Expected argument of type payload.v1.Search.StreamResponse');
@@ -98,6 +131,50 @@ function serialize_payload_v1_Search_StreamResponse(arg) {
 
 function deserialize_payload_v1_Search_StreamResponse(buffer_arg) {
   return vald_v1_payload_payload_pb.Search.StreamResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Update_MultiObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Update.MultiObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Update.MultiObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Update_MultiObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Update.MultiObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Update_ObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Update.ObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Update.ObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Update_ObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Update.ObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Upsert_MultiObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Upsert.MultiObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Upsert.MultiObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Upsert_MultiObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Upsert.MultiObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Upsert_ObjectRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Upsert.ObjectRequest)) {
+    throw new Error('Expected argument of type payload.v1.Upsert.ObjectRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Upsert_ObjectRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Upsert.ObjectRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
@@ -112,6 +189,17 @@ var FilterService = exports.FilterService = {
     requestDeserialize: deserialize_payload_v1_Search_ObjectRequest,
     responseSerialize: serialize_payload_v1_Search_Response,
     responseDeserialize: deserialize_payload_v1_Search_Response,
+  },
+  multiSearchObject: {
+    path: '/vald.v1.Filter/MultiSearchObject',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Search.MultiObjectRequest,
+    responseType: vald_v1_payload_payload_pb.Search.Responses,
+    requestSerialize: serialize_payload_v1_Search_MultiObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Search_MultiObjectRequest,
+    responseSerialize: serialize_payload_v1_Search_Responses,
+    responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
   streamSearchObject: {
     path: '/vald.v1.Filter/StreamSearchObject',
@@ -128,10 +216,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/InsertObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Insert.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Location,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Insert_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Insert_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
@@ -139,10 +227,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/StreamInsertObject',
     requestStream: true,
     responseStream: true,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Insert.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.StreamLocation,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Insert_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Insert_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
@@ -150,10 +238,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/MultiInsertObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Insert.MultiObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Locations,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Insert_MultiObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Insert_MultiObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Locations,
     responseDeserialize: deserialize_payload_v1_Object_Locations,
   },
@@ -161,10 +249,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/UpdateObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Update.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Location,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Update_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Update_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
@@ -172,10 +260,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/StreamUpdateObject',
     requestStream: true,
     responseStream: true,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Update.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.StreamLocation,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Update_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Update_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
@@ -183,10 +271,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/MultiUpdateObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Update.MultiObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Locations,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Update_MultiObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Update_MultiObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Locations,
     responseDeserialize: deserialize_payload_v1_Object_Locations,
   },
@@ -194,10 +282,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/UpsertObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Upsert.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Location,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Upsert_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Upsert_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
@@ -205,10 +293,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/StreamUpsertObject',
     requestStream: true,
     responseStream: true,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Upsert.ObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.StreamLocation,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Upsert_ObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Upsert_ObjectRequest,
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
@@ -216,10 +304,10 @@ var FilterService = exports.FilterService = {
     path: '/vald.v1.Filter/MultiUpsertObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.Blob,
+    requestType: vald_v1_payload_payload_pb.Upsert.MultiObjectRequest,
     responseType: vald_v1_payload_payload_pb.Object.Locations,
-    requestSerialize: serialize_payload_v1_Object_Blob,
-    requestDeserialize: deserialize_payload_v1_Object_Blob,
+    requestSerialize: serialize_payload_v1_Upsert_MultiObjectRequest,
+    requestDeserialize: deserialize_payload_v1_Upsert_MultiObjectRequest,
     responseSerialize: serialize_payload_v1_Object_Locations,
     responseDeserialize: deserialize_payload_v1_Object_Locations,
   },

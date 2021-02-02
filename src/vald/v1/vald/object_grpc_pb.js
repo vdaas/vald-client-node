@@ -56,6 +56,17 @@ function deserialize_payload_v1_Object_Vector(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.Vector.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Object_VectorRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.VectorRequest)) {
+    throw new Error('Expected argument of type payload.v1.Object.VectorRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_VectorRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.VectorRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var ObjectService = exports.ObjectService = {
   exists: {
@@ -73,10 +84,10 @@ var ObjectService = exports.ObjectService = {
     path: '/vald.v1.Object/GetObject',
     requestStream: false,
     responseStream: false,
-    requestType: vald_v1_payload_payload_pb.Object.ID,
+    requestType: vald_v1_payload_payload_pb.Object.VectorRequest,
     responseType: vald_v1_payload_payload_pb.Object.Vector,
-    requestSerialize: serialize_payload_v1_Object_ID,
-    requestDeserialize: deserialize_payload_v1_Object_ID,
+    requestSerialize: serialize_payload_v1_Object_VectorRequest,
+    requestDeserialize: deserialize_payload_v1_Object_VectorRequest,
     responseSerialize: serialize_payload_v1_Object_Vector,
     responseDeserialize: deserialize_payload_v1_Object_Vector,
   },
@@ -84,10 +95,10 @@ var ObjectService = exports.ObjectService = {
     path: '/vald.v1.Object/StreamGetObject',
     requestStream: true,
     responseStream: true,
-    requestType: vald_v1_payload_payload_pb.Object.ID,
+    requestType: vald_v1_payload_payload_pb.Object.VectorRequest,
     responseType: vald_v1_payload_payload_pb.Object.StreamVector,
-    requestSerialize: serialize_payload_v1_Object_ID,
-    requestDeserialize: deserialize_payload_v1_Object_ID,
+    requestSerialize: serialize_payload_v1_Object_VectorRequest,
+    requestDeserialize: deserialize_payload_v1_Object_VectorRequest,
     responseSerialize: serialize_payload_v1_Object_StreamVector,
     responseDeserialize: deserialize_payload_v1_Object_StreamVector,
   },
