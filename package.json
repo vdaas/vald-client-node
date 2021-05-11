@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
-    "grpc-tools": "^1.9.1",
+    "grpc-tools": "^1.11.1",
     "ts-protoc-gen": "^0.13.0"
   },
   "scripts": {
@@ -26,6 +26,6 @@
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
     "@types/google-protobuf": "^3.7.3",
-    "grpc": "^1.24.3"
+    "grpc": ">=1.24.4"
   }
 }
