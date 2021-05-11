@@ -26,6 +26,9 @@ jobs:
           make vald/sha/update
           make vald/client/node/version/update
           rm -rf vald
+      - name: npm update
+        run: |
+          npm update
       - name: commit and push
         run: |
           sha=`make vald/sha/print`
