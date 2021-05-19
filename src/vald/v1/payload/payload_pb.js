@@ -5669,7 +5669,8 @@ proto.payload.v1.Insert.Config.prototype.toObject = function(opt_includeInstance
 proto.payload.v1.Insert.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
     skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f)
+    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -5715,6 +5716,10 @@ proto.payload.v1.Insert.Config.deserializeBinaryFromReader = function(msg, reade
       reader.readMessage(value,proto.payload.v1.Filter.Config.deserializeBinaryFromReader);
       msg.setFilters(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimestamp(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -5757,6 +5762,13 @@ proto.payload.v1.Insert.Config.serializeBinaryToWriter = function(message, write
       2,
       f,
       proto.payload.v1.Filter.Config.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimestamp();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
     );
   }
 };
@@ -5814,6 +5826,24 @@ proto.payload.v1.Insert.Config.prototype.clearFilters = function() {
  */
 proto.payload.v1.Insert.Config.prototype.hasFilters = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional int64 timestamp = 3;
+ * @return {number}
+ */
+proto.payload.v1.Insert.Config.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.payload.v1.Insert.Config} returns this
+ */
+proto.payload.v1.Insert.Config.prototype.setTimestamp = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -6726,7 +6756,8 @@ proto.payload.v1.Update.Config.prototype.toObject = function(opt_includeInstance
 proto.payload.v1.Update.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
     skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f)
+    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -6772,6 +6803,10 @@ proto.payload.v1.Update.Config.deserializeBinaryFromReader = function(msg, reade
       reader.readMessage(value,proto.payload.v1.Filter.Config.deserializeBinaryFromReader);
       msg.setFilters(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimestamp(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6814,6 +6849,13 @@ proto.payload.v1.Update.Config.serializeBinaryToWriter = function(message, write
       2,
       f,
       proto.payload.v1.Filter.Config.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimestamp();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
     );
   }
 };
@@ -6871,6 +6913,24 @@ proto.payload.v1.Update.Config.prototype.clearFilters = function() {
  */
 proto.payload.v1.Update.Config.prototype.hasFilters = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional int64 timestamp = 3;
+ * @return {number}
+ */
+proto.payload.v1.Update.Config.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.payload.v1.Update.Config} returns this
+ */
+proto.payload.v1.Update.Config.prototype.setTimestamp = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -7783,7 +7843,8 @@ proto.payload.v1.Upsert.Config.prototype.toObject = function(opt_includeInstance
 proto.payload.v1.Upsert.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
     skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f)
+    filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -7829,6 +7890,10 @@ proto.payload.v1.Upsert.Config.deserializeBinaryFromReader = function(msg, reade
       reader.readMessage(value,proto.payload.v1.Filter.Config.deserializeBinaryFromReader);
       msg.setFilters(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimestamp(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -7871,6 +7936,13 @@ proto.payload.v1.Upsert.Config.serializeBinaryToWriter = function(message, write
       2,
       f,
       proto.payload.v1.Filter.Config.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimestamp();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
     );
   }
 };
@@ -7928,6 +8000,24 @@ proto.payload.v1.Upsert.Config.prototype.clearFilters = function() {
  */
 proto.payload.v1.Upsert.Config.prototype.hasFilters = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional int64 timestamp = 3;
+ * @return {number}
+ */
+proto.payload.v1.Upsert.Config.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.payload.v1.Upsert.Config} returns this
+ */
+proto.payload.v1.Upsert.Config.prototype.setTimestamp = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -8426,7 +8516,8 @@ proto.payload.v1.Remove.Config.prototype.toObject = function(opt_includeInstance
  */
 proto.payload.v1.Remove.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
-    skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+    skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -8467,6 +8558,10 @@ proto.payload.v1.Remove.Config.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setSkipStrictExistCheck(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimestamp(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -8503,6 +8598,13 @@ proto.payload.v1.Remove.Config.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getTimestamp();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -8521,6 +8623,24 @@ proto.payload.v1.Remove.Config.prototype.getSkipStrictExistCheck = function() {
  */
 proto.payload.v1.Remove.Config.prototype.setSkipStrictExistCheck = function(value) {
   return jspb.Message.setProto3BooleanField(this, 1, value);
+};
+
+
+/**
+ * optional int64 timestamp = 3;
+ * @return {number}
+ */
+proto.payload.v1.Remove.Config.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.payload.v1.Remove.Config} returns this
+ */
+proto.payload.v1.Remove.Config.prototype.setTimestamp = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -16183,7 +16303,8 @@ proto.payload.v1.Info.Index.Count.toObject = function(includeInstance, msg) {
   var f, obj = {
     stored: jspb.Message.getFieldWithDefault(msg, 1, 0),
     uncommitted: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    indexing: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
+    indexing: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
+    saving: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -16232,6 +16353,10 @@ proto.payload.v1.Info.Index.Count.deserializeBinaryFromReader = function(msg, re
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIndexing(value);
       break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setSaving(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -16279,6 +16404,13 @@ proto.payload.v1.Info.Index.Count.serializeBinaryToWriter = function(message, wr
   if (f) {
     writer.writeBool(
       3,
+      f
+    );
+  }
+  f = message.getSaving();
+  if (f) {
+    writer.writeBool(
+      4,
       f
     );
   }
@@ -16336,6 +16468,24 @@ proto.payload.v1.Info.Index.Count.prototype.getIndexing = function() {
  */
 proto.payload.v1.Info.Index.Count.prototype.setIndexing = function(value) {
   return jspb.Message.setProto3BooleanField(this, 3, value);
+};
+
+
+/**
+ * optional bool saving = 4;
+ * @return {boolean}
+ */
+proto.payload.v1.Info.Index.Count.prototype.getSaving = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.payload.v1.Info.Index.Count} returns this
+ */
+proto.payload.v1.Info.Index.Count.prototype.setSaving = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 

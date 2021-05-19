@@ -499,6 +499,9 @@ export namespace Insert {
     getFilters(): Filter.Config | undefined;
     setFilters(value?: Filter.Config): void;
 
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -513,6 +516,7 @@ export namespace Insert {
     export type AsObject = {
       skipStrictExistCheck: boolean,
       filters?: Filter.Config.AsObject,
+      timestamp: number,
     }
   }
 }
@@ -647,6 +651,9 @@ export namespace Update {
     getFilters(): Filter.Config | undefined;
     setFilters(value?: Filter.Config): void;
 
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -661,6 +668,7 @@ export namespace Update {
     export type AsObject = {
       skipStrictExistCheck: boolean,
       filters?: Filter.Config.AsObject,
+      timestamp: number,
     }
   }
 }
@@ -795,6 +803,9 @@ export namespace Upsert {
     getFilters(): Filter.Config | undefined;
     setFilters(value?: Filter.Config): void;
 
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -809,6 +820,7 @@ export namespace Upsert {
     export type AsObject = {
       skipStrictExistCheck: boolean,
       filters?: Filter.Config.AsObject,
+      timestamp: number,
     }
   }
 }
@@ -882,6 +894,9 @@ export namespace Remove {
     getSkipStrictExistCheck(): boolean;
     setSkipStrictExistCheck(value: boolean): void;
 
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -895,6 +910,7 @@ export namespace Remove {
   export namespace Config {
     export type AsObject = {
       skipStrictExistCheck: boolean,
+      timestamp: number,
     }
   }
 }
@@ -2027,6 +2043,9 @@ export namespace Info {
       getIndexing(): boolean;
       setIndexing(value: boolean): void;
 
+      getSaving(): boolean;
+      setSaving(value: boolean): void;
+
       serializeBinary(): Uint8Array;
       toObject(includeInstance?: boolean): Count.AsObject;
       static toObject(includeInstance: boolean, msg: Count): Count.AsObject;
@@ -2042,6 +2061,7 @@ export namespace Info {
         stored: number,
         uncommitted: number,
         indexing: boolean,
+        saving: boolean,
       }
     }
 
