@@ -1,11 +1,11 @@
 {
   "name": "vald-client-node",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A gRPC client library for Vald",
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
-    "grpc-tools": "^1.11.1",
+    "grpc-tools": "^1.11.2",
     "ts-protoc-gen": "^0.13.0"
   },
   "scripts": {
