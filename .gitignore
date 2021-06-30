@@ -1,3 +1,6 @@
 node_modules
 /vald
 /vald-origin
+
+/coverage
+/tests/wordvecs1000.json
