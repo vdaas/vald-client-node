@@ -15,8 +15,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
-goog.object.extend(proto, gogoproto_gogo_pb);
 var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 var validate_validate_pb = require('../../../validate/validate_pb.js');

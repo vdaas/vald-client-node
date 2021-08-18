@@ -2,7 +2,6 @@
 // file: vald/v1/payload/payload.proto
 
 import * as jspb from "google-protobuf";
-import * as gogoproto_gogo_pb from "../../../gogoproto/gogo_pb";
 import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 
