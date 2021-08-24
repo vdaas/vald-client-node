@@ -20,7 +20,6 @@
 'use strict';
 var grpc = require('grpc');
 var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
-var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
 var google_api_annotations_pb = require('../../../google/api/annotations_pb.js');
 
 function serialize_payload_v1_Object_ID(arg) {
