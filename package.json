@@ -1,17 +1,17 @@
 {
   "name": "vald-client-node",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "A gRPC client library for Vald",
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "grpc-tools": "^1.11.2",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.0.4",
-    "ts-node": "^10.1.0",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
     "ts-protoc-gen": "^0.13.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2"
   },
   "scripts": {
     "test": "jest --runInBand"
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
-    "@types/google-protobuf": "^3.15.3",
+    "@types/google-protobuf": "^3.15.5",
     "grpc": "^1.24.11"
   }
 }

@@ -15,10 +15,10 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
-goog.object.extend(proto, google_rpc_status_pb);
 var validate_validate_pb = require('../../../validate/validate_pb.js');
 goog.object.extend(proto, validate_validate_pb);
+var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
+goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.payload.v1.Backup', null, global);
 goog.exportSymbol('proto.payload.v1.Backup.Compressed', null, global);
 goog.exportSymbol('proto.payload.v1.Backup.Compressed.Vector', null, global);
