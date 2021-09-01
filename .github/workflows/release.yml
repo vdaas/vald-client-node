@@ -81,6 +81,8 @@ jobs:
       - e2e
     runs-on: ubuntu-latest
     steps:
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
       - uses: actions/setup-node@v1
         with:
           node-version: '10'
