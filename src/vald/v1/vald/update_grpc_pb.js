@@ -78,8 +78,10 @@ function deserialize_payload_v1_Update_Request(buffer_arg) {
 }
 
 
+// Update service provides ways to update indexed vectors.
 var UpdateService = exports.UpdateService = {
-  update: {
+  // A method to update an indexed vector.
+update: {
     path: '/vald.v1.Update/Update',
     requestStream: false,
     responseStream: false,
@@ -90,7 +92,8 @@ var UpdateService = exports.UpdateService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamUpdate: {
+  // A method to update multiple indexed vectors by bidirectional streaming.
+streamUpdate: {
     path: '/vald.v1.Update/StreamUpdate',
     requestStream: true,
     responseStream: true,
@@ -101,7 +104,8 @@ var UpdateService = exports.UpdateService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiUpdate: {
+  // A method to update multiple indexed vectors in a single request.
+multiUpdate: {
     path: '/vald.v1.Update/MultiUpdate',
     requestStream: false,
     responseStream: false,

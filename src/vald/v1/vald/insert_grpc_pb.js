@@ -78,8 +78,10 @@ function deserialize_payload_v1_Object_StreamLocation(buffer_arg) {
 }
 
 
+// Insert service provides ways to add new vectors.
 var InsertService = exports.InsertService = {
-  insert: {
+  // A method to add a new single vector.
+insert: {
     path: '/vald.v1.Insert/Insert',
     requestStream: false,
     responseStream: false,
@@ -90,7 +92,8 @@ var InsertService = exports.InsertService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamInsert: {
+  // A method to add new multiple vectors by bidirectional streaming.
+streamInsert: {
     path: '/vald.v1.Insert/StreamInsert',
     requestStream: true,
     responseStream: true,
@@ -101,7 +104,8 @@ var InsertService = exports.InsertService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiInsert: {
+  // A method to add new multiple vectors in a single request.
+multiInsert: {
     path: '/vald.v1.Insert/MultiInsert',
     requestStream: false,
     responseStream: false,

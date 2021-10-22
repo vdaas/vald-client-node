@@ -177,8 +177,10 @@ function deserialize_payload_v1_Upsert_ObjectRequest(buffer_arg) {
 }
 
 
+// Filter service provides ways to connect to Vald through filter.
 var FilterService = exports.FilterService = {
-  searchObject: {
+  // A method to search object.
+searchObject: {
     path: '/vald.v1.Filter/SearchObject',
     requestStream: false,
     responseStream: false,
@@ -189,7 +191,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Search_Response,
     responseDeserialize: deserialize_payload_v1_Search_Response,
   },
-  multiSearchObject: {
+  // A method to search multiple objects.
+multiSearchObject: {
     path: '/vald.v1.Filter/MultiSearchObject',
     requestStream: false,
     responseStream: false,
@@ -200,7 +203,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Search_Responses,
     responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
-  streamSearchObject: {
+  // A method to search object by bidirectional streaming.
+streamSearchObject: {
     path: '/vald.v1.Filter/StreamSearchObject',
     requestStream: true,
     responseStream: true,
@@ -211,7 +215,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Search_StreamResponse,
     responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
-  insertObject: {
+  // A method insert object.
+insertObject: {
     path: '/vald.v1.Filter/InsertObject',
     requestStream: false,
     responseStream: false,
@@ -222,7 +227,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamInsertObject: {
+  // Represent the streaming RPC to insert object by bidirectional streaming.
+streamInsertObject: {
     path: '/vald.v1.Filter/StreamInsertObject',
     requestStream: true,
     responseStream: true,
@@ -233,7 +239,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiInsertObject: {
+  // A method to insert multiple objects.
+multiInsertObject: {
     path: '/vald.v1.Filter/MultiInsertObject',
     requestStream: false,
     responseStream: false,
@@ -244,7 +251,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_Locations,
     responseDeserialize: deserialize_payload_v1_Object_Locations,
   },
-  updateObject: {
+  // A method to update object.
+updateObject: {
     path: '/vald.v1.Filter/UpdateObject',
     requestStream: false,
     responseStream: false,
@@ -255,7 +263,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamUpdateObject: {
+  // A method to update object by bidirectional streaming.
+streamUpdateObject: {
     path: '/vald.v1.Filter/StreamUpdateObject',
     requestStream: true,
     responseStream: true,
@@ -266,7 +275,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiUpdateObject: {
+  // A method to update multiple objects.
+multiUpdateObject: {
     path: '/vald.v1.Filter/MultiUpdateObject',
     requestStream: false,
     responseStream: false,
@@ -277,7 +287,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_Locations,
     responseDeserialize: deserialize_payload_v1_Object_Locations,
   },
-  upsertObject: {
+  // A method to upsert object.
+upsertObject: {
     path: '/vald.v1.Filter/UpsertObject',
     requestStream: false,
     responseStream: false,
@@ -288,7 +299,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamUpsertObject: {
+  // A method to upsert object by bidirectional streaming.
+streamUpsertObject: {
     path: '/vald.v1.Filter/StreamUpsertObject',
     requestStream: true,
     responseStream: true,
@@ -299,7 +311,8 @@ var FilterService = exports.FilterService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiUpsertObject: {
+  // A method to upsert multiple objects.
+multiUpsertObject: {
     path: '/vald.v1.Filter/MultiUpsertObject',
     requestStream: false,
     responseStream: false,

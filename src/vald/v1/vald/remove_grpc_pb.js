@@ -78,8 +78,10 @@ function deserialize_payload_v1_Remove_Request(buffer_arg) {
 }
 
 
+// Remove service provides ways to remove indexed vectors.
 var RemoveService = exports.RemoveService = {
-  remove: {
+  // A method to remove an indexed vector.
+remove: {
     path: '/vald.v1.Remove/Remove',
     requestStream: false,
     responseStream: false,
@@ -90,7 +92,8 @@ var RemoveService = exports.RemoveService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamRemove: {
+  // A method to remove multiple indexed vectors by bidirectional streaming.
+streamRemove: {
     path: '/vald.v1.Remove/StreamRemove',
     requestStream: true,
     responseStream: true,
@@ -101,7 +104,8 @@ var RemoveService = exports.RemoveService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiRemove: {
+  // A method to remove multiple indexed vectors in a single request.
+multiRemove: {
     path: '/vald.v1.Remove/MultiRemove',
     requestStream: false,
     responseStream: false,

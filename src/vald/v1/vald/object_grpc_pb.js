@@ -67,8 +67,10 @@ function deserialize_payload_v1_Object_VectorRequest(buffer_arg) {
 }
 
 
+// Object service provides ways to fetch indexed vectors.
 var ObjectService = exports.ObjectService = {
-  exists: {
+  // A method to check whether a specified ID is indexed or not.
+exists: {
     path: '/vald.v1.Object/Exists',
     requestStream: false,
     responseStream: false,
@@ -79,7 +81,8 @@ var ObjectService = exports.ObjectService = {
     responseSerialize: serialize_payload_v1_Object_ID,
     responseDeserialize: deserialize_payload_v1_Object_ID,
   },
-  getObject: {
+  // A method to fetch a vector.
+getObject: {
     path: '/vald.v1.Object/GetObject',
     requestStream: false,
     responseStream: false,
@@ -90,7 +93,8 @@ var ObjectService = exports.ObjectService = {
     responseSerialize: serialize_payload_v1_Object_Vector,
     responseDeserialize: deserialize_payload_v1_Object_Vector,
   },
-  streamGetObject: {
+  // A method to fetch vectors by bidirectional streaming.
+streamGetObject: {
     path: '/vald.v1.Object/StreamGetObject',
     requestStream: true,
     responseStream: true,

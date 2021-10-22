@@ -56,8 +56,10 @@ function deserialize_payload_v1_Info_Index_Count(buffer_arg) {
 }
 
 
+// Represent the agent service.
 var AgentService = exports.AgentService = {
-  createIndex: {
+  // Represent the create index RPC.
+createIndex: {
     path: '/core.v1.Agent/CreateIndex',
     requestStream: false,
     responseStream: false,
@@ -68,7 +70,8 @@ var AgentService = exports.AgentService = {
     responseSerialize: serialize_payload_v1_Empty,
     responseDeserialize: deserialize_payload_v1_Empty,
   },
-  saveIndex: {
+  // Represent the save index RPC.
+saveIndex: {
     path: '/core.v1.Agent/SaveIndex',
     requestStream: false,
     responseStream: false,
@@ -79,7 +82,8 @@ var AgentService = exports.AgentService = {
     responseSerialize: serialize_payload_v1_Empty,
     responseDeserialize: deserialize_payload_v1_Empty,
   },
-  createAndSaveIndex: {
+  // Represent the create and save index RPC.
+createAndSaveIndex: {
     path: '/core.v1.Agent/CreateAndSaveIndex',
     requestStream: false,
     responseStream: false,
@@ -90,7 +94,8 @@ var AgentService = exports.AgentService = {
     responseSerialize: serialize_payload_v1_Empty,
     responseDeserialize: deserialize_payload_v1_Empty,
   },
-  indexInfo: {
+  // Represent the RPC to get the agent index information.
+indexInfo: {
     path: '/core.v1.Agent/IndexInfo',
     requestStream: false,
     responseStream: false,

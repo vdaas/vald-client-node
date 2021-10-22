@@ -100,8 +100,10 @@ function deserialize_payload_v1_Search_StreamResponse(buffer_arg) {
 }
 
 
+// Search service provides ways to search indexed vectors.
 var SearchService = exports.SearchService = {
-  search: {
+  // A method to search indexed vectors by a raw vector.
+search: {
     path: '/vald.v1.Search/Search',
     requestStream: false,
     responseStream: false,
@@ -112,7 +114,8 @@ var SearchService = exports.SearchService = {
     responseSerialize: serialize_payload_v1_Search_Response,
     responseDeserialize: deserialize_payload_v1_Search_Response,
   },
-  searchByID: {
+  // A method to search indexed vectors by ID.
+searchByID: {
     path: '/vald.v1.Search/SearchByID',
     requestStream: false,
     responseStream: false,
@@ -123,7 +126,8 @@ var SearchService = exports.SearchService = {
     responseSerialize: serialize_payload_v1_Search_Response,
     responseDeserialize: deserialize_payload_v1_Search_Response,
   },
-  streamSearch: {
+  // A method to search indexed vectors by multiple vectors.
+streamSearch: {
     path: '/vald.v1.Search/StreamSearch',
     requestStream: true,
     responseStream: true,
@@ -134,7 +138,8 @@ var SearchService = exports.SearchService = {
     responseSerialize: serialize_payload_v1_Search_StreamResponse,
     responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
-  streamSearchByID: {
+  // A method to search indexed vectors by multiple IDs.
+streamSearchByID: {
     path: '/vald.v1.Search/StreamSearchByID',
     requestStream: true,
     responseStream: true,
@@ -145,7 +150,8 @@ var SearchService = exports.SearchService = {
     responseSerialize: serialize_payload_v1_Search_StreamResponse,
     responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
-  multiSearch: {
+  // A method to search indexed vectors by multiple vectors in a single request.
+multiSearch: {
     path: '/vald.v1.Search/MultiSearch',
     requestStream: false,
     responseStream: false,
@@ -156,7 +162,8 @@ var SearchService = exports.SearchService = {
     responseSerialize: serialize_payload_v1_Search_Responses,
     responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
-  multiSearchByID: {
+  // A method to search indexed vectors by multiple IDs in a single request.
+multiSearchByID: {
     path: '/vald.v1.Search/MultiSearchByID',
     requestStream: false,
     responseStream: false,

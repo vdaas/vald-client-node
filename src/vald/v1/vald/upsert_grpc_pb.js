@@ -78,8 +78,10 @@ function deserialize_payload_v1_Upsert_Request(buffer_arg) {
 }
 
 
+// Upsert service provides ways to insert/update vectors.
 var UpsertService = exports.UpsertService = {
-  upsert: {
+  // A method to insert/update a vector.
+upsert: {
     path: '/vald.v1.Upsert/Upsert',
     requestStream: false,
     responseStream: false,
@@ -90,7 +92,8 @@ var UpsertService = exports.UpsertService = {
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
   },
-  streamUpsert: {
+  // A method to insert/update multiple vectors by bidirectional streaming.
+streamUpsert: {
     path: '/vald.v1.Upsert/StreamUpsert',
     requestStream: true,
     responseStream: true,
@@ -101,7 +104,8 @@ var UpsertService = exports.UpsertService = {
     responseSerialize: serialize_payload_v1_Object_StreamLocation,
     responseDeserialize: deserialize_payload_v1_Object_StreamLocation,
   },
-  multiUpsert: {
+  // A method to insert/update multiple vectors in a single request.
+multiUpsert: {
     path: '/vald.v1.Upsert/MultiUpsert',
     requestStream: false,
     responseStream: false,

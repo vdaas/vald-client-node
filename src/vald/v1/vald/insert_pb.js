@@ -13,7 +13,7 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = Function('return this')();
+var global = (function() { return this || window || global || self || Function('return this')(); }).call(null);
 
 var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
 goog.object.extend(proto, vald_v1_payload_payload_pb);
