@@ -2,7 +2,7 @@
 
 // Original file comments:
 //
-// Copyright (C) 2019-2021 vdaas.org vald team <vald@vdaas.org>
+// Copyright (C) 2019-2022 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -165,6 +165,78 @@ multiSearch: {
   // A method to search indexed vectors by multiple IDs in a single request.
 multiSearchByID: {
     path: '/vald.v1.Search/MultiSearchByID',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Search.MultiIDRequest,
+    responseType: vald_v1_payload_payload_pb.Search.Responses,
+    requestSerialize: serialize_payload_v1_Search_MultiIDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_MultiIDRequest,
+    responseSerialize: serialize_payload_v1_Search_Responses,
+    responseDeserialize: deserialize_payload_v1_Search_Responses,
+  },
+  // A method to linear search indexed vectors by a raw vector.
+linearSearch: {
+    path: '/vald.v1.Search/LinearSearch',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Search.Request,
+    responseType: vald_v1_payload_payload_pb.Search.Response,
+    requestSerialize: serialize_payload_v1_Search_Request,
+    requestDeserialize: deserialize_payload_v1_Search_Request,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
+  },
+  // A method to linear search indexed vectors by ID.
+linearSearchByID: {
+    path: '/vald.v1.Search/LinearSearchByID',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Search.IDRequest,
+    responseType: vald_v1_payload_payload_pb.Search.Response,
+    requestSerialize: serialize_payload_v1_Search_IDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_IDRequest,
+    responseSerialize: serialize_payload_v1_Search_Response,
+    responseDeserialize: deserialize_payload_v1_Search_Response,
+  },
+  // A method to linear search indexed vectors by multiple vectors.
+streamLinearSearch: {
+    path: '/vald.v1.Search/StreamLinearSearch',
+    requestStream: true,
+    responseStream: true,
+    requestType: vald_v1_payload_payload_pb.Search.Request,
+    responseType: vald_v1_payload_payload_pb.Search.StreamResponse,
+    requestSerialize: serialize_payload_v1_Search_Request,
+    requestDeserialize: deserialize_payload_v1_Search_Request,
+    responseSerialize: serialize_payload_v1_Search_StreamResponse,
+    responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
+  },
+  // A method to linear search indexed vectors by multiple IDs.
+streamLinearSearchByID: {
+    path: '/vald.v1.Search/StreamLinearSearchByID',
+    requestStream: true,
+    responseStream: true,
+    requestType: vald_v1_payload_payload_pb.Search.IDRequest,
+    responseType: vald_v1_payload_payload_pb.Search.StreamResponse,
+    requestSerialize: serialize_payload_v1_Search_IDRequest,
+    requestDeserialize: deserialize_payload_v1_Search_IDRequest,
+    responseSerialize: serialize_payload_v1_Search_StreamResponse,
+    responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
+  },
+  // A method to linear search indexed vectors by multiple vectors in a single request.
+multiLinearSearch: {
+    path: '/vald.v1.Search/MultiLinearSearch',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Search.MultiRequest,
+    responseType: vald_v1_payload_payload_pb.Search.Responses,
+    requestSerialize: serialize_payload_v1_Search_MultiRequest,
+    requestDeserialize: deserialize_payload_v1_Search_MultiRequest,
+    responseSerialize: serialize_payload_v1_Search_Responses,
+    responseDeserialize: deserialize_payload_v1_Search_Responses,
+  },
+  // A method to linear search indexed vectors by multiple IDs in a single request.
+multiLinearSearchByID: {
+    path: '/vald.v1.Search/MultiLinearSearchByID',
     requestStream: false,
     responseStream: false,
     requestType: vald_v1_payload_payload_pb.Search.MultiIDRequest,
