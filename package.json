@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.4.1",
     "grpc-tools": "^1.11.2",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.3",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
-    "@types/google-protobuf": "^3.15.5",
-    "grpc": "^1.24.11"
+    "@grpc/grpc-js": "^1.6.2",
+    "@types/google-protobuf": "^3.15.5"
   }
 }

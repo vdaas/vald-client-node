@@ -30,6 +30,8 @@ GOPATH := $(eval GOPATH := $(shell go env GOPATH))$(GOPATH)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
 NODE_ROOT   = src
+NPM_BIN = $(shell npm bin)
+PROTOC = $(NPM_BIN)/grpc_tools_node_protoc
 
 SHADOW_ROOT = vald
 
@@ -226,13 +228,13 @@ $(NODESOURCES): \
 	$(SHADOWS)
 $(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_ROOT)/%.proto
 	@$(call green, "generating node files...")
-	protoc \
+	$(PROTOC) \
 		$(PROTO_PATHS:%=-I %) \
 		--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
 		--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 		--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-		--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
-		--grpc_out="$(PWD)/$(NODE_ROOT)" \
+		--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
+		--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
 		$<
 
 $(NODE_VALIDATE): \
@@ -242,14 +244,14 @@ $(NODE_VALIDATE): \
 	$(NODE_ROOT)
 	@$(call green, "generating node files for validate...")
 	(cd $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate; \
-		protoc \
+		$(PROTOC) \
 			$(PROTO_PATHS:%=-I %) \
 			-I $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
 			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
 			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-			--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
-			--grpc_out="$(PWD)/$(NODE_ROOT)" \
+			--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
+			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
 			validate/validate.proto)
 
 $(GOOGLEAPI_PROTOS): $(GOPATH)/src/github.com/googleapis/googleapis
@@ -261,14 +263,14 @@ $(NODE_GOOGLEAPIS): \
 $(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/googleapis/googleapis/google/%.proto
 	@$(call green, "generating node files for googleapis...")
 	(cd $(GOPATH)/src/github.com/googleapis/googleapis; \
-		protoc \
+		$(PROTOC) \
 			$(PROTO_PATHS:%=-I %) \
 			-I $(GOPATH)/src/github.com/googleapis/googleapis \
 			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
 			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-			--ts_out="service=grpc-node:$(PWD)/$(NODE_ROOT)" \
-			--grpc_out="$(PWD)/$(NODE_ROOT)" \
+			--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
+			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
 			$(patsubst $(GOPATH)/src/github.com/googleapis/googleapis/%,%,$<))
 
 $(VALD_DIR):
