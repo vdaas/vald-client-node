@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_insert_pb from "../../../vald/v1/vald/insert_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IInsertService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   insert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Insert.Request, vald_v1_payload_payload_pb.Object.Location>;

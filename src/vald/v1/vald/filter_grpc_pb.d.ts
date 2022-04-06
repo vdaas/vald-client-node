@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_filter_pb from "../../../vald/v1/vald/filter_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IFilterService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   searchObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.ObjectRequest, vald_v1_payload_payload_pb.Search.Response>;

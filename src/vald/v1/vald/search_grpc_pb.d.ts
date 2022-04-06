@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_search_pb from "../../../vald/v1/vald/search_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface ISearchService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   search: grpc.MethodDefinition<vald_v1_payload_payload_pb.Search.Request, vald_v1_payload_payload_pb.Search.Response>;

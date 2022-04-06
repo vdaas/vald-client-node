@@ -1,4 +1,4 @@
-import grpc = require('grpc');
+import grpc = require('@grpc/grpc-js');
 import {
     insert_grpc,
     search_grpc,
