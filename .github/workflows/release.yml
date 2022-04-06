@@ -14,7 +14,7 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: rinx/setup-k3d@v0.0.4
         with:
           version: latest
@@ -23,7 +23,7 @@ jobs:
       - name: check k3d
         run: |
           kubectl cluster-info
-      - uses: azure/setup-helm@v1
+      - uses: azure/setup-helm@v2.0
       - name: Helm version
         run: |
           helm version
@@ -63,7 +63,7 @@ jobs:
       - e2e
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create release
         if: startsWith( github.ref, 'refs/tags/')
         id: create_release
@@ -83,11 +83,11 @@ jobs:
     steps:
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '10'
-          registry-url: 'https://registry.npmjs.org/'
-      - uses: actions/checkout@v2
+          registry-url: 'https://registry.npmjs.org'
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - name: Build
