@@ -1,4 +1,4 @@
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const vald = require('vald-client-node');
 
 const insert = vald.v1_vald.insert_grpc;
@@ -12,7 +12,6 @@ const sclient = new search.SearchClient('localhost:8081', grpc.credentials.creat
 
 
 // insert
-
 const ivec = new payload.Object.Vector();
 ivec.setId("id_1");
 ivec.setVectorList([0.1, 0.2, 0.3, 0.4]);
@@ -35,7 +34,6 @@ iclient.insert(ireq, (err, resp) => {
 
 
 // search
-
 const scfg = new payload.Search.Config();
 scfg.setNum(10);
 scfg.setRadius(-1.0);
