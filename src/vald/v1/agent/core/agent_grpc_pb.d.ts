@@ -5,7 +5,7 @@
 
 import * as vald_v1_agent_core_agent_pb from "../../../../vald/v1/agent/core/agent_pb";
 import * as vald_v1_payload_payload_pb from "../../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IAgentService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   createIndex: grpc.MethodDefinition<vald_v1_payload_payload_pb.Control.CreateIndexRequest, vald_v1_payload_payload_pb.Empty>;

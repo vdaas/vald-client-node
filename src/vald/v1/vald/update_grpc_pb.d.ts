@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_update_pb from "../../../vald/v1/vald/update_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IUpdateService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   update: grpc.MethodDefinition<vald_v1_payload_payload_pb.Update.Request, vald_v1_payload_payload_pb.Object.Location>;

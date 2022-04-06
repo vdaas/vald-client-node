@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_upsert_pb from "../../../vald/v1/vald/upsert_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IUpsertService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   upsert: grpc.MethodDefinition<vald_v1_payload_payload_pb.Upsert.Request, vald_v1_payload_payload_pb.Object.Location>;

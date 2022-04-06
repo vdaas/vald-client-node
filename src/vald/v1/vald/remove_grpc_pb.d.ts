@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_remove_pb from "../../../vald/v1/vald/remove_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IRemoveService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   remove: grpc.MethodDefinition<vald_v1_payload_payload_pb.Remove.Request, vald_v1_payload_payload_pb.Object.Location>;

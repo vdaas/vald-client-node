@@ -5,7 +5,7 @@
 
 import * as vald_v1_vald_object_pb from "../../../vald/v1/vald/object_pb";
 import * as vald_v1_payload_payload_pb from "../../../vald/v1/payload/payload_pb";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 
 interface IObjectService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   exists: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.ID>;
