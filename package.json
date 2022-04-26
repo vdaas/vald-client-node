@@ -1,6 +1,6 @@
 {
   "name": "vald-client-node",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A gRPC client library for Vald",
   "main": "index.js",
   "types": "index.d.ts",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
-    "@grpc/grpc-js": "^1.6.2",
+    "@grpc/grpc-js": "^1.6.7",
     "@types/google-protobuf": "^3.15.5"
   }
 }
