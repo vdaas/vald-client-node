@@ -15,9 +15,9 @@ jobs:
         with:
           node-version: "16"
           registry-url: "https://registry.npmjs.org"
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          persist-credentials: false
       - run: |
           git checkout master
       - name: Build
