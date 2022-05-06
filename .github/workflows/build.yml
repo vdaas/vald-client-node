@@ -1,6 +1,8 @@
 name: build protobuf
 on:
-  repository_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -11,8 +13,8 @@ jobs:
         uses: arduino/setup-protoc@v1
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "16"
+          registry-url: "https://registry.npmjs.org"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1
@@ -32,8 +34,8 @@ jobs:
       - name: commit and push
         run: |
           sha=`make vald/sha/print`
-          git config --global user.name 'VDaaS org'
-          git config --global user.email 'ci@vdaas.org'
+          git config --global user.name 'vankichi'
+          git config --global user.email 'kyukawa315@gmail.com'
           git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git add .
           git commit -m "Update [vald sha: ${sha}]"
