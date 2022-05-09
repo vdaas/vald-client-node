@@ -15,7 +15,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          persist-credentials: false
       - run: |
           git checkout master
       - name: Build
@@ -45,5 +45,9 @@ jobs:
         continue-on-error: true
         run: |
           version=`make vald/client/node/version/print`
+          git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git tag ${version}
           git push --tags
+        env:
+          GITHUB_USER: ${{ secrets.CI_USER }}
+          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
