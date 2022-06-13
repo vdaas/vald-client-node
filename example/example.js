@@ -32,6 +32,15 @@ iclient.insert(ireq, (err, resp) => {
     }
 });
 
+// Wait for createIndex completed
+const delay = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+const waitMs = 60000
+console.log('wait for createIndex: ', waitMs, 'ms')
+delay(waitMs)
 
 // search
 const scfg = new payload.Search.Config();

@@ -1,4 +1,4 @@
-import grpc = require('grpc');
+import grpc = require('@grpc/grpc-js');
 import { v1_vald, v1_payload } from 'vald-client-node';
 
 // create clients
@@ -26,6 +26,16 @@ iclient.insert(ireq, (err, resp) => {
         console.log('resp: ', resp);
     }
 });
+
+// Waif for createIndex completed
+const delay = (ms: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+const waitMs = 60000
+console.log('wait for createIndex: ', waitMs, 'ms')
+delay(waitMs)
 
 // search
 
