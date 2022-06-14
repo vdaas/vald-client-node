@@ -2,7 +2,7 @@
   "name": "example-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "example.js",
+  "main": "example.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
