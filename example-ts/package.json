@@ -2,7 +2,7 @@
   "name": "example-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "example.js",
+  "main": "example.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@grpc/grpc-js": "^1.6.7",
-    "vald-client-node": "file:.."
+    "vald-client-node": "^1.5.4"
   }
 }
