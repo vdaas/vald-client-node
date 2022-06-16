@@ -57,6 +57,19 @@ jobs:
           npm run test
 
           kill $pid
+      - name: packing
+        run: |
+          npm install
+          npm pack
+      - name: run example codes (js)
+        run: |
+          version=`make vald/client/node/version/print`
+          cd example && npm install ../vald-client-node-${version}.tgz -s -f && node run example.js
+      - name: run example codes (ts)
+        run: |
+          version=`make vald/client/node/version/print`
+          npm install -g ts-node
+          cd example && npm install ../vald-client-node-${version}.tgz -s -f && ts-node run example.ts
   release:
     if: startsWith( github.ref, 'refs/tags/')
     needs:

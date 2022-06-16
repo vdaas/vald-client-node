@@ -11,6 +11,10 @@ const sclient = new v1_vald.search_grpc.SearchClient(
   "localhost:8081",
   grpc.credentials.createInsecure()
 );
+const rclient = new v1_vald.remove_grpc.RemoveClient(
+  "localhost:8081",
+  grpc.credentials.createInsecure()
+)
 
 const sleep = async (second: number) => new Promise((resolve) => {
   console.log('Wait for ', second, 's');
@@ -81,6 +85,34 @@ const main = async () => {
     console.log('err: ', e);
     return
   });
-};
+
+  // remove
+  const rcfg = new v1_payload.payload.Remove.Config();
+  rcfg.setSkipStrictExistCheck(false)
+
+  const rreq = new v1_payload.payload.Remove.Request();
+  const obj = new v1_payload.payload.Object.ID();
+  obj.setId("id_1");
+  rreq.setId(obj);
+  rreq.setConfig(rcfg);
+
+  const removeFunc = (req: any) => {
+    return new Promise((resolve, reject) => {
+      rclient.remove(req, (err, resp) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resp);
+        }
+      });
+    });
+  };
+  removeFunc(rreq).then((res: any) => {
+    console.log('res: ', res, '\n');
+  }).catch((e) => {
+    console.log('err: ', e);
+    return
+  });
+}
 
 main();

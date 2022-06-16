@@ -3,12 +3,14 @@ const vald = require('vald-client-node');
 
 const insert = vald.v1_vald.insert_grpc;
 const search = vald.v1_vald.search_grpc;
+const remove = vald.v1_vald.remove_grpc;
 
 const payload = vald.v1_payload.payload;
 
 // create clients
 const iclient = new insert.InsertClient('localhost:8081', grpc.credentials.createInsecure());
 const sclient = new search.SearchClient('localhost:8081', grpc.credentials.createInsecure());
+const rclient = new remove.RemoveClient('localhost:8081', grpc.credentials.createInsecure());
 
 
 const sleep = (second) => new Promise((resolve) => {
@@ -74,6 +76,30 @@ const main = async () => {
     });
   };
   searchFunc(sreq).then((res) => {
+    console.log('res: ', res, '\n');
+  }).catch((e) => {
+    console.log('err: ', e);
+    return
+  });
+
+  const rcfg = new payload.Remove.Config();
+  rcfg.setSkipStrictExistCheck(false);
+  const rreq = new payload.Remove.Request();
+  rreq.setId("id_1");
+  rreq.setConfig(rcfg);
+
+  const removeFunc = (req) => {
+    return new Promise(req, (resolve, reject) => {
+      rclient.remove(req, (err, resp) => {
+        if (err != null) {
+          reject(err);
+        } else {
+          resolve(resp);
+        }
+      });
+    });
+  };
+  removeFunc(rreq).then((res) => {
     console.log('res: ', res, '\n');
   }).catch((e) => {
     console.log('err: ', e);
