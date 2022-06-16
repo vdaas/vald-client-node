@@ -11,44 +11,74 @@ const iclient = new insert.InsertClient('localhost:8081', grpc.credentials.creat
 const sclient = new search.SearchClient('localhost:8081', grpc.credentials.createInsecure());
 
 
-// insert
-const ivec = new payload.Object.Vector();
-ivec.setId("id_1");
-ivec.setVectorList([0.1, 0.2, 0.3, 0.4]);
-
-const icfg = new payload.Insert.Config();
-icfg.setSkipStrictExistCheck(false);
-
-const ireq = new payload.Insert.Request();
-ireq.setVector(ivec);
-ireq.setConfig(icfg);
-
-iclient.insert(ireq, (err, resp) => {
-    if (err != null) {
-        console.log('error: ', err);
-    } else {
-        // resp is Object.Location
-        console.log('resp: ', resp);
-    }
+const sleep = (second) => new Promise((resolve) => {
+  console.log('Wait for ', second, 's');
+  setTimeout(resolve, second * 1000);
 });
 
+const main = async () => {
+  // insert
+  const ivec = new payload.Object.Vector();
+  ivec.setId("id_1");
+  ivec.setVectorList([0.1, 0.2, 0.3, 0.4]);
 
-// search
-const scfg = new payload.Search.Config();
-scfg.setNum(10);
-scfg.setRadius(-1.0);
-scfg.setEpsilon(0.01);
-scfg.setTimeout(3000000000);
+  const icfg = new payload.Insert.Config();
+  icfg.setSkipStrictExistCheck(false);
 
-const sreq = new payload.Search.Request();
-sreq.setVectorList([0.1, 0.2, 0.3, 0.4]);
-sreq.setConfig(scfg);
+  const ireq = new payload.Insert.Request();
+  ireq.setVector(ivec);
+  ireq.setConfig(icfg);
 
-sclient.search(sreq, (err, resp) => {
-    if (err != null) {
-        console.log('error: ', err);
-    } else {
-        // resp is Search.Response
-        console.log('resp: ', resp);
-    }
-});
+  const insertFunc = (req) => {
+    return new Promise((resolve, reject) => {
+      iclient.insert(req, (err, resp) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resp);
+        }
+      });
+    });
+  };
+  insertFunc(ireq).then((res) => {
+    console.log('res: ', res);
+  }).catch((e) => {
+    console.log('err: ', e);
+    return
+  });
+
+  // Wait for createIndex completed
+  const second = 100;
+  await sleep(second);
+
+  // search
+  const scfg = new payload.Search.Config();
+  scfg.setNum(10);
+  scfg.setRadius(-1.0);
+  scfg.setEpsilon(0.01);
+  scfg.setTimeout(3000000000);
+
+  const sreq = new payload.Search.Request();
+  sreq.setVectorList([0.1, 0.2, 0.3, 0.4]);
+  sreq.setConfig(scfg);
+
+  const searchFunc = (req) => {
+    return new Promise((resolve, reject) => {
+      sclient.search(req, (err, resp) => {
+        if (err != null) {
+          reject(err);
+        } else {
+          resolve(resp);
+        }
+      });
+    });
+  };
+  searchFunc(sreq).then((res) => {
+    console.log('res: ', res, '\n');
+  }).catch((e) => {
+    console.log('err: ', e);
+    return
+  });
+}
+
+main()

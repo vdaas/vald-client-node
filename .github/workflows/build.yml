@@ -47,5 +47,9 @@ jobs:
         continue-on-error: true
         run: |
           version=`make vald/client/node/version/print`
+          git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git tag ${version}
           git push --tags
+        env:
+          GITHUB_USER: ${{ secrets.CI_USER }}
+          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
