@@ -296,7 +296,7 @@ vald/client/node/version/print:
 vald/client/node/version/update: vald
 	(vald_version=`cat $(VALD_DIR)/versions/VALD_VERSION | sed -e 's/^v//'`; \
 	    echo "VALD_VERSION: $${vald_version}"; \
-	    echo "$${vald_version}-2" > VALD_CLIENT_NODE_VERSION)
+	    echo "$${vald_version}" > VALD_CLIENT_NODE_VERSION)
 	sed -i -e "s/\"version\": \".*\",\$$/\"version\": \"`cat VALD_CLIENT_NODE_VERSION`\",/" package.json
 
 .PHONY: npm/deps
