@@ -57,24 +57,33 @@ jobs:
           npm run test
 
           kill $pid
-  release:
-    if: startsWith( github.ref, 'refs/tags/')
-    needs:
-      - e2e
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Create release
-        if: startsWith( github.ref, 'refs/tags/')
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+      - name: packing for running exmaple code
+        run: |
+          npm install
+          npm pack
+      - name: verify example codes (js)
+        run: |
+          version=`make vald/client/node/version/print`
+
+          cd example && npm install ../vald-client-node-${version}.tgz -s -f
+          kubectl port-forward statefulset/vald-agent-ngt 8081:8081 &
+          pid=$!
+          DIM=300 node example.js
+
+          kill $pid
+      - name: verify example codes (ts)
+        run: |
+          kubectl port-forward statefulset/vald-agent-ngt 8081:8081 &
+          pid=$!
+
+          version=`make vald/client/node/version/print`
+          npm install -g ts-node
+
+          cd example-ts
+          npm install ../vald-client-node-${version}.tgz -s -f
+          DIM=300 ts-node example.ts
+
+          kill $pid
   publish:
     if: startsWith( github.ref, 'refs/tags/')
     needs:
@@ -104,3 +113,21 @@ jobs:
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  release:
+    if: startsWith( github.ref, 'refs/tags/')
+    needs:
+      - e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create release
+        if: startsWith( github.ref, 'refs/tags/')
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false

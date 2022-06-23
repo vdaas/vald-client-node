@@ -11,6 +11,15 @@ const sclient = new v1_vald.search_grpc.SearchClient(
   "localhost:8081",
   grpc.credentials.createInsecure()
 );
+const rclient = new v1_vald.remove_grpc.RemoveClient(
+  "localhost:8081",
+  grpc.credentials.createInsecure()
+)
+
+const DIM = process.env.DIM || 4;
+const ID = "id_1"
+
+// sleep
 
 const sleep = async (second: number) => new Promise((resolve) => {
   console.log('Wait for ', second, 's');
@@ -18,11 +27,16 @@ const sleep = async (second: number) => new Promise((resolve) => {
 });
 
 const main = async () => {
+  const vec = [];
+  for (let i = 0; i < DIM; i++) {
+    vec.push(0.1 * (i + 1));
+  }
+
   // insert
 
   const ivec = new v1_payload.payload.Object.Vector();
-  ivec.setId("id_1");
-  ivec.setVectorList([0.1, 0.2, 0.3, 0.4]);
+  ivec.setId(ID);
+  ivec.setVectorList(vec);
 
   const icfg = new v1_payload.payload.Insert.Config();
   icfg.setSkipStrictExistCheck(false);
@@ -47,7 +61,7 @@ const main = async () => {
     console.log("resp: ", res);
   }).catch((e) => {
     console.log("err: ", e);
-    return
+    return -1
   });
 
   const second = 100
@@ -56,12 +70,13 @@ const main = async () => {
   // search
   const scfg = new v1_payload.payload.Search.Config();
   scfg.setNum(10);
+  scfg.setMinNum(1);
   scfg.setRadius(-1.0);
   scfg.setEpsilon(0.01);
   scfg.setTimeout(3000000000);
 
   const sreq = new v1_payload.payload.Search.Request();
-  sreq.setVectorList([0.1, 0.2, 0.3, 0.4]);
+  sreq.setVectorList(vec);
   sreq.setConfig(scfg);
 
   const searchFunc = (req: any) => {
@@ -79,8 +94,36 @@ const main = async () => {
     console.log('res: ', res, '\n');
   }).catch((e) => {
     console.log('err: ', e);
-    return
+    return -1
   });
-};
+
+  // remove
+  const rcfg = new v1_payload.payload.Remove.Config();
+  rcfg.setSkipStrictExistCheck(false)
+
+  const rreq = new v1_payload.payload.Remove.Request();
+  const robj = new v1_payload.payload.Object.ID();
+  robj.setId(ID);
+  rreq.setId(robj);
+  rreq.setConfig(rcfg);
+
+  const removeFunc = (req: any) => {
+    return new Promise((resolve, reject) => {
+      rclient.remove(req, (err, resp) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resp);
+        }
+      });
+    });
+  };
+  removeFunc(rreq).then((res: any) => {
+    console.log('res: ', res, '\n');
+  }).catch((e) => {
+    console.log('err: ', e);
+    return -1
+  });
+}
 
 main();
