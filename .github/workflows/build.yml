@@ -17,7 +17,7 @@ jobs:
         with:
           persist-credentials: false
       - run: |
-          git checkout master
+          git checkout main
       - name: Build
         run: |
           make npm/deps
