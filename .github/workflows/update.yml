@@ -71,13 +71,11 @@ jobs:
         run: |
           git config --global user.name "VDaaS org"
           git config --global user.email "ci@vdaas.org"
-          git remote set-url origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
 
           git checkout main
           git add example/ example-ts/
           git commit --signoff -m ":arrow_up: update client version ${VERSION}"
-
-          git remote set-url origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           git push origin main
         env:
