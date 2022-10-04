@@ -1,6 +1,6 @@
 {
   "name": "vald-client-node",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "A gRPC client library for Vald",
   "main": "index.js",
   "types": "index.d.ts",
