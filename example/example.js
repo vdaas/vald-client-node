@@ -4,25 +4,11 @@ const vald = require("vald-client-node");
 const insert = vald.v1_vald.insert_grpc;
 const search = vald.v1_vald.search_grpc;
 const remove = vald.v1_vald.remove_grpc;
-
 const payload = vald.v1_payload.payload;
 
-// create clients
-const iclient = new insert.InsertClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-);
-const sclient = new search.SearchClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-);
-const rclient = new remove.RemoveClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-);
-
+const addr = "localhost:8081";
 const DIM = process.env.DIM || 4;
-const ID = "id_1"
+const ID = "id_1";
 
 // sleep
 const sleep = (second) =>
@@ -48,6 +34,11 @@ const main = async () => {
   const ireq = new payload.Insert.Request();
   ireq.setVector(ivec);
   ireq.setConfig(icfg);
+
+  const iclient = new insert.InsertClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
 
   const insertFunc = (req) => {
     return new Promise((resolve, reject) => {
@@ -86,6 +77,11 @@ const main = async () => {
   sreq.setVectorList(vec);
   sreq.setConfig(scfg);
 
+  const sclient = new search.SearchClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
+
   const searchFunc = (req) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
@@ -109,12 +105,16 @@ const main = async () => {
 
   const rcfg = new payload.Remove.Config();
   rcfg.setSkipStrictExistCheck(false);
-  const robj = new payload.Object.ID();
-  robj.setId(ID)
+  const robjId = new payload.Object.ID();
+  robjId.setId(ID);
   const rreq = new payload.Remove.Request();
-  rreq.setId(robj.ID);
+  rreq.setId(robjId);
   rreq.setConfig(rcfg);
 
+  const rclient = new remove.RemoveClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
   const removeFunc = (req) => {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {

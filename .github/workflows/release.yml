@@ -57,7 +57,7 @@ jobs:
           npm run test
 
           kill $pid
-      - name: packing for running exmaple code
+      - name: packing for running example code
         run: |
           npm install
           npm pack
