@@ -28,7 +28,7 @@ jobs:
             exit 0
           fi
 
-          echo "::set-output name=PKG_VERSION::$PKG_VERSION"
+          echo "PKG_VERSION=${PKG_VERSION}" >> $GITHUB_OUTPUT
       - name: update exmple client package
         working-directory: example
         run: |
@@ -64,7 +64,7 @@ jobs:
         run: |
           diff=`git diff example example-ts`
           if [ ! -z "$diff" ] ; then \
-            echo "::set-output name=diff::true"
+            echo "diff=true" >> $GITHUB_OUTPUT
           fi
       - name: commit update
         if: steps.git_diff_preview.outputs.diff
