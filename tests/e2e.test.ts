@@ -21,7 +21,7 @@ import data = require('./wordvecs1000.json');
 const address = 'localhost:8081';
 const connectDeadlineMs = 10000;
 
-jest.setTimeout(60000);
+jest.setTimeout(120000);
 
 describe('Tests for node client', () => {
     describe('Tests for insert operations', () => {

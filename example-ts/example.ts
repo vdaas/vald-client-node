@@ -1,30 +1,17 @@
 import * as grpc from "@grpc/grpc-js";
 import { v1_vald, v1_payload } from "vald-client-node";
 
-// create clients
-
-const iclient = new v1_vald.insert_grpc.InsertClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-);
-const sclient = new v1_vald.search_grpc.SearchClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-);
-const rclient = new v1_vald.remove_grpc.RemoveClient(
-  "localhost:8081",
-  grpc.credentials.createInsecure()
-)
-
+const addr = "localhost:8081";
 const DIM = process.env.DIM || 4;
-const ID = "id_1"
+const ID = "id_1";
 
 // sleep
 
-const sleep = async (second: number) => new Promise((resolve) => {
-  console.log('Wait for ', second, 's');
-  setTimeout(resolve, second * 1000);
-});
+const sleep = async (second: number) =>
+  new Promise((resolve) => {
+    console.log("Wait for ", second, "s");
+    setTimeout(resolve, second * 1000);
+  });
 
 const main = async () => {
   const vec = [];
@@ -45,6 +32,10 @@ const main = async () => {
   ireq.setVector(ivec);
   ireq.setConfig(icfg);
 
+  const iclient = new v1_vald.insert_grpc.InsertClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
 
   const insertFunc = (req: any) => {
     return new Promise((resolve, reject) => {
@@ -57,14 +48,16 @@ const main = async () => {
       });
     });
   };
-  insertFunc(ireq).then(async (res) => {
-    console.log("resp: ", res);
-  }).catch((e) => {
-    console.log("err: ", e);
-    return -1
-  });
+  insertFunc(ireq)
+    .then(async (res) => {
+      console.log("resp: ", res);
+    })
+    .catch((e) => {
+      console.log("err: ", e);
+      return -1;
+    });
 
-  const second = 100
+  const second = 100;
   await sleep(second);
 
   // search
@@ -79,6 +72,11 @@ const main = async () => {
   sreq.setVectorList(vec);
   sreq.setConfig(scfg);
 
+  const sclient = new v1_vald.search_grpc.SearchClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
+
   const searchFunc = (req: any) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
@@ -90,22 +88,29 @@ const main = async () => {
       });
     });
   };
-  searchFunc(sreq).then((res: any) => {
-    console.log('res: ', res, '\n');
-  }).catch((e) => {
-    console.log('err: ', e);
-    return -1
-  });
+  searchFunc(sreq)
+    .then((res: any) => {
+      console.log("res: ", res, "\n");
+    })
+    .catch((e) => {
+      console.log("err: ", e);
+      return -1;
+    });
 
   // remove
   const rcfg = new v1_payload.payload.Remove.Config();
-  rcfg.setSkipStrictExistCheck(false)
+  rcfg.setSkipStrictExistCheck(false);
 
   const rreq = new v1_payload.payload.Remove.Request();
-  const robj = new v1_payload.payload.Object.ID();
-  robj.setId(ID);
-  rreq.setId(robj);
+  const robjId = new v1_payload.payload.Object.ID();
+  robjId.setId(ID);
+  rreq.setId(robjId);
   rreq.setConfig(rcfg);
+
+  const rclient = new v1_vald.remove_grpc.RemoveClient(
+    addr,
+    grpc.credentials.createInsecure()
+  );
 
   const removeFunc = (req: any) => {
     return new Promise((resolve, reject) => {
@@ -118,12 +123,14 @@ const main = async () => {
       });
     });
   };
-  removeFunc(rreq).then((res: any) => {
-    console.log('res: ', res, '\n');
-  }).catch((e) => {
-    console.log('err: ', e);
-    return -1
-  });
-}
+  removeFunc(rreq)
+    .then((res: any) => {
+      console.log("res: ", res, "\n");
+    })
+    .catch((e) => {
+      console.log("err: ", e);
+      return -1;
+    });
+};
 
 main();
