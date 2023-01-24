@@ -2,7 +2,7 @@
 
 // Original file comments:
 //
-// Copyright (C) 2019-2022 vdaas.org vald team <vald@vdaas.org>
+// Copyright (C) 2019-2023 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ function deserialize_payload_v1_Info_Index_Count(buffer_arg) {
 
 // Represent the agent service.
 var AgentService = exports.AgentService = {
-  // Represent the create index RPC.
+  // Represent the creating index RPC.
 createIndex: {
     path: '/core.v1.Agent/CreateIndex',
     requestStream: false,
@@ -70,7 +70,7 @@ createIndex: {
     responseSerialize: serialize_payload_v1_Empty,
     responseDeserialize: deserialize_payload_v1_Empty,
   },
-  // Represent the save index RPC.
+  // Represent the saving index RPC.
 saveIndex: {
     path: '/core.v1.Agent/SaveIndex',
     requestStream: false,
@@ -82,7 +82,7 @@ saveIndex: {
     responseSerialize: serialize_payload_v1_Empty,
     responseDeserialize: deserialize_payload_v1_Empty,
   },
-  // Represent the create and save index RPC.
+  // Represent the creating and saving index RPC.
 createAndSaveIndex: {
     path: '/core.v1.Agent/CreateAndSaveIndex',
     requestStream: false,
