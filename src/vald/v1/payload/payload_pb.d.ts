@@ -657,6 +657,9 @@ export namespace Update {
     getTimestamp(): number;
     setTimestamp(value: number): void;
 
+    getDisableBalancedUpdate(): boolean;
+    setDisableBalancedUpdate(value: boolean): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -672,6 +675,7 @@ export namespace Update {
       skipStrictExistCheck: boolean,
       filters?: Filter.Config.AsObject,
       timestamp: number,
+      disableBalancedUpdate: boolean,
     }
   }
 }
@@ -809,6 +813,9 @@ export namespace Upsert {
     getTimestamp(): number;
     setTimestamp(value: number): void;
 
+    getDisableBalancedUpdate(): boolean;
+    setDisableBalancedUpdate(value: boolean): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -824,6 +831,7 @@ export namespace Upsert {
       skipStrictExistCheck: boolean,
       filters?: Filter.Config.AsObject,
       timestamp: number,
+      disableBalancedUpdate: boolean,
     }
   }
 }

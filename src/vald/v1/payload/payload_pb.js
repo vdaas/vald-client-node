@@ -6153,7 +6153,8 @@ proto.payload.v1.Update.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
     skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
     filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    disableBalancedUpdate: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -6203,6 +6204,10 @@ proto.payload.v1.Update.Config.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTimestamp(value);
       break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setDisableBalancedUpdate(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6251,6 +6256,13 @@ proto.payload.v1.Update.Config.serializeBinaryToWriter = function(message, write
   if (f !== 0) {
     writer.writeInt64(
       3,
+      f
+    );
+  }
+  f = message.getDisableBalancedUpdate();
+  if (f) {
+    writer.writeBool(
+      4,
       f
     );
   }
@@ -6327,6 +6339,24 @@ proto.payload.v1.Update.Config.prototype.getTimestamp = function() {
  */
 proto.payload.v1.Update.Config.prototype.setTimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional bool disable_balanced_update = 4;
+ * @return {boolean}
+ */
+proto.payload.v1.Update.Config.prototype.getDisableBalancedUpdate = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.payload.v1.Update.Config} returns this
+ */
+proto.payload.v1.Update.Config.prototype.setDisableBalancedUpdate = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
@@ -7240,7 +7270,8 @@ proto.payload.v1.Upsert.Config.toObject = function(includeInstance, msg) {
   var f, obj = {
     skipStrictExistCheck: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
     filters: (f = msg.getFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    timestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    disableBalancedUpdate: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -7290,6 +7321,10 @@ proto.payload.v1.Upsert.Config.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTimestamp(value);
       break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setDisableBalancedUpdate(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -7338,6 +7373,13 @@ proto.payload.v1.Upsert.Config.serializeBinaryToWriter = function(message, write
   if (f !== 0) {
     writer.writeInt64(
       3,
+      f
+    );
+  }
+  f = message.getDisableBalancedUpdate();
+  if (f) {
+    writer.writeBool(
+      4,
       f
     );
   }
@@ -7414,6 +7456,24 @@ proto.payload.v1.Upsert.Config.prototype.getTimestamp = function() {
  */
 proto.payload.v1.Upsert.Config.prototype.setTimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional bool disable_balanced_update = 4;
+ * @return {boolean}
+ */
+proto.payload.v1.Upsert.Config.prototype.getDisableBalancedUpdate = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.payload.v1.Upsert.Config} returns this
+ */
+proto.payload.v1.Upsert.Config.prototype.setDisableBalancedUpdate = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
