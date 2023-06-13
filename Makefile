@@ -61,7 +61,7 @@ GOOGLEAPI_PROTOS = \
 GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/googleapis/googleapis/%)
 NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/googleapis/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
-NODE_VTPROT = $(NODE_ROOT)/planetscale/vtprotobuf/vtproto/ext_grpc_pb.js
+NODE_VTEXTJS = $(NODE_ROOT)/planetscale/vtprotobuf/vtproto/ext_grpc_pb.js
 
 PROTO_PATHS = \
 	$(PWD) \
@@ -129,7 +129,7 @@ proto: \
 	$(NODE_IDXDTS) \
 	$(NODE_VALIDATE) \
 	$(NODE_GOOGLEAPIS) \
-	$(NODE_VTPROT) \
+	$(NODE_VTEXTJS) \
 	index.js \
 	index.d.ts
 
@@ -278,7 +278,7 @@ $(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/googleapis/googleapis
 			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
 			$(patsubst $(GOPATH)/src/github.com/googleapis/googleapis/%,%,$<))
 
-$(NODE_VTPROT): $(GOPATH)/src/github.com/planetscale/vtprotobuf
+$(NODE_VTEXTJS): $(GOPATH)/src/github.com/planetscale/vtprotobuf
 	@$(call green, "generating node files for vprotos...")
 	(cd $(GOPATH)/src/github.com/planetscale/vtprotobuf; \
 		$(PROTOC) \
