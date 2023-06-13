@@ -225,10 +225,12 @@ index.d.ts: $(NODE_IDXDTS)
 $(NODESOURCES): \
 	$(GOPATH)/src/github.com/googleapis/googleapis \
 	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
+	$(GOPATH)/src/github.com/planetscale/vtprotobuf \
 	$(PROTOC_GEN_TS_PATH) \
 	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
 	$(NODE_VALIDATE) \
 	$(NODE_GOOGLEAPIS) \
+	$(NODE_VTEXTJS) \
 	$(NODE_ROOT) \
 	$(SHADOWS)
 $(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_ROOT)/%.proto
