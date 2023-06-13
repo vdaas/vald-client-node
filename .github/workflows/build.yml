@@ -20,8 +20,8 @@ jobs:
           git checkout main
       - name: Build
         run: |
+          make npm/deps
           export GOPATH=$HOME/go
-          make proto/deps
           make all
           make vald/sha/update
           make vald/client/node/version/update
