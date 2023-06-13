@@ -4,6 +4,7 @@
 import * as jspb from "google-protobuf";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
+import * as vtproto_ext_pb from "../../../vtproto/ext_pb";
 
 export class Search extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -203,6 +204,9 @@ export namespace Search {
     getMinNum(): number;
     setMinNum(value: number): void;
 
+    getAggregationAlgorithm(): Search.AggregationAlgorithmMap[keyof Search.AggregationAlgorithmMap];
+    setAggregationAlgorithm(value: Search.AggregationAlgorithmMap[keyof Search.AggregationAlgorithmMap]): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Config.AsObject;
     static toObject(includeInstance: boolean, msg: Config): Config.AsObject;
@@ -223,6 +227,7 @@ export namespace Search {
       ingressFilters?: Filter.Config.AsObject,
       egressFilters?: Filter.Config.AsObject,
       minNum: number,
+      aggregationAlgorithm: Search.AggregationAlgorithmMap[keyof Search.AggregationAlgorithmMap],
     }
   }
 
@@ -308,6 +313,16 @@ export namespace Search {
       STATUS = 2,
     }
   }
+
+  export interface AggregationAlgorithmMap {
+    UNKNOWN: 0;
+    CONCURRENTQUEUE: 1;
+    SORTSLICE: 2;
+    SORTPOOLSLICE: 3;
+    PAIRINGHEAP: 4;
+  }
+
+  export const AggregationAlgorithm: AggregationAlgorithmMap;
 }
 
 export class Filter extends jspb.Message {

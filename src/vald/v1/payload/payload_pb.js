@@ -25,6 +25,8 @@ var validate_validate_pb = require('../../../validate/validate_pb.js');
 goog.object.extend(proto, validate_validate_pb);
 var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
+var vtproto_ext_pb = require('../../../vtproto/ext_pb.js');
+goog.object.extend(proto, vtproto_ext_pb);
 goog.exportSymbol('proto.payload.v1.Control', null, global);
 goog.exportSymbol('proto.payload.v1.Control.CreateIndexRequest', null, global);
 goog.exportSymbol('proto.payload.v1.Discoverer', null, global);
@@ -76,6 +78,7 @@ goog.exportSymbol('proto.payload.v1.Remove.Config', null, global);
 goog.exportSymbol('proto.payload.v1.Remove.MultiRequest', null, global);
 goog.exportSymbol('proto.payload.v1.Remove.Request', null, global);
 goog.exportSymbol('proto.payload.v1.Search', null, global);
+goog.exportSymbol('proto.payload.v1.Search.AggregationAlgorithm', null, global);
 goog.exportSymbol('proto.payload.v1.Search.Config', null, global);
 goog.exportSymbol('proto.payload.v1.Search.IDRequest', null, global);
 goog.exportSymbol('proto.payload.v1.Search.MultiIDRequest', null, global);
@@ -1649,6 +1652,17 @@ proto.payload.v1.Search.serializeBinaryToWriter = function(message, writer) {
 };
 
 
+/**
+ * @enum {number}
+ */
+proto.payload.v1.Search.AggregationAlgorithm = {
+  UNKNOWN: 0,
+  CONCURRENTQUEUE: 1,
+  SORTSLICE: 2,
+  SORTPOOLSLICE: 3,
+  PAIRINGHEAP: 4
+};
+
 
 /**
  * List of repeated fields within this message type.
@@ -2814,7 +2828,8 @@ proto.payload.v1.Search.Config.toObject = function(includeInstance, msg) {
     timeout: jspb.Message.getFieldWithDefault(msg, 5, 0),
     ingressFilters: (f = msg.getIngressFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
     egressFilters: (f = msg.getEgressFilters()) && proto.payload.v1.Filter.Config.toObject(includeInstance, f),
-    minNum: jspb.Message.getFieldWithDefault(msg, 8, 0)
+    minNum: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    aggregationAlgorithm: jspb.Message.getFieldWithDefault(msg, 9, 0)
   };
 
   if (includeInstance) {
@@ -2884,6 +2899,10 @@ proto.payload.v1.Search.Config.deserializeBinaryFromReader = function(msg, reade
     case 8:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setMinNum(value);
+      break;
+    case 9:
+      var value = /** @type {!proto.payload.v1.Search.AggregationAlgorithm} */ (reader.readEnum());
+      msg.setAggregationAlgorithm(value);
       break;
     default:
       reader.skipField();
@@ -2969,6 +2988,13 @@ proto.payload.v1.Search.Config.serializeBinaryToWriter = function(message, write
   if (f !== 0) {
     writer.writeUint32(
       8,
+      f
+    );
+  }
+  f = message.getAggregationAlgorithm();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      9,
       f
     );
   }
@@ -3154,6 +3180,24 @@ proto.payload.v1.Search.Config.prototype.getMinNum = function() {
  */
 proto.payload.v1.Search.Config.prototype.setMinNum = function(value) {
   return jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+/**
+ * optional AggregationAlgorithm aggregation_algorithm = 9;
+ * @return {!proto.payload.v1.Search.AggregationAlgorithm}
+ */
+proto.payload.v1.Search.Config.prototype.getAggregationAlgorithm = function() {
+  return /** @type {!proto.payload.v1.Search.AggregationAlgorithm} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {!proto.payload.v1.Search.AggregationAlgorithm} value
+ * @return {!proto.payload.v1.Search.Config} returns this
+ */
+proto.payload.v1.Search.Config.prototype.setAggregationAlgorithm = function(value) {
+  return jspb.Message.setProto3EnumField(this, 9, value);
 };
 
 
