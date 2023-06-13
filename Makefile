@@ -61,7 +61,7 @@ GOOGLEAPI_PROTOS = \
 GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/googleapis/googleapis/%)
 NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/googleapis/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
 
-NODE_VTEXTJS = $(NODE_ROOT)/planetscale/vtprotobuf/vtproto/ext_grpc_pb.js
+NODE_VTEXTJS = $(NODE_ROOT)/vtproto/ext_grpc_pb.js
 
 PROTO_PATHS = \
 	$(PWD) \
