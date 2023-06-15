@@ -4,7 +4,6 @@
 import * as jspb from "google-protobuf";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
-import * as vtproto_ext_pb from "../../../vtproto/ext_pb";
 
 export class Search extends jspb.Message {
   serializeBinary(): Uint8Array;

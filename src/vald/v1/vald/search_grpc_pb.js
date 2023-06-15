@@ -222,7 +222,8 @@ streamLinearSearchByID: {
     responseSerialize: serialize_payload_v1_Search_StreamResponse,
     responseDeserialize: deserialize_payload_v1_Search_StreamResponse,
   },
-  // A method to linear search indexed vectors by multiple vectors in a single request.
+  // A method to linear search indexed vectors by multiple vectors in a single
+// request.
 multiLinearSearch: {
     path: '/vald.v1.Search/MultiLinearSearch',
     requestStream: false,
@@ -234,7 +235,8 @@ multiLinearSearch: {
     responseSerialize: serialize_payload_v1_Search_Responses,
     responseDeserialize: deserialize_payload_v1_Search_Responses,
   },
-  // A method to linear search indexed vectors by multiple IDs in a single request.
+  // A method to linear search indexed vectors by multiple IDs in a single
+// request.
 multiLinearSearchByID: {
     path: '/vald.v1.Search/MultiLinearSearchByID',
     requestStream: false,
