@@ -5,7 +5,7 @@
 // Copyright (C) 2019-2023 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 //    https://www.apache.org/licenses/LICENSE-2.0
@@ -77,6 +77,17 @@ function deserialize_payload_v1_Remove_Request(buffer_arg) {
   return vald_v1_payload_payload_pb.Remove.Request.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Remove_TimestampRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Remove.TimestampRequest)) {
+    throw new Error('Expected argument of type payload.v1.Remove.TimestampRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Remove_TimestampRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Remove.TimestampRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // Remove service provides ways to remove indexed vectors.
 var RemoveService = exports.RemoveService = {
@@ -91,6 +102,18 @@ remove: {
     requestDeserialize: deserialize_payload_v1_Remove_Request,
     responseSerialize: serialize_payload_v1_Object_Location,
     responseDeserialize: deserialize_payload_v1_Object_Location,
+  },
+  // A method to remove an indexed vector based on timestamp.
+removeByTimestamp: {
+    path: '/vald.v1.Remove/RemoveByTimestamp',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Remove.TimestampRequest,
+    responseType: vald_v1_payload_payload_pb.Object.Locations,
+    requestSerialize: serialize_payload_v1_Remove_TimestampRequest,
+    requestDeserialize: deserialize_payload_v1_Remove_TimestampRequest,
+    responseSerialize: serialize_payload_v1_Object_Locations,
+    responseDeserialize: deserialize_payload_v1_Object_Locations,
   },
   // A method to remove multiple indexed vectors by bidirectional streaming.
 streamRemove: {

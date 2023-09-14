@@ -11,6 +11,7 @@ interface IObjectService extends grpc.ServiceDefinition<grpc.UntypedServiceImple
   exists: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.ID, vald_v1_payload_payload_pb.Object.ID>;
   getObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.VectorRequest, vald_v1_payload_payload_pb.Object.Vector>;
   streamGetObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.VectorRequest, vald_v1_payload_payload_pb.Object.StreamVector>;
+  streamListObject: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.List.Request, vald_v1_payload_payload_pb.Object.List.Response>;
 }
 
 export const ObjectService: IObjectService;
@@ -25,4 +26,6 @@ export class ObjectClient extends grpc.Client {
   getObject(argument: vald_v1_payload_payload_pb.Object.VectorRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Vector>): grpc.ClientUnaryCall;
   streamGetObject(metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.VectorRequest, vald_v1_payload_payload_pb.Object.StreamVector>;
   streamGetObject(metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientDuplexStream<vald_v1_payload_payload_pb.Object.VectorRequest, vald_v1_payload_payload_pb.Object.StreamVector>;
+  streamListObject(argument: vald_v1_payload_payload_pb.Object.List.Request, metadataOrOptions?: grpc.Metadata | grpc.CallOptions | null): grpc.ClientReadableStream<vald_v1_payload_payload_pb.Object.List.Response>;
+  streamListObject(argument: vald_v1_payload_payload_pb.Object.List.Request, metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientReadableStream<vald_v1_payload_payload_pb.Object.List.Response>;
 }

@@ -4,6 +4,7 @@
 import * as jspb from "google-protobuf";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
+import * as vtproto_ext_pb from "../../../vtproto/ext_pb";
 
 export class Search extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -915,6 +916,63 @@ export namespace Remove {
     }
   }
 
+  export class TimestampRequest extends jspb.Message {
+    clearTimestampsList(): void;
+    getTimestampsList(): Array<Remove.Timestamp>;
+    setTimestampsList(value: Array<Remove.Timestamp>): void;
+    addTimestamps(value?: Remove.Timestamp, index?: number): Remove.Timestamp;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): TimestampRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: TimestampRequest): TimestampRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: TimestampRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): TimestampRequest;
+    static deserializeBinaryFromReader(message: TimestampRequest, reader: jspb.BinaryReader): TimestampRequest;
+  }
+
+  export namespace TimestampRequest {
+    export type AsObject = {
+      timestampsList: Array<Remove.Timestamp.AsObject>,
+    }
+  }
+
+  export class Timestamp extends jspb.Message {
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
+    getOperator(): Remove.Timestamp.OperatorMap[keyof Remove.Timestamp.OperatorMap];
+    setOperator(value: Remove.Timestamp.OperatorMap[keyof Remove.Timestamp.OperatorMap]): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Timestamp.AsObject;
+    static toObject(includeInstance: boolean, msg: Timestamp): Timestamp.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Timestamp, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Timestamp;
+    static deserializeBinaryFromReader(message: Timestamp, reader: jspb.BinaryReader): Timestamp;
+  }
+
+  export namespace Timestamp {
+    export type AsObject = {
+      timestamp: number,
+      operator: Remove.Timestamp.OperatorMap[keyof Remove.Timestamp.OperatorMap],
+    }
+
+    export interface OperatorMap {
+      EQ: 0;
+      NE: 1;
+      GE: 2;
+      GT: 3;
+      LE: 4;
+      LT: 5;
+    }
+
+    export const Operator: OperatorMap;
+  }
+
   export class Config extends jspb.Message {
     getSkipStrictExistCheck(): boolean;
     setSkipStrictExistCheck(value: boolean): void;
@@ -1093,6 +1151,9 @@ export namespace Object {
     setVectorList(value: Array<number>): void;
     addVector(value: number, index?: number): number;
 
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Vector.AsObject;
     static toObject(includeInstance: boolean, msg: Vector): Vector.AsObject;
@@ -1107,6 +1168,7 @@ export namespace Object {
     export type AsObject = {
       id: string,
       vectorList: Array<number>,
+      timestamp: number,
     }
   }
 
@@ -1340,6 +1402,73 @@ export namespace Object {
   export namespace Locations {
     export type AsObject = {
       locationsList: Array<Object.Location.AsObject>,
+    }
+  }
+
+  export class List extends jspb.Message {
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): List.AsObject;
+    static toObject(includeInstance: boolean, msg: List): List.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: List, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): List;
+    static deserializeBinaryFromReader(message: List, reader: jspb.BinaryReader): List;
+  }
+
+  export namespace List {
+    export type AsObject = {
+    }
+
+    export class Request extends jspb.Message {
+      serializeBinary(): Uint8Array;
+      toObject(includeInstance?: boolean): Request.AsObject;
+      static toObject(includeInstance: boolean, msg: Request): Request.AsObject;
+      static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+      static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+      static serializeBinaryToWriter(message: Request, writer: jspb.BinaryWriter): void;
+      static deserializeBinary(bytes: Uint8Array): Request;
+      static deserializeBinaryFromReader(message: Request, reader: jspb.BinaryReader): Request;
+    }
+
+    export namespace Request {
+      export type AsObject = {
+      }
+    }
+
+    export class Response extends jspb.Message {
+      hasVector(): boolean;
+      clearVector(): void;
+      getVector(): Object.Vector | undefined;
+      setVector(value?: Object.Vector): void;
+
+      hasStatus(): boolean;
+      clearStatus(): void;
+      getStatus(): google_rpc_status_pb.Status | undefined;
+      setStatus(value?: google_rpc_status_pb.Status): void;
+
+      getPayloadCase(): Response.PayloadCase;
+      serializeBinary(): Uint8Array;
+      toObject(includeInstance?: boolean): Response.AsObject;
+      static toObject(includeInstance: boolean, msg: Response): Response.AsObject;
+      static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+      static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+      static serializeBinaryToWriter(message: Response, writer: jspb.BinaryWriter): void;
+      static deserializeBinary(bytes: Uint8Array): Response;
+      static deserializeBinaryFromReader(message: Response, reader: jspb.BinaryReader): Response;
+    }
+
+    export namespace Response {
+      export type AsObject = {
+        vector?: Object.Vector.AsObject,
+        status?: google_rpc_status_pb.Status.AsObject,
+      }
+
+      export enum PayloadCase {
+        PAYLOAD_NOT_SET = 0,
+        VECTOR = 1,
+        STATUS = 2,
+      }
     }
   }
 }

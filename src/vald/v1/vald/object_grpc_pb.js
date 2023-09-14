@@ -5,7 +5,7 @@
 // Copyright (C) 2019-2023 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 //    https://www.apache.org/licenses/LICENSE-2.0
@@ -31,6 +31,28 @@ function serialize_payload_v1_Object_ID(arg) {
 
 function deserialize_payload_v1_Object_ID(buffer_arg) {
   return vald_v1_payload_payload_pb.Object.ID.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Object_List_Request(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.List.Request)) {
+    throw new Error('Expected argument of type payload.v1.Object.List.Request');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_List_Request(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.List.Request.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Object_List_Response(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.List.Response)) {
+    throw new Error('Expected argument of type payload.v1.Object.List.Response');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_List_Response(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.List.Response.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_payload_v1_Object_StreamVector(arg) {
@@ -104,6 +126,18 @@ streamGetObject: {
     requestDeserialize: deserialize_payload_v1_Object_VectorRequest,
     responseSerialize: serialize_payload_v1_Object_StreamVector,
     responseDeserialize: deserialize_payload_v1_Object_StreamVector,
+  },
+  // A method to get all the vectors with server streaming
+streamListObject: {
+    path: '/vald.v1.Object/StreamListObject',
+    requestStream: false,
+    responseStream: true,
+    requestType: vald_v1_payload_payload_pb.Object.List.Request,
+    responseType: vald_v1_payload_payload_pb.Object.List.Response,
+    requestSerialize: serialize_payload_v1_Object_List_Request,
+    requestDeserialize: deserialize_payload_v1_Object_List_Request,
+    responseSerialize: serialize_payload_v1_Object_List_Response,
+    responseDeserialize: deserialize_payload_v1_Object_List_Response,
   },
 };
 
