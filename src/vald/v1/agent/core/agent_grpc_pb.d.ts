@@ -12,6 +12,7 @@ interface IAgentService extends grpc.ServiceDefinition<grpc.UntypedServiceImplem
   saveIndex: grpc.MethodDefinition<vald_v1_payload_payload_pb.Empty, vald_v1_payload_payload_pb.Empty>;
   createAndSaveIndex: grpc.MethodDefinition<vald_v1_payload_payload_pb.Control.CreateIndexRequest, vald_v1_payload_payload_pb.Empty>;
   indexInfo: grpc.MethodDefinition<vald_v1_payload_payload_pb.Empty, vald_v1_payload_payload_pb.Info.Index.Count>;
+  getTimestamp: grpc.MethodDefinition<vald_v1_payload_payload_pb.Object.GetTimestampRequest, vald_v1_payload_payload_pb.Object.Timestamp>;
 }
 
 export const AgentService: IAgentService;
@@ -30,4 +31,7 @@ export class AgentClient extends grpc.Client {
   indexInfo(argument: vald_v1_payload_payload_pb.Empty, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Info.Index.Count>): grpc.ClientUnaryCall;
   indexInfo(argument: vald_v1_payload_payload_pb.Empty, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Info.Index.Count>): grpc.ClientUnaryCall;
   indexInfo(argument: vald_v1_payload_payload_pb.Empty, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Info.Index.Count>): grpc.ClientUnaryCall;
+  getTimestamp(argument: vald_v1_payload_payload_pb.Object.GetTimestampRequest, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Timestamp>): grpc.ClientUnaryCall;
+  getTimestamp(argument: vald_v1_payload_payload_pb.Object.GetTimestampRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Timestamp>): grpc.ClientUnaryCall;
+  getTimestamp(argument: vald_v1_payload_payload_pb.Object.GetTimestampRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<vald_v1_payload_payload_pb.Object.Timestamp>): grpc.ClientUnaryCall;
 }

@@ -4,7 +4,6 @@
 import * as jspb from "google-protobuf";
 import * as validate_validate_pb from "../../../validate/validate_pb";
 import * as google_rpc_status_pb from "../../../google/rpc/status_pb";
-import * as vtproto_ext_pb from "../../../vtproto/ext_pb";
 
 export class Search extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -1168,6 +1167,52 @@ export namespace Object {
     export type AsObject = {
       id: string,
       vectorList: Array<number>,
+      timestamp: number,
+    }
+  }
+
+  export class GetTimestampRequest extends jspb.Message {
+    hasId(): boolean;
+    clearId(): void;
+    getId(): Object.ID | undefined;
+    setId(value?: Object.ID): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GetTimestampRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: GetTimestampRequest): GetTimestampRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GetTimestampRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetTimestampRequest;
+    static deserializeBinaryFromReader(message: GetTimestampRequest, reader: jspb.BinaryReader): GetTimestampRequest;
+  }
+
+  export namespace GetTimestampRequest {
+    export type AsObject = {
+      id?: Object.ID.AsObject,
+    }
+  }
+
+  export class Timestamp extends jspb.Message {
+    getId(): string;
+    setId(value: string): void;
+
+    getTimestamp(): number;
+    setTimestamp(value: number): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Timestamp.AsObject;
+    static toObject(includeInstance: boolean, msg: Timestamp): Timestamp.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Timestamp, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Timestamp;
+    static deserializeBinaryFromReader(message: Timestamp, reader: jspb.BinaryReader): Timestamp;
+  }
+
+  export namespace Timestamp {
+    export type AsObject = {
+      id: string,
       timestamp: number,
     }
   }

@@ -55,6 +55,28 @@ function deserialize_payload_v1_Info_Index_Count(buffer_arg) {
   return vald_v1_payload_payload_pb.Info.Index.Count.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_payload_v1_Object_GetTimestampRequest(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.GetTimestampRequest)) {
+    throw new Error('Expected argument of type payload.v1.Object.GetTimestampRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_GetTimestampRequest(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.GetTimestampRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_payload_v1_Object_Timestamp(arg) {
+  if (!(arg instanceof vald_v1_payload_payload_pb.Object.Timestamp)) {
+    throw new Error('Expected argument of type payload.v1.Object.Timestamp');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_payload_v1_Object_Timestamp(buffer_arg) {
+  return vald_v1_payload_payload_pb.Object.Timestamp.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // Represent the agent service.
 var AgentService = exports.AgentService = {
@@ -105,6 +127,18 @@ indexInfo: {
     requestDeserialize: deserialize_payload_v1_Empty,
     responseSerialize: serialize_payload_v1_Info_Index_Count,
     responseDeserialize: deserialize_payload_v1_Info_Index_Count,
+  },
+  // Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
+getTimestamp: {
+    path: '/core.v1.Agent/GetTimestamp',
+    requestStream: false,
+    responseStream: false,
+    requestType: vald_v1_payload_payload_pb.Object.GetTimestampRequest,
+    responseType: vald_v1_payload_payload_pb.Object.Timestamp,
+    requestSerialize: serialize_payload_v1_Object_GetTimestampRequest,
+    requestDeserialize: deserialize_payload_v1_Object_GetTimestampRequest,
+    responseSerialize: serialize_payload_v1_Object_Timestamp,
+    responseDeserialize: deserialize_payload_v1_Object_Timestamp,
   },
 };
 
