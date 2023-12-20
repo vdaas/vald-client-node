@@ -1,0 +1,23 @@
+version: v1
+managed:
+  enabled: true
+plugins:
+  - plugin: buf.build/connectrpc/es
+    out: src
+  - plugin: buf.build/bufbuild/es
+    out: src
+    opt:
+      - target=ts
+      - keep_empty_files=true
+  - plugin: buf.build/bufbuild/es
+    out: src
+    opt:
+      - target=dts
+      - keep_empty_files=true
+  - plugin: buf.build/bufbuild/es
+    out: src
+    opt:
+      - target=js
+      - js_import_style=legacy_commonjs
+      - keep_empty_files=true
+
