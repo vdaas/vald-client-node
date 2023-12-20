@@ -32,7 +32,7 @@ jobs:
           helm repo add vald https://vald.vdaas.org/charts
           helm install \
             --values ${VALUES} \
-            --set defaults.image.tag=nightly \
+            --set defaults.image.tag=latest \
             --set agent.ngt.dimension=300 \
             --set agent.ngt.auto_index_length=2 \
             --set agent.minReplicas=1 \
