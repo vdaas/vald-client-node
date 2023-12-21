@@ -46,7 +46,7 @@ describe("Tests for node client", () => {
     });
 
     test("Insert", (done) => {
-      const vec = payload.Object_Vector??.create({
+      const vec = payload.Object_Vector?.create({
         id: data[0].id,
         vector: data[0].vector,
       });
