@@ -698,6 +698,7 @@ describe("Tests for node client", () => {
         config: cfg
       });
 
+      client.upsert(req, (err, resp) => {
         try {
           expect(err).toBeFalsy();
           expect(resp).toBeInstanceOf(payload.Object_Location);
@@ -907,3 +908,5 @@ describe("Tests for node client", () => {
 
       channel.end();
     });
+  });
+});
