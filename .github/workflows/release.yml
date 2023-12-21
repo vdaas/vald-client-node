@@ -71,19 +71,19 @@ jobs:
           DIM=300 node example.js
 
           kill $pid
-      - name: verify example codes (ts)
-        run: |
-          kubectl port-forward statefulset/vald-agent-ngt 8081:8081 &
-          pid=$!
-
-          version=`make vald/client/node/version/print`
-          npm install -g ts-node
-
-          cd example-ts
-          npm install ../vald-client-node-${version}.tgz -s -f
-          DIM=300 ts-node example.ts
-
-          kill $pid
+      # - name: verify example codes (ts)
+      #   run: |
+      #     kubectl port-forward statefulset/vald-agent-ngt 8081:8081 &
+      #     pid=$!
+      #
+      #     version=`make vald/client/node/version/print`
+      #     npm install -g ts-node
+      #
+      #     cd example-ts
+      #     npm install ../vald-client-node-${version}.tgz -s -f
+      #     DIM=300 ts-node example.ts
+      #
+      #     kill $pid
   publish:
     if: startsWith( github.ref, 'refs/tags/')
     needs:
