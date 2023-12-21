@@ -26,14 +26,17 @@ VALD_SHA    = VALD_SHA
 VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 
 PWD    := $(eval PWD := $(shell pwd))$(PWD)
-GOPATH := $(eval GOPATH := $(shell go env GOPATH))$(GOPATH)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
 NODE_ROOT   = src
 NPM_BIN = $(shell npm prefix)
-PROTOC = $(NPM_BIN)/node_modules/.bin/grpc_tools_node_protoc
+
+BUF_CONFIGS = \
+	$(PROTO_ROOT)/buf.yaml \
+	$(PROTO_ROOT)/buf.lock
 
 SHADOW_ROOT = vald
+SHADOW_PROTO_ROOT = $(SHADOW_ROOT)/$(SHADOW_ROOT)
 
 PROTOS = \
 	v1/agent/core/agent.proto \
@@ -46,34 +49,18 @@ PROTOS = \
 	v1/vald/upsert.proto \
 	v1/payload/payload.proto
 PROTOS     := $(PROTOS:%=$(PROTO_ROOT)/%)
-SHADOWS     = $(PROTOS:$(PROTO_ROOT)/%.proto=$(SHADOW_ROOT)/%.proto)
+SHADOWS     = $(PROTOS:$(PROTO_ROOT)/%.proto=$(SHADOW_PROTO_ROOT)/%.proto)
 NODESOURCES = $(PROTOS:$(PROTO_ROOT)/%.proto=$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js)
 NODE_IDXDIR = $(dir $(NODESOURCES))
 NODE_IDXJS = $(NODE_IDXDIR:%=%index.js)
 NODE_IDXDTS = $(NODE_IDXDIR:%=%index.d.ts)
 
-NODE_VALIDATE = $(NODE_ROOT)/validate/validate_grpc_pb.js
-
-GOOGLEAPI_PROTOS = \
-	google/api/annotations.proto \
-	google/api/http.proto \
-	google/rpc/status.proto
-GOOGLEAPI_PROTOS := $(GOOGLEAPI_PROTOS:%=$(GOPATH)/src/github.com/googleapis/googleapis/%)
-NODE_GOOGLEAPIS = $(GOOGLEAPI_PROTOS:$(GOPATH)/src/github.com/googleapis/googleapis/%.proto=$(NODE_ROOT)/%_grpc_pb.js)
-
-NODE_VTEXTJS = $(NODE_ROOT)/vtproto/ext_grpc_pb.js
-
 PROTO_PATHS = \
 	$(PWD) \
 	$(PWD)/$(VALD_DIR) \
-	$(PWD)/$(PROTO_ROOT) \
-	$(GOPATH)/src \
-	$(GOPATH)/src/github.com/googleapis/googleapis \
-	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
-	$(GOPATH)/src/github.com/planetscale/vtprotobuf/include/github.com/planetscale/vtprotobuf
+	$(PWD)/$(PROTO_ROOT)
 
-PROTOC_GEN_TS_PATH = ./node_modules/ts-protoc-gen/bin/protoc-gen-ts
-GRPC_TOOLS_PROTOC_PLUGIN_PATH = ./node_modules/grpc-tools/bin/protoc_plugin.js
+BUF_GEN_PATH = $(NPM_BIN)/node_modules/@bufbuild/buf/bin/buf
 
 MAKELISTS   = Makefile
 
@@ -83,14 +70,6 @@ yellow = /bin/echo -e "\x1b[33m\#\# $1\x1b[0m"
 blue   = /bin/echo -e "\x1b[34m\#\# $1\x1b[0m"
 pink   = /bin/echo -e "\x1b[35m\#\# $1\x1b[0m"
 cyan   = /bin/echo -e "\x1b[36m\#\# $1\x1b[0m"
-
-define go-get
-	GO111MODULE=on go get -u $1
-endef
-
-define go-get-no-mod
-	GO111MODULE=off go get -u $1
-endef
 
 .PHONY: all
 ## execute clean and proto
@@ -127,21 +106,15 @@ proto: \
 	$(NODESOURCES) \
 	$(NODE_IDXJS) \
 	$(NODE_IDXDTS) \
-	$(NODE_VALIDATE) \
-	$(NODE_GOOGLEAPIS) \
-	$(NODE_VTEXTJS) \
 	index.js \
 	index.d.ts
 
 $(PROTOS): $(VALD_DIR)
 $(SHADOWS): $(PROTOS)
-$(SHADOW_ROOT)/%.proto: $(PROTO_ROOT)/%.proto
+$(SHADOW_PROTO_ROOT)/%.proto: $(PROTO_ROOT)/%.proto
 	mkdir -p $(dir $@)
 	cp $< $@
-	sed -i -e 's:^import "apis/proto/:import "$(SHADOW_ROOT)/:' $@
-	sed -i -e 's:^import "github.com/envoyproxy/protoc-gen-validate/:import ":' $@
-	sed -i -e 's:^import "github.com/googleapis/googleapis/:import ":' $@
-	sed -i -e 's:^import "github.com/planetscale/vtprotobuf/include/github.com/planetscale/vtprotobuf/:import ":' $@
+	sed -i -e 's:^import "v1:import "$(SHADOW_ROOT)/v1:' $@
 
 $(NODE_ROOT):
 	mkdir -p $@
@@ -174,7 +147,7 @@ $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.d.ts: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 		sed -e "s:_grpc_pb.js::"`; \
 	    echo "import $${name} = require(\"./$${name}_pb\");" >> $@; \
 	    if [ ! "$${name}" = "payload" ]; then \
-		echo "import $${name}_grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+		echo "import $${name}_grpc = require(\"./$${name}_pb.grpc-client\");" >> $@; \
 	    fi; \
 	    ss="$$ss $$name"; \
 	    done; \
@@ -223,76 +196,13 @@ index.d.ts: $(NODE_IDXDTS)
 	echo "export = _default;" >> $@
 
 $(NODESOURCES): \
-	$(GOPATH)/src/github.com/googleapis/googleapis \
-	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
-	$(GOPATH)/src/github.com/planetscale/vtprotobuf \
-	$(PROTOC_GEN_TS_PATH) \
-	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-	$(NODE_VALIDATE) \
-	$(NODE_GOOGLEAPIS) \
-	$(NODE_VTEXTJS) \
+	$(BUF_GEN_PATH) \
 	$(NODE_ROOT) \
 	$(SHADOWS)
-$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_ROOT)/%.proto
+$(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_PROTO_ROOT)/%.proto
 	@$(call green, "generating node files...")
-	$(PROTOC) \
-		$(PROTO_PATHS:%=-I %) \
-		--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
-		--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-		--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-		--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
-		--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
-		$<
-
-$(NODE_VALIDATE): \
-	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
-	$(PROTOC_GEN_TS_PATH) \
-	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-	$(NODE_ROOT)
-	@$(call green, "generating node files for validate...")
-	(cd $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate; \
-		$(PROTOC) \
-			$(PROTO_PATHS:%=-I %) \
-			-I $(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
-			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
-			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-			--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
-			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
-			validate/validate.proto)
-
-$(GOOGLEAPI_PROTOS): $(GOPATH)/src/github.com/googleapis/googleapis
-$(NODE_GOOGLEAPIS): \
-	$(GOPATH)/src/github.com/googleapis/googleapis \
-	$(PROTOC_GEN_TS_PATH) \
-	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-	$(NODE_ROOT)
-$(NODE_ROOT)/google/%_grpc_pb.js: $(GOPATH)/src/github.com/googleapis/googleapis/google/%.proto
-	@$(call green, "generating node files for googleapis...")
-	(cd $(GOPATH)/src/github.com/googleapis/googleapis; \
-		$(PROTOC) \
-			$(PROTO_PATHS:%=-I %) \
-			-I $(GOPATH)/src/github.com/googleapis/googleapis \
-			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
-			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-			--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
-			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
-			$(patsubst $(GOPATH)/src/github.com/googleapis/googleapis/%,%,$<))
-
-$(NODE_VTEXTJS): $(GOPATH)/src/github.com/planetscale/vtprotobuf
-	@$(call green, "generating node files for vprotos...")
-	(cd $(GOPATH)/src/github.com/planetscale/vtprotobuf; \
-		$(PROTOC) \
-			$(PROTO_PATHS:%=-I %) \
-			-I $(GOPATH)/src/github.com/planetscale/vtprotobuf/include/github.com/planetscale/vtprotobuf \
-			--plugin=protoc-gen-ts=$(PWD)/$(PROTOC_GEN_TS_PATH) \
-			--plugin=protoc-gen-grpc=$(PWD)/$(GRPC_TOOLS_PROTOC_PLUGIN_PATH) \
-			--js_out="import_style=commonjs,binary:$(PWD)/$(NODE_ROOT)" \
-			--ts_out="service=grpc-node,mode=grpc-js:$(PWD)/$(NODE_ROOT)" \
-			--grpc_out="grpc_js:$(PWD)/$(NODE_ROOT)" \
-			vtproto/ext.proto)
-
+	cp -f $(BUF_CONFIGS) $(SHADOW_ROOT)
+	$(BUF_GEN_PATH) generate --include-imports
 
 $(VALD_DIR):
 	git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
@@ -322,37 +232,12 @@ vald/client/node/version/update: vald
 
 .PHONY: npm/deps
 npm/deps: \
-	$(PROTOC_GEN_TS_PATH) \
-	$(GRPC_TOOLS_PROTOC_PLUGIN_PATH)
+	$(BUF_GEN_PATH)
 
-$(PROTOC_GEN_TS_PATH):
-	npm install --save-dev ts-protoc-gen
-
-$(GRPC_TOOLS_PROTOC_PLUGIN_PATH):
-	npm install --save-dev grpc-tools
+$(BUF_GEN_PATH):
+	npm install --save-dev @bufbuild/buf @bufbuild/protobuf
 
 .PHONY: proto/deps
 ## install proto deps
 proto/deps: \
-	npm/deps \
-	$(GOPATH)/src/github.com/googleapis/googleapis \
-	$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate \
-	$(GOPATH)/src/github.com/planetscale/vtprotobuf
-
-$(GOPATH)/src/github.com/googleapis/googleapis:
-	git clone \
-		--depth 1 \
-		https://github.com/googleapis/googleapis \
-		$(GOPATH)/src/github.com/googleapis/googleapis
-
-$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate:
-	git clone \
-		--depth 1 \
-		https://github.com/envoyproxy/protoc-gen-validate \
-		$(GOPATH)/src/github.com/envoyproxy/protoc-gen-validate
-
-$(GOPATH)/src/github.com/planetscale/vtprotobuf:
-	git clone \
-		--depth 1 \
-		https://github.com/planetscale/vtprotobuf \
-		$(GOPATH)/src/github.com/planetscale/vtprotobuf
+	npm/deps

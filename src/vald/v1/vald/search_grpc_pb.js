@@ -19,8 +19,8 @@
 //
 'use strict';
 var grpc = require('@grpc/grpc-js');
-var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
 var google_api_annotations_pb = require('../../../google/api/annotations_pb.js');
+var vald_v1_payload_payload_pb = require('../../../vald/v1/payload/payload_pb.js');
 
 function serialize_payload_v1_Search_IDRequest(arg) {
   if (!(arg instanceof vald_v1_payload_payload_pb.Search.IDRequest)) {
