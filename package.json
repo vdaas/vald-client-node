@@ -6,7 +6,12 @@
   "types": "index.d.ts",
   "devDependencies": {
     "@bufbuild/buf": "^1.28.1",
+    "@bufbuild/connect": "^0.13.0",
     "@bufbuild/protobuf": "^1.6.0",
+    "@bufbuild/protoc-gen-es": "^1.6.0",
+    "@connectrpc/connect": "^1.2.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.2.0",
+    "@protobuf-ts/plugin": "^2.9.3",
     "@types/jest": "^27.5.2",
     "grpc-tools": "^1.12.4",
     "jest": "^27.5.1",
@@ -32,7 +37,6 @@
   },
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
-    "@connectrpc/connect": "^1.2.0",
     "@grpc/grpc-js": "^1.9.3",
     "google-protobuf": "^3.21.2"
   },
