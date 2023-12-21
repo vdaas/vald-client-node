@@ -30,7 +30,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new insert_grpc.InsertClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -46,16 +46,16 @@ describe("Tests for node client", () => {
     });
 
     test("Insert", (done) => {
-      const vec = payload.Object_Vector?.create({
+      const vec = payload.Object_Vector??.create({
         id: data[0].id,
         vector: data[0].vector,
       });
 
-      const cfg = payload.Insert_Config.create({
+      const cfg = payload.Insert_Config?.create({
         skip_strict_exist_check: true,
       });
 
-      const req = payload.Insert_Request.create({
+      const req = payload.Insert_Request?.create({
         vector: vec,
         config: cfg,
       });
@@ -73,17 +73,17 @@ describe("Tests for node client", () => {
 
     test("MultiInsert", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Insert_Config.create({
+      const cfg = payload.Insert_Config?.create({
         skip_strict_exist_check: true,
       });
 
       for (let i = 1; i < 11; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i].vector,
         });
 
-        const r = payload.Insert_Request.create({
+        const r = payload.Insert_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -91,7 +91,7 @@ describe("Tests for node client", () => {
         requests.push(r);
       }
 
-      const req = payload.Insert_MultiRequest.create({
+      const req = payload.Insert_MultiRequest?.create({
         requests: requests,
       });
 
@@ -107,7 +107,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamInsert", (done) => {
-      const cfg = payload.Insert_Config.create({
+      const cfg = payload.Insert_Config?.create({
         skip_strict_exist_check: true,
       });
 
@@ -133,12 +133,12 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 101; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i].vector,
         });
 
-        const r = payload.Insert_Request.create({
+        const r = payload.Insert_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -155,7 +155,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new agent_grpc.AgentClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -171,11 +171,11 @@ describe("Tests for node client", () => {
     });
 
     test("CreateIndex", (done) => {
-      const req = payload.Control_CreateIndexRequest.create({
+      const req = payload.Control_CreateIndexRequest?.create({
         pool_size: 10000,
       });
 
-      client.createIndex(req, (err, resp) => {
+      client?.createIndex(req, (err, resp) => {
         try {
           expect(err).toBeFalsy();
           expect(resp).toBeInstanceOf(payload.Empty);
@@ -187,7 +187,7 @@ describe("Tests for node client", () => {
     });
 
     test("SaveIndex", (done) => {
-      const req = payload.Empty.create();
+      const req = payload.Empty?.create();
 
       client.saveIndex(req, (err, resp) => {
         try {
@@ -201,7 +201,7 @@ describe("Tests for node client", () => {
     });
 
     test("IndexInfo", (done) => {
-      const req = payload.Empty.create();
+      const req = payload.Empty?.create();
 
       client.indexInfo(req, (err, resp) => {
         try {
@@ -223,7 +223,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new object_grpc.ObjectClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -239,7 +239,7 @@ describe("Tests for node client", () => {
     });
 
     test("Exists", (done) => {
-      const req = payload.Object_ID.create({
+      const req = payload.Object_ID?.create({
         id: data[0].id,
       });
 
@@ -255,11 +255,11 @@ describe("Tests for node client", () => {
     });
 
     test("GetObject", (done) => {
-      const id = payload.Object_ID.create({
+      const id = payload.Object_ID?.create({
         id: data[0].id,
       });
 
-      const req = payload.Object_VectorRequest.create({
+      const req = payload.Object_VectorRequest?.create({
         id: id,
       });
 
@@ -297,11 +297,11 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 0; i < 11; i++) {
-        const id = payload.Object_ID.create({
+        const id = payload.Object_ID?.create({
           id: data[i].id,
         });
 
-        const req = payload.Object_VectorRequest.create({
+        const req = payload.Object_VectorRequest?.create({
           id: id,
         });
 
@@ -318,7 +318,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new search_grpc.SearchClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -334,14 +334,14 @@ describe("Tests for node client", () => {
     });
 
     test("Search", (done) => {
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
         timeout: BigInt(3000000000),
       });
 
-      const req = payload.Search_Request.create({
+      const req = payload.Search_Request?.create({
         vector: data[0].vector,
         config: cfg,
       });
@@ -360,7 +360,7 @@ describe("Tests for node client", () => {
 
     test("MultiSearch", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
@@ -368,14 +368,14 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 1; i < 11; i++) {
-        const r = payload.Search_Request.create({
+        const r = payload.Search_Request?.create({
           vector: data[i].vector,
           config: cfg,
         });
         requests.push(r);
       }
 
-      const req = payload.Search_MultiRequest.create({
+      const req = payload.Search_MultiRequest?.create({
         requests: requests,
       });
 
@@ -395,7 +395,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamSearch", (done) => {
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
@@ -424,7 +424,7 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 21; i++) {
-        const r = payload.Search_Request.create({
+        const r = payload.Search_Request?.create({
           vector: data[i].vector,
           config: cfg,
         });
@@ -436,14 +436,14 @@ describe("Tests for node client", () => {
     });
 
     test("SearchByID", (done) => {
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
         timeout: BigInt(3000000000),
       });
 
-      const req = payload.Search_IDRequest.create({
+      const req = payload.Search_IDRequest?.create({
         id: data[0].id,
         config: cfg,
       });
@@ -462,7 +462,7 @@ describe("Tests for node client", () => {
 
     test("MultiSearchByID", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
@@ -470,7 +470,7 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 1; i < 11; i++) {
-        const r = payload.Search_IDRequest.create({
+        const r = payload.Search_IDRequest?.create({
           id: data[i].id,
           config: cfg,
         });
@@ -478,7 +478,7 @@ describe("Tests for node client", () => {
         requests.push(r);
       }
 
-      const req = payload.Search_MultiIDRequest.create({
+      const req = payload.Search_MultiIDRequest?.create({
         requests: requests,
       });
 
@@ -498,7 +498,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamSearchByID", (done) => {
-      const cfg = payload.Search_Config.create({
+      const cfg = payload.Search_Config?.create({
         num: 3,
         radius: -1.0,
         epsilon: 0.1,
@@ -527,7 +527,7 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 21; i++) {
-        const r = payload.Search_IDRequest.create({
+        const r = payload.Search_IDRequest?.create({
           id: data[i].id,
           config: cfg,
         });
@@ -544,7 +544,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new update_grpc.UpdateClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -560,15 +560,15 @@ describe("Tests for node client", () => {
     });
 
     test("Update", (done) => {
-      const vec = payload.Object_Vector.create({
+      const vec = payload.Object_Vector?.create({
         id: data[0].id,
         vector: data[1].vector,
       });
-      const cfg = payload.Update_Config.create({
+      const cfg = payload.Update_Config?.create({
         skip_strict_exist_check: true,
       });
 
-      const req = payload.Update_Request.create({
+      const req = payload.Update_Request?.create({
         vector: vec,
         config: cfg,
       });
@@ -586,17 +586,17 @@ describe("Tests for node client", () => {
 
     test("MultiUpdate", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Update_Config.create({
+      const cfg = payload.Update_Config?.create({
         skip_strict_exist_check: true,
       });
 
       for (let i = 1; i < 11; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i + 1].vector,
         });
 
-        const r = payload.Update_Request.create({
+        const r = payload.Update_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -604,7 +604,7 @@ describe("Tests for node client", () => {
         requests.push(r);
       }
 
-      const req = payload.Update_MultiRequest.create({
+      const req = payload.Update_MultiRequest?.create({
         requests: requests,
       });
 
@@ -620,7 +620,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamUpdate", (done) => {
-      const cfg = payload.Update_Config.create({
+      const cfg = payload.Update_Config?.create({
         skip_strict_exist_check: true,
       });
 
@@ -646,12 +646,12 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 21; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i + 1].vector,
         });
 
-        const r = payload.Update_Request.create({
+        const r = payload.Update_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -668,7 +668,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new upsert_grpc.UpsertClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -684,16 +684,16 @@ describe("Tests for node client", () => {
     });
 
     test("Upsert", (done) => {
-      const vec = payload.Object_Vector.create({
+      const vec = payload.Object_Vector?.create({
         id: data[0].id,
         vector: data[0].vector,
       });
 
-      const cfg = payload.Upsert_Config.create({
+      const cfg = payload.Upsert_Config?.create({
         skip_strict_exist_check: true,
       });
 
-      const req = payload.Upsert_Request.create({
+      const req = payload.Upsert_Request?.create({
         vector: vec,
         config: cfg
       });
@@ -711,17 +711,17 @@ describe("Tests for node client", () => {
 
     test("MultiUpsert", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Upsert_Config.create({
+      const cfg = payload.Upsert_Config?.create({
         skip_strict_exist_check: true,
       });
 
       for (let i = 1; i < 11; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i].vector,
         });
 
-        const r = payload.Upsert_Request.create({
+        const r = payload.Upsert_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -729,7 +729,7 @@ describe("Tests for node client", () => {
         requests.push(r);
       }
 
-      const req = payload.Upsert_MultiRequest.create({
+      const req = payload.Upsert_MultiRequest?.create({
         requests: requests,
       });
 
@@ -745,7 +745,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamUpsert", (done) => {
-      const cfg = payload.Upsert_Config.create({
+      const cfg = payload.Upsert_Config?.create({
         skip_strict_exist_check: true,
       });
 
@@ -771,11 +771,11 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 21; i++) {
-        const vec = payload.Object_Vector.create({
+        const vec = payload.Object_Vector?.create({
           id: data[i].id,
           vector: data[i].vector,
         });
-        const r = payload.Upsert_Request.create({
+        const r = payload.Upsert_Request?.create({
           vector: vec,
           config: cfg,
         });
@@ -793,7 +793,7 @@ describe("Tests for node client", () => {
     beforeAll((done) => {
       client = new remove_grpc.RemoveClient(
         address,
-        grpc.credentials.createInsecure(),
+        grpc.credentials?.createInsecure(),
       );
       client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
         if (e) {
@@ -809,15 +809,15 @@ describe("Tests for node client", () => {
     });
 
     test("Remove", (done) => {
-      const id = payload.Object_ID.create({
+      const id = payload.Object_ID?.create({
         id: data[0].id,
       });
 
-      const cfg = payload.Remove_Config.create({
+      const cfg = payload.Remove_Config?.create({
         skip_strict_exist_check: true,
       });
 
-      const req = payload.Remove_Request.create({
+      const req = payload.Remove_Request?.create({
         id: id,
         config: cfg,
       });
@@ -835,16 +835,16 @@ describe("Tests for node client", () => {
 
     test("MultiRemove", (done) => {
       const requests: Array<any> = [];
-      const cfg = payload.Insert_Config.create({
+      const cfg = payload.Insert_Config?.create({
         skip_strict_exist_check: true,
       });
 
       for (let i = 1; i < 11; i++) {
-        const id = payload.Object_ID.create({
+        const id = payload.Object_ID?.create({
           id: data[i].id,
         });
 
-        const r = payload.Remove_Request.create({
+        const r = payload.Remove_Request?.create({
           id: id,
           config: cfg,
         });
@@ -852,7 +852,7 @@ describe("Tests for node client", () => {
         requests.push(r);
       }
 
-      const req = payload.Remove_MultiRequest.create({
+      const req = payload.Remove_MultiRequest?.create({
         requests: requests,
       });
 
@@ -868,7 +868,7 @@ describe("Tests for node client", () => {
     });
 
     test("StreamRemove", (done) => {
-      const cfg = payload.Remove_Config.create({
+      const cfg = payload.Remove_Config?.create({
         skip_strict_exist_check: true,
       });
 
@@ -894,11 +894,11 @@ describe("Tests for node client", () => {
       });
 
       for (let i = 11; i < 21; i++) {
-        const id = payload.Object_ID.create({
+        const id = payload.Object_ID?.create({
           id: data[i].id,
         });
 
-        const r = payload.Remove_Request.create({
+        const r = payload.Remove_Request?.create({
           id: id,
           config: cfg,
         });
