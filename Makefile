@@ -147,7 +147,7 @@ $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.d.ts: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 		sed -e "s:_grpc_pb.js::"`; \
 	    echo "import $${name} = require(\"./$${name}_pb\");" >> $@; \
 	    if [ ! "$${name}" = "payload" ]; then \
-		echo "import $${name}_grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+		echo "import $${name}_grpc = require(\"./$${name}_pb.grpc-client\");" >> $@; \
 	    fi; \
 	    ss="$$ss $$name"; \
 	    done; \

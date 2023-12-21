@@ -6,7 +6,6 @@ const DIM = process.env.DIM || 4;
 const ID = "id_1";
 
 // sleep
-
 const sleep = async (second: number) =>
   new Promise((resolve) => {
     console.log("Wait for ", second, "s");
@@ -14,23 +13,25 @@ const sleep = async (second: number) =>
   });
 
 const main = async () => {
-  const vec = [];
-  for (let i = 0; i < DIM; i++) {
+  const vec: Array<number> = [];
+  for (let i = 0; i < Number(DIM); i++) {
     vec.push(0.1 * (i + 1));
   }
 
   // insert
+  const ivec = v1_payload.payload.Object_Vector.create({
+    id: ID,
+    vector: vec,
+  });
 
-  const ivec = new v1_payload.payload.Object.Vector();
-  ivec.setId(ID);
-  ivec.setVectorList(vec);
+  const icfg = v1_payload.payload.Insert_Config.create({
+    skip_strict_exist_check: false
+  })
 
-  const icfg = new v1_payload.payload.Insert.Config();
-  icfg.setSkipStrictExistCheck(false);
-
-  const ireq = new v1_payload.payload.Insert.Request();
-  ireq.setVector(ivec);
-  ireq.setConfig(icfg);
+  const ireq = v1_payload.payload.Insert_Request.create({
+    vector: ivec,
+    config: icfg,
+  })
 
   const iclient = new v1_vald.insert_grpc.InsertClient(
     addr,
@@ -61,17 +62,18 @@ const main = async () => {
   await sleep(second);
 
   // search
-  const scfg = new v1_payload.payload.Search.Config();
-  scfg.setNum(10);
-  scfg.setMinNum(1);
-  scfg.setRadius(-1.0);
-  scfg.setEpsilon(0.01);
-  scfg.setTimeout(3000000000);
+  const scfg = v1_payload.payload.Search_Config.create({
+    num: 10,
+    min_num: 1,
+    radius: -1.0,
+    epsilon: 0.01,
+    timeout: BigInt(3000000000),
+  })
 
-  const sreq = new v1_payload.payload.Search.Request();
-  sreq.setVectorList(vec);
-  sreq.setConfig(scfg);
-
+  const sreq = v1_payload.payload.Search_Request.create({
+    vector: vec,
+    config: scfg,
+  })
   const sclient = new v1_vald.search_grpc.SearchClient(
     addr,
     grpc.credentials.createInsecure()
@@ -98,14 +100,17 @@ const main = async () => {
     });
 
   // remove
-  const rcfg = new v1_payload.payload.Remove.Config();
-  rcfg.setSkipStrictExistCheck(false);
+  const rcfg = v1_payload.payload.Remove_Config.create({
+    skip_strict_exist_check: false
+  });
 
-  const rreq = new v1_payload.payload.Remove.Request();
-  const robjId = new v1_payload.payload.Object.ID();
-  robjId.setId(ID);
-  rreq.setId(robjId);
-  rreq.setConfig(rcfg);
+  const robjId = v1_payload.payload.Object_ID.create({
+    id: ID,
+  });
+  const rreq = v1_payload.payload.Remove_Request.create({
+    id: robjId,
+    config: rcfg,
+  });
 
   const rclient = new v1_vald.remove_grpc.RemoveClient(
     addr,

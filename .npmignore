@@ -1,6 +1,11 @@
+.github/
+.fossa
 node_modules/
-./vald
+vald
+!src/vald
 vald-origin/
 example/
 example-ts/
 tmp/
+jest.config.ts
+tests/
