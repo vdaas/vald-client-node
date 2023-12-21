@@ -46,7 +46,7 @@ describe("Tests for node client", () => {
     });
 
     test("Insert", (done) => {
-      const vec = payload.Object_Vector.create({
+      const vec = payload.Object_Vector?.create({
         id: data[0].id,
         vector: data[0].vector,
       });
@@ -698,7 +698,6 @@ describe("Tests for node client", () => {
         config: cfg
       });
 
-      client.upsert(req, (err, resp) => {
         try {
           expect(err).toBeFalsy();
           expect(resp).toBeInstanceOf(payload.Object_Location);
@@ -908,5 +907,3 @@ describe("Tests for node client", () => {
 
       channel.end();
     });
-  });
-});
