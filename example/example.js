@@ -43,7 +43,7 @@ const main = async () => {
     grpc.credentials.createInsecure(),
   );
 
-  async function insertFunc(req) {
+  const insertFunc = async (req) => {
     return new Promise((resolve, reject) => {
       iclient.insert(req, (err, resp) => {
         if (err) {
@@ -53,7 +53,7 @@ const main = async () => {
         }
       });
     });
-  }
+  };
   console.log("Insert start");
   await insertFunc(ireq)
     .then((res) => {
@@ -86,7 +86,7 @@ const main = async () => {
     grpc.credentials.createInsecure(),
   );
 
-  async function searchFunc(req) {
+  const searchFunc = async (req) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
         if (err) {
@@ -96,7 +96,7 @@ const main = async () => {
         }
       });
     });
-  }
+  };
   console.log("Search start");
   await searchFunc(sreq)
     .then((res) => {
@@ -117,12 +117,11 @@ const main = async () => {
     id: robjId,
     config: rcfg,
   });
-  console.log(rreq);
   const rclient = new remove.RemoveClient(
     addr,
     grpc.credentials.createInsecure(),
   );
-  async function removeFunc(req) {
+  const removeFunc = async (req) => {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {
         if (err) {
@@ -132,7 +131,7 @@ const main = async () => {
         }
       });
     });
-  }
+  };
   await removeFunc(rreq)
     .then((res) => {
       console.log("remove res: ", res);
