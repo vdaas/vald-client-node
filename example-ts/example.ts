@@ -39,7 +39,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const insertFunc = (req: Insert_Request) => {
+  const insertFunc = async (req: Insert_Request) => {
     return new Promise((resolve, reject) => {
       iclient.insert(req, (err, resp) => {
         if (err) {
@@ -50,13 +50,13 @@ const main = async () => {
       });
     });
   };
-  insertFunc(ireq)
+  await insertFunc(ireq)
     .then((res) => {
       console.log("insert resp: ", res);
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
 
   const second = 100;
@@ -80,7 +80,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const searchFunc = (req: Search_Request) => {
+  const searchFunc = async (req: Search_Request) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
         if (err) {
@@ -91,13 +91,13 @@ const main = async () => {
       });
     });
   };
-  searchFunc(sreq)
+  await searchFunc(sreq)
     .then((res) => {
       console.log("search res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
 
   // remove
@@ -118,7 +118,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const removeFunc = (req: Remove_Request) => {
+  const removeFunc = async (req: Remove_Request) => {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {
         if (err) {
@@ -129,14 +129,15 @@ const main = async () => {
       });
     });
   };
-  removeFunc(rreq)
+  await removeFunc(rreq)
     .then((res) => {
       console.log("remove res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
+  process.exit(0);
 };
 
 main();
