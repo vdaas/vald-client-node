@@ -24,23 +24,26 @@ const main = async () => {
   }
 
   // insert
-  const ivec = new payload.Object.Vector();
-  ivec.setId(ID);
-  ivec.setVectorList(vec);
+  const ivec = payload.Object_Vector.create({
+    id: ID,
+    vector: vec,
+  });
 
-  const icfg = new payload.Insert.Config();
-  icfg.setSkipStrictExistCheck(false);
+  const icfg = payload.Insert_Config.create({
+    skip_strict_exist_check: false,
+  });
 
-  const ireq = new payload.Insert.Request();
-  ireq.setVector(ivec);
-  ireq.setConfig(icfg);
+  const ireq = payload.Insert_Request.create({
+    vector: ivec,
+    config: icfg,
+  });
 
   const iclient = new insert.InsertClient(
     addr,
-    grpc.credentials.createInsecure()
+    grpc.credentials.createInsecure(),
   );
 
-  const insertFunc = (req) => {
+  async function insertFunc(req) {
     return new Promise((resolve, reject) => {
       iclient.insert(req, (err, resp) => {
         if (err) {
@@ -50,39 +53,40 @@ const main = async () => {
         }
       });
     });
-  };
+  }
   console.log("Insert start");
-  insertFunc(ireq)
+  await insertFunc(ireq)
     .then((res) => {
-      console.log("res: ", res);
+      console.log("insert res: ", res);
     })
     .catch((e) => {
-      console.log("err: ", e);
-      return -1;
+      console.log("insert err: ", e);
+      process.exit(1);
     });
-
   // Wait for createIndex completed
-  const second = 120;
+  const second = 90;
   await sleep(second);
 
   // search
-  const scfg = new payload.Search.Config();
-  scfg.setNum(10);
-  scfg.setMinNum(1);
-  scfg.setRadius(-1.0);
-  scfg.setEpsilon(0.01);
-  scfg.setTimeout(3000000000);
+  const scfg = payload.Search_Config.create({
+    num: 10,
+    min_num: 1,
+    radius: -1,
+    epsilon: 0.01,
+    timeout: 3000000000,
+  });
 
-  const sreq = new payload.Search.Request();
-  sreq.setVectorList(vec);
-  sreq.setConfig(scfg);
+  const sreq = payload.Search_Request.create({
+    vector: vec,
+    config: scfg,
+  });
 
   const sclient = new search.SearchClient(
     addr,
-    grpc.credentials.createInsecure()
+    grpc.credentials.createInsecure(),
   );
 
-  const searchFunc = (req) => {
+  async function searchFunc(req) {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
         if (err) {
@@ -92,30 +96,33 @@ const main = async () => {
         }
       });
     });
-  };
+  }
   console.log("Search start");
-  searchFunc(sreq)
+  await searchFunc(sreq)
     .then((res) => {
-      console.log("res: ", res, "\n");
+      console.log("search res: ", res);
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
 
-  const rcfg = new payload.Remove.Config();
-  rcfg.setSkipStrictExistCheck(false);
-  const robjId = new payload.Object.ID();
-  robjId.setId(ID);
-  const rreq = new payload.Remove.Request();
-  rreq.setId(robjId);
-  rreq.setConfig(rcfg);
-
+  const rcfg = payload.Remove_Config.create({
+    skip_strict_exist_check: false,
+  });
+  const robjId = payload.Object_ID.create({
+    id: ID,
+  });
+  const rreq = payload.Remove_Request.create({
+    id: robjId,
+    config: rcfg,
+  });
+  console.log(rreq);
   const rclient = new remove.RemoveClient(
     addr,
-    grpc.credentials.createInsecure()
+    grpc.credentials.createInsecure(),
   );
-  const removeFunc = (req) => {
+  async function removeFunc(req) {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {
         if (err) {
@@ -125,16 +132,16 @@ const main = async () => {
         }
       });
     });
-  };
-  console.log("Remove start");
-  removeFunc(rreq)
+  }
+  await removeFunc(rreq)
     .then((res) => {
-      console.log("res: ", res, "\n");
+      console.log("remove res: ", res);
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
+  process.exit(0);
 };
 
 main();
