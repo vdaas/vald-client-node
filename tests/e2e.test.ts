@@ -1,859 +1,901 @@
-import grpc = require('@grpc/grpc-js');
+import grpc = require("@grpc/grpc-js");
 import {
-    insert_grpc,
-    search_grpc,
-    update_grpc,
-    upsert_grpc,
-    remove_grpc,
-    object_grpc,
-} from '../src/vald/v1/vald';
-import { agent_grpc } from '../src/vald/v1/agent/core';
-import { payload } from '../src/vald/v1/payload';
-import { InsertClient } from '../src/vald/v1/vald/insert_grpc_pb';
-import { RemoveClient } from '../src/vald/v1/vald/remove_grpc_pb';
-import { SearchClient } from '../src/vald/v1/vald/search_grpc_pb';
-import { UpdateClient } from '../src/vald/v1/vald/update_grpc_pb';
-import { UpsertClient } from '../src/vald/v1/vald/upsert_grpc_pb';
-import { ObjectClient } from '../src/vald/v1/vald/object_grpc_pb';
-import { AgentClient } from '../src/vald/v1/agent/core/agent_grpc_pb';
-import data = require('./wordvecs1000.json');
+  insert_grpc,
+  search_grpc,
+  update_grpc,
+  upsert_grpc,
+  remove_grpc,
+  object_grpc,
+} from "../src/vald/v1/vald";
+import { agent_grpc } from "../src/vald/v1/agent/core";
+import { payload } from "../src/vald/v1/payload";
+import { InsertClient } from "../src/vald/v1/vald/insert_pb.grpc-client";
+import { RemoveClient } from "../src/vald/v1/vald/remove_pb.grpc-client";
+import { SearchClient } from "../src/vald/v1/vald/search_pb.grpc-client";
+import { UpdateClient } from "../src/vald/v1/vald/update_pb.grpc-client";
+import { UpsertClient } from "../src/vald/v1/vald/upsert_pb.grpc-client";
+import { ObjectClient } from "../src/vald/v1/vald/object_pb.grpc-client";
+import { AgentClient } from "../src/vald/v1/agent/core/agent_pb.grpc-client";
+import data = require("./wordvecs1000.json");
 
-const address = 'localhost:8081';
+const address = "localhost:8081";
 const connectDeadlineMs = 10000;
 
 jest.setTimeout(120000);
 
-describe('Tests for node client', () => {
-    describe('Tests for insert operations', () => {
-        let client: InsertClient;
+describe("Tests for node client", () => {
+  describe("Tests for insert operations", () => {
+    let client: InsertClient;
 
-        beforeAll(done => {
-            client = new insert_grpc.InsertClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
-        });
-
-        afterAll(() => {
-            client.close();
-        });
-
-        test('Insert', done => {
-            const vec = new payload.Object.Vector();
-            vec.setId(data[0].id);
-            vec.setVectorList(data[0].vector);
-
-            const cfg = new payload.Insert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const req = new payload.Insert.Request();
-            req.setVector(vec);
-            req.setConfig(cfg);
-
-            client.insert(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Location);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiInsert', done => {
-            const requests = [];
-            const cfg = new payload.Insert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            for (let i = 1; i < 11; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i].vector);
-
-                const r = new payload.Insert.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Insert.MultiRequest();
-            req.setRequestsList(requests);
-
-            client.multiInsert(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Locations);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamInsert', done => {
-            const cfg = new payload.Insert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const channel = client.streamInsert();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Object.StreamLocation);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            })
-
-            for (let i = 11; i < 101; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i].vector);
-
-                const r = new payload.Insert.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-        });
+    beforeAll((done) => {
+      client = new insert_grpc.InsertClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
     });
 
-    describe('Tests for creating indices operations', () => {
-        let client: AgentClient;
-
-        beforeAll(done => {
-            client = new agent_grpc.AgentClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
-        });
-
-        afterAll(() => {
-            client.close();
-        });
-
-        test('CreateIndex', done => {
-            const req = new payload.Control.CreateIndexRequest();
-            req.setPoolSize(10000);
-
-            client.createIndex(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Empty);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('SaveIndex', done => {
-            const req = new payload.Empty();
-
-            client.saveIndex(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Empty);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('IndexInfo', done => {
-            const req = new payload.Empty();
-
-            client.indexInfo(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Info.Index.Count);
-                    expect(resp.getStored()).toEqual(101);
-                    expect(resp.getUncommitted()).toEqual(0);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
+    afterAll(() => {
+      client.close();
     });
 
-    describe('Test for object operations', () => {
-        let client: ObjectClient;
+    console.log(data);
 
-        beforeAll(done => {
-            client = new object_grpc.ObjectClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
-        });
+    test("Insert", (done) => {
+      const vec = payload.Object_Vector.create({
+          id: data[0].id,
+          vector: data[0].vector,
+      });
 
-        afterAll(() => {
-            client.close();
-        });
+      const cfg = payload.Insert_Config?.create({
+        skip_strict_exist_check: true,
+      });
 
-        test('Exists', done => {
-            const req = new payload.Object.ID();
-            req.setId(data[0].id);
+      const req = payload.Insert_Request?.create({
+        vector: vec,
+        config: cfg,
+      });
 
-            client.exists(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.ID);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            })
-        });
+      client.insert(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Location.is(resp)).toBe(true);
 
-        test('GetObject', done => {
-            const id = new payload.Object.ID();
-            id.setId(data[0].id);
-
-            const req = new payload.Object.VectorRequest();
-            req.setId(id);
-
-            client.getObject(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Vector);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamGetObject', done => {
-            const channel = client.streamGetObject();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Object.StreamVector);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            });
-
-            for (let i = 0; i < 11; i++) {
-                const id = new payload.Object.ID();
-                id.setId(data[i].id);
-
-                const req = new payload.Object.VectorRequest();
-                req.setId(id);
-
-                channel.write(req);
-            }
-
-            channel.end();
-        });
-    })
-
-    describe('Tests for search operations', () => {
-        let client: SearchClient;
-
-        beforeAll(done => {
-            client = new search_grpc.SearchClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
-        });
-
-        afterAll(() => {
-            client.close();
-        });
-
-        test('Search', done => {
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            const req = new payload.Search.Request();
-            req.setVectorList(data[0].vector);
-            req.setConfig(cfg);
-
-            client.search(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Search.Response);
-                    expect(resp.getResultsList().length).toEqual(3);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiSearch', done => {
-            const requests = [];
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            for (let i = 1; i < 11; i++) {
-                const r = new payload.Search.Request();
-                r.setVectorList(data[i].vector);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Search.MultiRequest();
-            req.setRequestsList(requests);
-
-            client.multiSearch(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Search.Responses);
-                    for (var response of resp.getResponsesList()) {
-                        expect(response).toBeInstanceOf(payload.Search.Response);
-                        expect(response.getResultsList().length).toEqual(3);
-                    }
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamSearch', done => {
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            const channel = client.streamSearch();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Search.StreamResponse);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            });
-
-            for (let i = 11; i < 21; i++) {
-                const r = new payload.Search.Request();
-                r.setVectorList(data[i].vector);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-        });
-
-        test('SearchByID', done => {
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            const req = new payload.Search.IDRequest();
-            req.setId(data[0].id);
-            req.setConfig(cfg);
-
-            client.searchByID(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Search.Response);
-                    expect(resp.getResultsList().length).toEqual(3);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiSearchByID', done => {
-            const requests = [];
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            for (let i = 1; i < 11; i++) {
-                const r = new payload.Search.IDRequest();
-                r.setId(data[i].id);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Search.MultiIDRequest();
-            req.setRequestsList(requests);
-
-            client.multiSearchByID(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Search.Responses);
-                    for (var response of resp.getResponsesList()) {
-                        expect(response).toBeInstanceOf(payload.Search.Response);
-                        expect(response.getResultsList().length).toEqual(3);
-                    }
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamSearchByID', done => {
-            const cfg = new payload.Search.Config();
-            cfg.setNum(3);
-            cfg.setRadius(-1.0);
-            cfg.setEpsilon(0.1);
-            cfg.setTimeout(3000000000);
-
-            const channel = client.streamSearchByID();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Search.StreamResponse);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            });
-
-            for (let i = 11; i < 21; i++) {
-                const r = new payload.Search.IDRequest();
-                r.setId(data[i].id);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-
-        });
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
     });
 
-    describe('Tests for update operations', () => {
-        let client: UpdateClient;
+    test("MultiInsert", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Insert_Config?.create({
+        skip_strict_exist_check: true,
+      });
 
-        beforeAll(done => {
-            client = new update_grpc.UpdateClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                    }
-            });
+      for (let i = 1; i < 11; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i].vector,
         });
 
-        afterAll(() => {
-            client.close();
+        const r = payload.Insert_Request?.create({
+          vector: vec,
+          config: cfg,
         });
 
-        test('Update', done => {
-            const vec = new payload.Object.Vector();
-            vec.setId(data[0].id);
-            vec.setVectorList(data[1].vector);
+        requests.push(r);
+      }
 
-            const cfg = new payload.Update.Config();
-            cfg.setSkipStrictExistCheck(true);
+      const req = payload.Insert_MultiRequest?.create({
+        requests: requests,
+      });
 
-            const req = new payload.Update.Request();
-            req.setVector(vec);
-            req.setConfig(cfg);
-
-            client.update(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Location);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiUpdate', done => {
-            const requests = [];
-            const cfg = new payload.Update.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            for (let i = 1; i < 11; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i+1].vector);
-
-                const r = new payload.Update.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Update.MultiRequest();
-            req.setRequestsList(requests);
-
-            client.multiUpdate(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Locations);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamUpdate', done => {
-            const cfg = new payload.Update.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const channel = client.streamUpdate();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Object.StreamLocation);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            })
-
-            for (let i = 11; i < 21; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i+1].vector);
-
-                const r = new payload.Update.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-        });
+      client.multiInsert(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Locations.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
     });
 
-    describe('Tests for upsert operations', () => {
-        let client: UpsertClient;
+    test("StreamInsert", (done) => {
+      const cfg = payload.Insert_Config?.create({
+        skip_strict_exist_check: true,
+      });
 
-        beforeAll(done => {
-            client = new upsert_grpc.UpsertClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
+      const channel = client.streamInsert();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Object_StreamLocation.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 101; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i].vector,
         });
 
-        afterAll(() => {
-            client.close();
+        const r = payload.Insert_Request?.create({
+          vector: vec,
+          config: cfg,
         });
+        channel.write(r);
+      }
 
-        test('Upsert', done => {
-            const vec = new payload.Object.Vector();
-            vec.setId(data[0].id);
-            vec.setVectorList(data[0].vector);
+      channel.end();
+    });
+  });
 
-            const cfg = new payload.Upsert.Config();
-            cfg.setSkipStrictExistCheck(true);
+  describe("Tests for creating indices operations", () => {
+    let client: AgentClient;
 
-            const req = new payload.Upsert.Request();
-            req.setVector(vec);
-            req.setConfig(cfg);
-
-            client.upsert(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Location);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiUpsert', done => {
-            const requests = [];
-            const cfg = new payload.Upsert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            for (let i = 1; i < 11; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i].vector);
-
-                const r = new payload.Upsert.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Upsert.MultiRequest();
-            req.setRequestsList(requests);
-
-            client.multiUpsert(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Locations);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamUpsert', done => {
-            const cfg = new payload.Upsert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const channel = client.streamUpsert();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Object.StreamLocation);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            })
-
-            for (let i = 11; i < 21; i++) {
-                const vec = new payload.Object.Vector();
-                vec.setId(data[i].id);
-                vec.setVectorList(data[i].vector);
-
-                const r = new payload.Upsert.Request();
-                r.setVector(vec);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-        });
+    beforeAll((done) => {
+      client = new agent_grpc.AgentClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
     });
 
-    describe('Tests for remove operations', () => {
-        let client: RemoveClient;
-
-        beforeAll(done => {
-            client = new remove_grpc.RemoveClient(
-                address,
-                grpc.credentials.createInsecure(),
-            );
-            client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
-                if (e) {
-                    done(e);
-                } else {
-                    done();
-                }
-            });
-        });
-
-        afterAll(() => {
-            client.close();
-        });
-
-        test('Remove', done => {
-            const id = new payload.Object.ID();
-            id.setId(data[0].id);
-
-            const cfg = new payload.Remove.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const req = new payload.Remove.Request();
-            req.setId(id);
-            req.setConfig(cfg);
-
-            client.remove(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Location);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('MultiRemove', done => {
-            const requests = [];
-            const cfg = new payload.Insert.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            for (let i = 1; i < 11; i++) {
-                const id = new payload.Object.ID();
-                id.setId(data[i].id);
-
-                const r = new payload.Remove.Request();
-                r.setId(id);
-                r.setConfig(cfg);
-
-                requests.push(r);
-            }
-
-            const req = new payload.Remove.MultiRequest();
-            req.setRequestsList(requests);
-
-            client.multiRemove(req, (err, resp) => {
-                try {
-                    expect(err).toBeFalsy();
-                    expect(resp).toBeInstanceOf(payload.Object.Locations);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-        });
-
-        test('StreamRemove', done => {
-            const cfg = new payload.Remove.Config();
-            cfg.setSkipStrictExistCheck(true);
-
-            const channel = client.streamRemove();
-            channel.on('data', (message) => {
-                try {
-                    expect(message).toBeInstanceOf(payload.Object.StreamLocation);
-                    if (message.hasStatus()) {
-                        const status = message.getStatus();
-                        if (status) {
-                            expect(status.getCode()).toEqual(0);
-                        }
-                    }
-                } catch (e) {
-                    done(e);
-                }
-            });
-            channel.on('end', () => {
-                done();
-            });
-            channel.on('error', (e) => {
-                done(e);
-            })
-
-            for (let i = 11; i < 21; i++) {
-                const id = new payload.Object.ID();
-                id.setId(data[i].id);
-
-                const r = new payload.Remove.Request();
-                r.setId(id);
-                r.setConfig(cfg);
-
-                channel.write(r);
-            }
-
-            channel.end();
-        });
+    afterAll(() => {
+      client.close();
     });
+
+    test("CreateIndex", (done) => {
+      const req = payload.Control_CreateIndexRequest?.create({
+        pool_size: 10000,
+      });
+
+      client?.createIndex(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Empty.is(resp)).toBe(true)
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("SaveIndex", (done) => {
+      const req = payload.Empty?.create();
+
+      client.saveIndex(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Empty.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("IndexInfo", (done) => {
+      const req = payload.Empty?.create();
+
+      client.indexInfo(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Info_Index_Count.is(resp)).toBe(true);
+          expect(resp?.stored).toEqual(101);
+          expect(resp?.uncommitted).toEqual(0);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+  });
+
+  describe("Test for object operations", () => {
+    let client: ObjectClient;
+
+    beforeAll((done) => {
+      client = new object_grpc.ObjectClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
+    });
+
+    test("Exists", (done) => {
+      const req = payload.Object_ID?.create({
+        id: data[0].id,
+      });
+
+      client.exists(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_ID.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("GetObject", (done) => {
+      const id = payload.Object_ID?.create({
+        id: data[0].id,
+      });
+
+      const req = payload.Object_VectorRequest?.create({
+        id: id,
+      });
+
+      client.getObject(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Vector.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamGetObject", (done) => {
+      const channel = client.streamGetObject();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Object_StreamVector.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamVector.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 0; i < 11; i++) {
+        const id = payload.Object_ID?.create({
+          id: data[i].id,
+        });
+
+        const req = payload.Object_VectorRequest?.create({
+          id: id,
+        });
+
+        channel.write(req);
+      }
+
+      channel.end();
+    });
+  });
+
+  describe("Tests for search operations", () => {
+    let client: SearchClient;
+
+    beforeAll((done) => {
+      client = new search_grpc.SearchClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
+    });
+
+    test("Search", (done) => {
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      const req = payload.Search_Request?.create({
+        vector: data[0].vector,
+        config: cfg,
+      });
+
+      client.search(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Search_Response.is(resp)).toBe(true);
+          expect(resp?.results.length).toEqual(3);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("MultiSearch", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      for (let i = 1; i < 11; i++) {
+        const r = payload.Search_Request?.create({
+          vector: data[i].vector,
+          config: cfg,
+        });
+        requests.push(r);
+      }
+
+      const req = payload.Search_MultiRequest?.create({
+        requests: requests,
+      });
+
+      client.multiSearch(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Search_Responses.is(resp)).toBe(true);
+          for (const response of resp?.responses ?? []) {
+            expect(payload.Search_Response.is(response)).toBe(true);
+            expect(response.results.length).toEqual(3);
+          }
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamSearch", (done) => {
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      const channel = client.streamSearch();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Search_StreamResponse.is(message)).toBe(true);
+          const cloneRes = payload.Search_StreamResponse.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 21; i++) {
+        const r = payload.Search_Request?.create({
+          vector: data[i].vector,
+          config: cfg,
+        });
+
+        channel.write(r);
+      }
+
+      channel.end();
+    });
+
+    test("SearchByID", (done) => {
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      const req = payload.Search_IDRequest?.create({
+        id: data[0].id,
+        config: cfg,
+      });
+
+      client.searchByID(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Search_Response.is(resp)).toBe(true);
+          expect(resp?.results.length).toEqual(3);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("MultiSearchByID", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      for (let i = 1; i < 11; i++) {
+        const r = payload.Search_IDRequest?.create({
+          id: data[i].id,
+          config: cfg,
+        });
+
+        requests.push(r);
+      }
+
+      const req = payload.Search_MultiIDRequest?.create({
+        requests: requests,
+      });
+
+      client.multiSearchByID(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Search_Responses.is(resp)).toBe(true);
+          for (const response of resp?.responses ?? []) {
+            expect(payload.Search_Response.is(response)).toBe(true);
+            expect(response.results.length).toEqual(3);
+          }
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamSearchByID", (done) => {
+      const cfg = payload.Search_Config?.create({
+        num: 3,
+        radius: -1.0,
+        epsilon: 0.1,
+        timeout: BigInt(3000000000),
+      });
+
+      const channel = client.streamSearchByID();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Search_StreamResponse.is(message)).toBe(true);
+          const cloneRes = payload.Search_StreamResponse.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 21; i++) {
+        const r = payload.Search_IDRequest?.create({
+          id: data[i].id,
+          config: cfg,
+        });
+        channel.write(r);
+      }
+
+      channel.end();
+    });
+  });
+
+  describe("Tests for update operations", () => {
+    let client: UpdateClient;
+
+    beforeAll((done) => {
+      client = new update_grpc.UpdateClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
+    });
+
+    test("Update", (done) => {
+      const vec = payload.Object_Vector?.create({
+        id: data[0].id,
+        vector: data[1].vector,
+      });
+      const cfg = payload.Update_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const req = payload.Update_Request?.create({
+        vector: vec,
+        config: cfg,
+      });
+
+      client.update(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Location.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("MultiUpdate", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Update_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      for (let i = 1; i < 11; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i + 1].vector,
+        });
+
+        const r = payload.Update_Request?.create({
+          vector: vec,
+          config: cfg,
+        });
+
+        requests.push(r);
+      }
+
+      const req = payload.Update_MultiRequest?.create({
+        requests: requests,
+      });
+
+      client.multiUpdate(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Locations.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamUpdate", (done) => {
+      const cfg = payload.Update_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const channel = client.streamUpdate();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Object_StreamLocation.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 21; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i + 1].vector,
+        });
+
+        const r = payload.Update_Request?.create({
+          vector: vec,
+          config: cfg,
+        });
+        channel.write(r);
+      }
+
+      channel.end();
+    });
+  });
+
+  describe("Tests for upsert operations", () => {
+    let client: UpsertClient;
+
+    beforeAll((done) => {
+      client = new upsert_grpc.UpsertClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
+    });
+
+    test("Upsert", (done) => {
+      const vec = payload.Object_Vector?.create({
+        id: data[0].id,
+        vector: data[0].vector,
+      });
+
+      const cfg = payload.Upsert_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const req = payload.Upsert_Request?.create({
+        vector: vec,
+        config: cfg
+      });
+
+      client.upsert(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Location.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("MultiUpsert", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Upsert_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      for (let i = 1; i < 11; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i].vector,
+        });
+
+        const r = payload.Upsert_Request?.create({
+          vector: vec,
+          config: cfg,
+        });
+
+        requests.push(r);
+      }
+
+      const req = payload.Upsert_MultiRequest?.create({
+        requests: requests,
+      });
+
+      client.multiUpsert(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Locations.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamUpsert", (done) => {
+      const cfg = payload.Upsert_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const channel = client.streamUpsert();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Object_StreamLocation.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 21; i++) {
+        const vec = payload.Object_Vector?.create({
+          id: data[i].id,
+          vector: data[i].vector,
+        });
+        const r = payload.Upsert_Request?.create({
+          vector: vec,
+          config: cfg,
+        });
+
+        channel.write(r);
+      }
+
+      channel.end();
+    });
+  });
+
+  describe("Tests for remove operations", () => {
+    let client: RemoveClient;
+
+    beforeAll((done) => {
+      client = new remove_grpc.RemoveClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
+    });
+
+    test("Remove", (done) => {
+      const id = payload.Object_ID?.create({
+        id: data[0].id,
+      });
+
+      const cfg = payload.Remove_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const req = payload.Remove_Request?.create({
+        id: id,
+        config: cfg,
+      });
+
+      client.remove(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Location.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("MultiRemove", (done) => {
+      const requests: Array<any> = [];
+      const cfg = payload.Insert_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      for (let i = 1; i < 11; i++) {
+        const id = payload.Object_ID?.create({
+          id: data[i].id,
+        });
+
+        const r = payload.Remove_Request?.create({
+          id: id,
+          config: cfg,
+        });
+
+        requests.push(r);
+      }
+
+      const req = payload.Remove_MultiRequest?.create({
+        requests: requests,
+      });
+
+      client.multiRemove(req, (err, resp) => {
+        try {
+          expect(err).toBeFalsy();
+          expect(payload.Object_Locations.is(resp)).toBe(true);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    test("StreamRemove", (done) => {
+      const cfg = payload.Remove_Config?.create({
+        skip_strict_exist_check: true,
+      });
+
+      const channel = client.streamRemove();
+      channel.on("data", (message) => {
+        try {
+          expect(payload.Object_StreamLocation.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
+          }
+        } catch (e) {
+          done(e);
+        }
+      });
+      channel.on("end", () => {
+        done();
+      });
+      channel.on("error", (e) => {
+        done(e);
+      });
+
+      for (let i = 11; i < 21; i++) {
+        const id = payload.Object_ID?.create({
+          id: data[i].id,
+        });
+
+        const r = payload.Remove_Request?.create({
+          id: id,
+          config: cfg,
+        });
+
+        channel.write(r);
+      }
+
+      channel.end();
+    });
+  });
 });

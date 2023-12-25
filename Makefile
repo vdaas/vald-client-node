@@ -135,7 +135,9 @@ $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.js: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 		sed -e "s:$</::" | \
 		sed -e "s:_grpc_pb.js::"`; \
 	    echo "module.exports.$${name} = require(\"./$${name}_pb\");" >> $@; \
-	    echo "module.exports.$${name}_grpc = require(\"./$${name}_grpc_pb\");" >> $@; \
+	    if [ ! "$${name}" = "payload" ]; then \
+		echo "module.exports.$${name}_grpc = require(\"./$${name}_pb.grpc-client\");" >> $@; \
+		fi; \
 	    done
 $(NODE_ROOT)/$(SHADOW_ROOT)/%/index.d.ts: $(NODE_ROOT)/$(SHADOW_ROOT)/%
 	rm -rf $@
