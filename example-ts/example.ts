@@ -1,5 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import { v1_vald, v1_payload } from "vald-client-node";
+import type { Insert_Request, Search_Request, Remove_Request } from "vald-client-node/src/vald/v1/payload/payload_pb";
 
 const addr = "localhost:8081";
 const DIM = process.env.DIM || 4;
@@ -38,7 +39,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const insertFunc = (req: any) => {
+  const insertFunc = async (req: Insert_Request) => {
     return new Promise((resolve, reject) => {
       iclient.insert(req, (err, resp) => {
         if (err) {
@@ -49,13 +50,13 @@ const main = async () => {
       });
     });
   };
-  insertFunc(ireq)
-    .then(async (res) => {
-      console.log("resp: ", res);
+  await insertFunc(ireq)
+    .then((res) => {
+      console.log("insert resp: ", res);
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
 
   const second = 100;
@@ -79,7 +80,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const searchFunc = (req: any) => {
+  const searchFunc = async (req: Search_Request) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
         if (err) {
@@ -90,13 +91,13 @@ const main = async () => {
       });
     });
   };
-  searchFunc(sreq)
-    .then((res: any) => {
-      console.log("res: ", res, "\n");
+  await searchFunc(sreq)
+    .then((res) => {
+      console.log("search res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
 
   // remove
@@ -117,7 +118,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const removeFunc = (req: any) => {
+  const removeFunc = async (req: Remove_Request) => {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {
         if (err) {
@@ -128,14 +129,15 @@ const main = async () => {
       });
     });
   };
-  removeFunc(rreq)
-    .then((res: any) => {
-      console.log("res: ", res, "\n");
+  await removeFunc(rreq)
+    .then((res) => {
+      console.log("remove res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
-      return -1;
+      process.exit(1);
     });
+  process.exit(0);
 };
 
 main();

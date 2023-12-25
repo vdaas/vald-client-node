@@ -2,13 +2,6 @@ version: v1
 managed:
   enabled: true
 plugins:
-  # - plugin: buf.build/protocolbuffers/js
-  #   out: src/
-  #   opt: import_style=commonjs
-  # - plugin: buf.build/grpc/node
-  #   out: src
-  #   opt: grpc_js,import_style=commonjs
-
   - plugin: buf.build/community/timostamm-protobuf-ts
     out: src
     # https://github.com/timostamm/protobuf-ts/blob/main/MANUAL.md#the-protoc-plugin
@@ -22,16 +15,3 @@ plugins:
       - output_javascript
       - output_legacy_commonjs
       - eslint_disable
-
-    # Failed because timeout type changed
-    # opt:
-    #   - add_pb_suffix
-    #   - client_grpc1
-    #   - generate_dependencies
-    #   - keep_enum_prefix
-    #   - ts_nocheck
-    #   - use_proto_field_name
-    #   - output_javascript
-    #   - optimize_code_size
-    #   - long_type_string
-    #   - eslint_disable
