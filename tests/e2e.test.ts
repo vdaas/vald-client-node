@@ -117,12 +117,10 @@ describe("Tests for node client", () => {
       const channel = client.streamInsert();
       channel.on("data", (message) => {
         try {
-          expect(message).toBeInstanceOf(payload.Object_StreamLocation);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          expect(payload.Object_StreamLocation.is(message)).toBe(true);
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -282,11 +280,9 @@ describe("Tests for node client", () => {
       channel.on("data", (message) => {
         try {
           expect(payload.Object_StreamVector.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          const cloneRes = payload.Object_StreamVector.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -385,9 +381,9 @@ describe("Tests for node client", () => {
       client.multiSearch(req, (err, resp) => {
         try {
           expect(err).toBeFalsy();
-          expect(payload.Search_Response.is(resp)).toBe(true);
-          for (var response of resp?.responses ?? []) {
-            expect(response).toBeInstanceOf(payload.Search_Response);
+          expect(payload.Search_Responses.is(resp)).toBe(true);
+          for (const response of resp?.responses ?? []) {
+            expect(payload.Search_Response.is(response)).toBe(true);
             expect(response.results.length).toEqual(3);
           }
           done();
@@ -408,12 +404,10 @@ describe("Tests for node client", () => {
       const channel = client.streamSearch();
       channel.on("data", (message) => {
         try {
-          expect(payload.Search_Response.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          expect(payload.Search_StreamResponse.is(message)).toBe(true);
+          const cloneRes = payload.Search_StreamResponse.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -488,9 +482,9 @@ describe("Tests for node client", () => {
       client.multiSearchByID(req, (err, resp) => {
         try {
           expect(err).toBeFalsy();
-          expect(payload.Search_Response.is(resp)).toBe(true);
-          for (var response of resp?.responses ?? []) {
-            expect(response).toBeInstanceOf(payload.Search_Response);
+          expect(payload.Search_Responses.is(resp)).toBe(true);
+          for (const response of resp?.responses ?? []) {
+            expect(payload.Search_Response.is(response)).toBe(true);
             expect(response.results.length).toEqual(3);
           }
           done();
@@ -512,11 +506,9 @@ describe("Tests for node client", () => {
       channel.on("data", (message) => {
         try {
           expect(payload.Search_StreamResponse.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          const cloneRes = payload.Search_StreamResponse.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -631,11 +623,9 @@ describe("Tests for node client", () => {
       channel.on("data", (message) => {
         try {
           expect(payload.Object_StreamLocation.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -705,7 +695,6 @@ describe("Tests for node client", () => {
         try {
           expect(err).toBeFalsy();
           expect(payload.Object_Location.is(resp)).toBe(true);
-          expect(resp).toBeInstanceOf(payload.Object_Location);
           done();
         } catch (e) {
           done(e);
@@ -757,11 +746,9 @@ describe("Tests for node client", () => {
       channel.on("data", (message) => {
         try {
           expect(payload.Object_StreamLocation.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
@@ -880,11 +867,9 @@ describe("Tests for node client", () => {
       channel.on("data", (message) => {
         try {
           expect(payload.Object_StreamLocation.is(message)).toBe(true);
-          if (message.hasStatus()) {
-            const status = message.getStatus();
-            if (status) {
-              expect(status.getCode()).toEqual(0);
-            }
+          const cloneRes = payload.Object_StreamLocation.clone(message);
+          if (cloneRes.payload.oneofKind === "status") {
+            expect(cloneRes.payload.status.code).toEqual(0);
           }
         } catch (e) {
           done(e);
