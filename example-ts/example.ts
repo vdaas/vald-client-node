@@ -1,5 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import { v1_vald, v1_payload } from "vald-client-node";
+import type { Insert_Request, Search_Request, Remove_Request } from "vald-client-node/src/vald/v1/payload/payload_pb";
 
 const addr = "localhost:8081";
 const DIM = process.env.DIM || 4;
@@ -38,7 +39,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const insertFunc = (req: any) => {
+  const insertFunc = (req: Insert_Request) => {
     return new Promise((resolve, reject) => {
       iclient.insert(req, (err, resp) => {
         if (err) {
@@ -79,7 +80,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const searchFunc = (req: any) => {
+  const searchFunc = (req: Search_Request) => {
     return new Promise((resolve, reject) => {
       sclient.search(req, (err, resp) => {
         if (err) {
@@ -117,7 +118,7 @@ const main = async () => {
     grpc.credentials.createInsecure()
   );
 
-  const removeFunc = (req: any) => {
+  const removeFunc = (req: Remove_Request) => {
     return new Promise((resolve, reject) => {
       rclient.remove(req, (err, resp) => {
         if (err) {
