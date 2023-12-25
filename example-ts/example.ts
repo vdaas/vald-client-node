@@ -51,7 +51,7 @@ const main = async () => {
   };
   insertFunc(ireq)
     .then(async (res) => {
-      console.log("resp: ", res);
+      console.log("insert resp: ", res);
     })
     .catch((e) => {
       console.log("err: ", e);
@@ -92,7 +92,7 @@ const main = async () => {
   };
   searchFunc(sreq)
     .then((res: any) => {
-      console.log("res: ", res, "\n");
+      console.log("search res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
@@ -130,7 +130,7 @@ const main = async () => {
   };
   removeFunc(rreq)
     .then((res: any) => {
-      console.log("res: ", res, "\n");
+      console.log("remove res: ", res, "\n");
     })
     .catch((e) => {
       console.log("err: ", e);
