@@ -5,7 +5,7 @@
 // @ts-nocheck
 //
 //
-// Copyright (C) 2019-2024 vdaas.org vald team <vald@vdaas.org>
+// Copyright (C) 2019-2023 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -1548,45 +1548,6 @@ export interface Info_IPs {
     ip: string[];
 }
 /**
- * Mirror related messages.
- *
- * @generated from protobuf message payload.v1.Mirror
- */
-export interface Mirror {
-}
-/**
- * Represent server information.
- *
- * @generated from protobuf message payload.v1.Mirror.Target
- */
-export interface Mirror_Target {
-    /**
-     * The target hostname.
-     *
-     * @generated from protobuf field: string host = 1;
-     */
-    host: string;
-    /**
-     * The target port.
-     *
-     * @generated from protobuf field: uint32 port = 2;
-     */
-    port: number;
-}
-/**
- * Represent the multiple Target message.
- *
- * @generated from protobuf message payload.v1.Mirror.Targets
- */
-export interface Mirror_Targets {
-    /**
-     * The multiple target information.
-     *
-     * @generated from protobuf field: repeated payload.v1.Mirror.Target targets = 1;
-     */
-    targets: Mirror_Target[];
-}
-/**
  * Represent an empty message.
  *
  * @generated from protobuf message payload.v1.Empty
@@ -2395,36 +2356,6 @@ declare class Info_IPs$Type extends MessageType<Info_IPs> {
  * @generated MessageType for protobuf message payload.v1.Info.IPs
  */
 export declare const Info_IPs: Info_IPs$Type;
-declare class Mirror$Type extends MessageType<Mirror> {
-    constructor();
-    create(value?: PartialMessage<Mirror>): Mirror;
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Mirror): Mirror;
-    internalBinaryWrite(message: Mirror, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
-}
-/**
- * @generated MessageType for protobuf message payload.v1.Mirror
- */
-export declare const Mirror: Mirror$Type;
-declare class Mirror_Target$Type extends MessageType<Mirror_Target> {
-    constructor();
-    create(value?: PartialMessage<Mirror_Target>): Mirror_Target;
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Mirror_Target): Mirror_Target;
-    internalBinaryWrite(message: Mirror_Target, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
-}
-/**
- * @generated MessageType for protobuf message payload.v1.Mirror.Target
- */
-export declare const Mirror_Target: Mirror_Target$Type;
-declare class Mirror_Targets$Type extends MessageType<Mirror_Targets> {
-    constructor();
-    create(value?: PartialMessage<Mirror_Targets>): Mirror_Targets;
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Mirror_Targets): Mirror_Targets;
-    internalBinaryWrite(message: Mirror_Targets, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
-}
-/**
- * @generated MessageType for protobuf message payload.v1.Mirror.Targets
- */
-export declare const Mirror_Targets: Mirror_Targets$Type;
 declare class Empty$Type extends MessageType<Empty> {
     constructor();
     create(value?: PartialMessage<Empty>): Empty;
