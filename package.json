@@ -32,7 +32,7 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.10.0",
     "@protobuf-ts/runtime": "^2.9.3",
-    "@protobuf-ts/runtime-rpc": "^2.9.3"
+    "@protobuf-ts/runtime-rpc": "^2.9.4"
   },
   "engines": {
     "node": ">=18.16.0"
