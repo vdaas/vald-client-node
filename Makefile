@@ -258,6 +258,7 @@ ci/test:
 	npm pack
 	npm install -g ts-node
 	(version=$(shell $(MAKE) -s vald/client/node/version/print); \
+		echo "vald-client-node version: $${version}"; \"
 		cd example-ts && npm install ../vald-client-node-$${version}.tgz -s -f; \
 		DIM=300 ts-node example.ts; \
 		cd ../example && npm install ../vald-client-node-$${version}.tgz -s -f; \
