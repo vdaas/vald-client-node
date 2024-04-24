@@ -249,11 +249,6 @@ proto/deps: \
 ci/deps/install:
 	npm install
 
-.PHONY: ci/deps/update
-## update deps for CI environment
-ci/deps/update:
-	@echo "Nothing to be done"
-
 .PHONY: ci/test
 ## Execute test for CI environment
 ci/test:
