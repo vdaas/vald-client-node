@@ -243,3 +243,32 @@ $(BUF_GEN_PATH):
 ## install proto deps
 proto/deps: \
 	npm/deps
+
+.PHONY: ci/deps/install
+## install deps for CI environment
+ci/deps/install:
+	npm install
+
+.PHONY: ci/test
+## Execute test for CI environment
+ci/test:
+	npm run test
+
+	# verify example codes
+	npm pack
+	npm install -g ts-node
+	(version=$(shell $(MAKE) -s vald/client/node/version/print); \
+		cd example-ts && npm install ../vald-client-node-$${version}.tgz -s -f; \
+		DIM=300 ts-node example.ts; \
+		cd ../example && npm install ../vald-client-node-$${version}.tgz -s -f; \
+		DIM=300 node example.js)
+
+.PHONY: dataset/download
+## download dataset
+dataset/download:
+	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o tests/wordvecs1000.json
+
+.PHONY: dataset/delete
+## download dataset
+dataset/delete:
+	rm -rf tests/wordvecs1000.json
