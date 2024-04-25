@@ -5,8 +5,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
-    "@bufbuild/buf": "^1.29.0",
-    "@bufbuild/protobuf": "^1.7.2",
+    "@bufbuild/buf": "^1.31.0",
+    "@bufbuild/protobuf": "^1.9.0",
     "@types/jest": "^27.5.2",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.5",
@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/vdaas/vald-client-node",
   "dependencies": {
-    "@grpc/grpc-js": "^1.10.0",
-    "@protobuf-ts/runtime": "^2.9.3",
-    "@protobuf-ts/runtime-rpc": "^2.9.3"
+    "@grpc/grpc-js": "^1.10.6",
+    "@protobuf-ts/runtime": "^2.9.4",
+    "@protobuf-ts/runtime-rpc": "^2.9.4"
   },
   "engines": {
     "node": ">=18.16.0"
