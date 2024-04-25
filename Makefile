@@ -267,9 +267,6 @@ ci/test: $(TEST_DATASET_PATH)
 		cd ../example && npm install ../vald-client-node-$${version}.tgz -s -f; \
 		DIM=300 node example.js)
 
-echo: $(TEST_DATASET_PATH)
-	echo "hello"
-
 $(TEST_DATASET_PATH):
 	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o $(TEST_DATASET_PATH)
 
