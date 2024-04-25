@@ -38,6 +38,8 @@ BUF_CONFIGS = \
 SHADOW_ROOT = vald
 SHADOW_PROTO_ROOT = $(SHADOW_ROOT)/$(SHADOW_ROOT)
 
+TEST_DATASET_PATH = tests/wordvecs1000.json
+
 PROTOS = \
 	v1/agent/core/agent.proto \
 	v1/vald/filter.proto \
@@ -251,7 +253,7 @@ ci/deps/install:
 
 .PHONY: ci/test
 ## Execute test for CI environment
-ci/test:
+ci/test: $(TEST_DATASET_PATH)
 	npm run test
 
 	# verify example codes
@@ -264,12 +266,8 @@ ci/test:
 		cd ../example && npm install ../vald-client-node-$${version}.tgz -s -f; \
 		DIM=300 node example.js)
 
-.PHONY: dataset/download
-## download dataset
-dataset/download:
-	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o tests/wordvecs1000.json
+echo: $(TEST_DATASET_PATH)
+	echo "hello"
 
-.PHONY: dataset/delete
-## download dataset
-dataset/delete:
-	rm -rf tests/wordvecs1000.json
+$(TEST_DATASET_PATH):
+	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o $(TEST_DATASET_PATH)
