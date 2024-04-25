@@ -28,6 +28,7 @@ VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 PWD    := $(eval PWD := $(shell pwd))$(PWD)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
+NODE_VERSION := $(eval NODE_VERSION := $(shell cat NODE_VERSION))$(NODE_VERSION)
 NODE_ROOT   = src
 NPM_BIN = $(shell npm prefix)
 
@@ -271,3 +272,8 @@ echo: $(TEST_DATASET_PATH)
 
 $(TEST_DATASET_PATH):
 	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o $(TEST_DATASET_PATH)
+
+.PHONY: version/node
+## Print Node version
+version/node:
+	@echo $(NODE_VERSION)
