@@ -28,6 +28,7 @@ VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 PWD    := $(eval PWD := $(shell pwd))$(PWD)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
+NODE_VERSION := $(eval NODE_VERSION := $(shell cat NODE_VERSION))$(NODE_VERSION)
 NODE_ROOT   = src
 NPM_BIN = $(shell npm prefix)
 
@@ -37,6 +38,8 @@ BUF_CONFIGS = \
 
 SHADOW_ROOT = vald
 SHADOW_PROTO_ROOT = $(SHADOW_ROOT)/$(SHADOW_ROOT)
+
+TEST_DATASET_PATH = tests/wordvecs1000.json
 
 PROTOS = \
 	v1/agent/core/agent.proto \
@@ -207,7 +210,17 @@ $(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_PROTO_ROOT)/%.proto
 	$(BUF_GEN_PATH) generate --include-imports
 
 $(VALD_DIR):
-	git clone --depth 1 https://$(VALDREPO) $(VALD_DIR)
+	git clone https://$(VALDREPO) $(VALD_DIR)
+
+.PHONY: vald/checkout
+## checkout vald repository
+vald/checkout: $(VALD_DIR)
+	cd $(VALD_DIR) && git checkout $(VALD_CHECKOUT_REF)
+
+.PHONY: vald/origin/sha/print
+## print origin VALD_SHA value
+vald/origin/sha/print: $(VALD_DIR)
+	@cd $(VALD_DIR) && git rev-parse HEAD | tr -d '\n'
 
 .PHONY: vald/sha/print
 ## print VALD_SHA value
@@ -216,30 +229,69 @@ vald/sha/print:
 
 .PHONY: vald/sha/update
 ## update VALD_SHA value
-vald/sha/update: vald
-	(cd vald; git rev-parse HEAD > ../$(VALD_SHA))
+vald/sha/update: $(VALD_DIR)
+	(cd $(VALD_DIR); git rev-parse HEAD | tr -d '\n' > ../$(VALD_SHA))
 
-.PHONY: vald/client/node/version/print
-## print VALD_CLIENT_NODE_VERSION value
-vald/client/node/version/print:
+.PHONY: vald/client/version/print
+## print VALD_CLIENT_JAVA_VERSION value
+vald/client/version/print:
 	@cat $(VALD_CLIENT_NODE_VERSION)
 
-.PHONY: vald/client/node/version/update
+.PHONY: vald/client/version/update
 ## update VALD_CLIENT_NODE_VERSION value
-vald/client/node/version/update: vald
+vald/client/version/update: $(VALD_DIR)
 	(vald_version=`cat $(VALD_DIR)/versions/VALD_VERSION | sed -e 's/^v//'`; \
 	    echo "VALD_VERSION: $${vald_version}"; \
 	    echo "$${vald_version}" > VALD_CLIENT_NODE_VERSION)
 	sed -i -e "s/\"version\": \".*\",\$$/\"version\": \"`cat VALD_CLIENT_NODE_VERSION`\",/" package.json
 
-.PHONY: npm/deps
-npm/deps: \
+.PHONY: test
+## Execute test for CI environment
+test: $(TEST_DATASET_PATH)
+	npm run test
+
+	# verify example codes
+	npm pack
+	npm install -g ts-node
+	(version=$(shell $(MAKE) -s vald/client/version/print); \
+		echo "vald-client-node version: $${version}"; \
+		cd example-ts && npm install ../vald-client-node-$${version}.tgz -s -f; \
+		DIM=300 ts-node example.ts; \
+		cd ../example && npm install ../vald-client-node-$${version}.tgz -s -f; \
+		DIM=300 node example.js)
+
+$(TEST_DATASET_PATH):
+	curl -L https://raw.githubusercontent.com/rinx/word2vecjson/master/data/wordvecs1000.json -o $(TEST_DATASET_PATH)
+
+.PHONY: ci/deps/install
+## install deps for CI environment
+ci/deps/install:
+	npm install
+
+.PHONY: ci/deps/update
+## update deps for CI environment
+ci/deps/update:
+	npm update
+
+.PHONY: ci/package/prepare
+## prepare for publich
+ci/package/prepare: \
+	ci/deps/install
+
+.PHONY: ci/package/publish
+## publich packages
+ci/package/publish:
+	npm publish
+
+.PHONY: proto/deps/install
+## install proto deps
+proto/deps/install: \
 	$(BUF_GEN_PATH)
 
 $(BUF_GEN_PATH):
 	npm install --save-dev @bufbuild/buf @bufbuild/protobuf
 
-.PHONY: proto/deps
-## install proto deps
-proto/deps: \
-	npm/deps
+.PHONY: version/node
+## Print Node version
+version/node:
+	@echo $(NODE_VERSION)
