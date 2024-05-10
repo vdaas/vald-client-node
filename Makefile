@@ -234,7 +234,7 @@ vald/sha/update: $(VALD_DIR)
 	(cd $(VALD_DIR); git rev-parse HEAD | tr -d '\n' > ../$(VALD_SHA))
 
 .PHONY: vald/client/version/print
-## print VALD_CLIENT_JAVA_VERSION value
+## print VALD_CLIENT_NODE_VERSION value
 vald/client/version/print:
 	@cat $(VALD_CLIENT_NODE_VERSION)
 
