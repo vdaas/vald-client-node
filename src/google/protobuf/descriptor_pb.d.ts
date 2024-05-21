@@ -391,12 +391,12 @@ export interface FieldDescriptorProto {
      * If true, this is a proto3 "optional". When a proto3 field is optional, it
      * tracks presence regardless of field type.
      *
-     * When proto3_optional is true, this field must be belong to a oneof to
-     * signal to old proto3 clients that presence is tracked for this field. This
-     * oneof is known as a "synthetic" oneof, and this field must be its sole
-     * member (each proto3 optional field gets its own synthetic oneof). Synthetic
-     * oneofs exist in the descriptor only, and do not generate any API. Synthetic
-     * oneofs must be ordered after all "real" oneofs.
+     * When proto3_optional is true, this field must belong to a oneof to signal
+     * to old proto3 clients that presence is tracked for this field. This oneof
+     * is known as a "synthetic" oneof, and this field must be its sole member
+     * (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs
+     * exist in the descriptor only, and do not generate any API. Synthetic oneofs
+     * must be ordered after all "real" oneofs.
      *
      * For message fields, proto3_optional doesn't create any semantic change,
      * since non-repeated message fields always track presence. However it still
@@ -732,12 +732,16 @@ export interface FileOptions {
      */
     java_generate_equals_and_hash?: boolean;
     /**
-     * If set true, then the Java2 code generator will generate code that
-     * throws an exception whenever an attempt is made to assign a non-UTF-8
-     * byte sequence to a string field.
-     * Message reflection will do the same.
-     * However, an extension field still accepts non-UTF-8 byte sequences.
-     * This option has no effect on when used with the lite runtime.
+     * A proto2 file can set this to true to opt in to UTF-8 checking for Java,
+     * which will throw an exception if invalid UTF-8 is parsed from the wire or
+     * assigned to a string field.
+     *
+     * TODO: clarify exactly what kinds of field types this option
+     * applies to, and update these docs accordingly.
+     *
+     * Proto3 files already perform these checks. Setting the option explicitly to
+     * false has no effect: it cannot be used to opt proto3 files out of UTF-8
+     * checks.
      *
      * @generated from protobuf field: optional bool java_string_check_utf8 = 27;
      */
@@ -779,10 +783,6 @@ export interface FileOptions {
      * @generated from protobuf field: optional bool py_generic_services = 18;
      */
     py_generic_services?: boolean;
-    /**
-     * @generated from protobuf field: optional bool php_generic_services = 42;
-     */
-    php_generic_services?: boolean;
     /**
      * Is this file deprecated?
      * Depending on the target platform, this can emit Deprecated annotations
@@ -942,10 +942,6 @@ export interface MessageOptions {
      */
     deprecated?: boolean;
     /**
-     * NOTE: Do not set the option in .proto files. Always use the maps syntax
-     * instead. The option should only be implicitly set by the proto compiler
-     * parser.
-     *
      * Whether the message is an automatically generated map entry type for the
      * maps field.
      *
@@ -963,6 +959,10 @@ export interface MessageOptions {
      * use a native map in the target language to hold the keys and values.
      * The reflection APIs in such implementations still need to work as
      * if the field is a repeated message field.
+     *
+     * NOTE: Do not set the option in .proto files. Always use the maps syntax
+     * instead. The option should only be implicitly set by the proto compiler
+     * parser.
      *
      * @generated from protobuf field: optional bool map_entry = 7;
      */
@@ -1057,19 +1057,11 @@ export interface FieldOptions {
      * call from multiple threads concurrently, while non-const methods continue
      * to require exclusive access.
      *
-     * Note that implementations may choose not to check required fields within
-     * a lazy sub-message.  That is, calling IsInitialized() on the outer message
-     * may return true even if the inner message has missing required fields.
-     * This is necessary because otherwise the inner message would have to be
-     * parsed in order to perform the check, defeating the purpose of lazy
-     * parsing.  An implementation which chooses not to check required fields
-     * must be consistent about it.  That is, for any particular sub-message, the
-     * implementation must either *always* check its required fields, or *never*
-     * check its required fields, regardless of whether or not the message has
-     * been parsed.
-     *
-     * As of May 2022, lazy verifies the contents of the byte stream during
-     * parsing.  An invalid byte stream will cause the overall parsing to fail.
+     * Note that lazy message fields are still eagerly verified to check
+     * ill-formed wireformat or missing required fields. Calling IsInitialized()
+     * on the outer message would fail if the inner message has missing required
+     * fields. Failed verification would result in parsing failure (except when
+     * uninitialized messages are acceptable).
      *
      * @generated from protobuf field: optional bool lazy = 5;
      */
@@ -1123,6 +1115,10 @@ export interface FieldOptions {
      */
     features?: FeatureSet;
     /**
+     * @generated from protobuf field: optional google.protobuf.FieldOptions.FeatureSupport feature_support = 22;
+     */
+    feature_support?: FieldOptions_FeatureSupport;
+    /**
      * The parser stores options it doesn't recognize here. See above.
      *
      * @generated from protobuf field: repeated google.protobuf.UninterpretedOption uninterpreted_option = 999;
@@ -1141,6 +1137,43 @@ export interface FieldOptions_EditionDefault {
      * @generated from protobuf field: optional string value = 2;
      */
     value?: string;
+}
+/**
+ * Information about the support window of a feature.
+ *
+ * @generated from protobuf message google.protobuf.FieldOptions.FeatureSupport
+ */
+export interface FieldOptions_FeatureSupport {
+    /**
+     * The edition that this feature was first available in.  In editions
+     * earlier than this one, the default assigned to EDITION_LEGACY will be
+     * used, and proto files will not be able to override it.
+     *
+     * @generated from protobuf field: optional google.protobuf.Edition edition_introduced = 1;
+     */
+    edition_introduced?: Edition;
+    /**
+     * The edition this feature becomes deprecated in.  Using this after this
+     * edition may trigger warnings.
+     *
+     * @generated from protobuf field: optional google.protobuf.Edition edition_deprecated = 2;
+     */
+    edition_deprecated?: Edition;
+    /**
+     * The deprecation warning text if this feature is used after the edition it
+     * was marked deprecated in.
+     *
+     * @generated from protobuf field: optional string deprecation_warning = 3;
+     */
+    deprecation_warning?: string;
+    /**
+     * The edition this feature is no longer available in.  In editions after
+     * this one, the last default assigned will be used, and proto files will
+     * not be able to override it.
+     *
+     * @generated from protobuf field: optional google.protobuf.Edition edition_removed = 4;
+     */
+    edition_removed?: Edition;
 }
 /**
  * @generated from protobuf enum google.protobuf.FieldOptions.CType
@@ -1601,13 +1634,13 @@ export declare enum FeatureSet_Utf8Validation {
      */
     UTF8_VALIDATION_UNKNOWN = 0,
     /**
-     * @generated from protobuf enum value: NONE = 1;
-     */
-    NONE = 1,
-    /**
      * @generated from protobuf enum value: VERIFY = 2;
      */
-    VERIFY = 2
+    VERIFY = 2,
+    /**
+     * @generated from protobuf enum value: NONE = 3;
+     */
+    NONE = 3
 }
 /**
  * @generated from protobuf enum google.protobuf.FeatureSet.MessageEncoding
@@ -1685,9 +1718,17 @@ export interface FeatureSetDefaults_FeatureSetEditionDefault {
      */
     edition?: Edition;
     /**
-     * @generated from protobuf field: optional google.protobuf.FeatureSet features = 2;
+     * Defaults of features that can be overridden in this edition.
+     *
+     * @generated from protobuf field: optional google.protobuf.FeatureSet overridable_features = 4;
      */
-    features?: FeatureSet;
+    overridable_features?: FeatureSet;
+    /**
+     * Defaults of features that can't be overridden in this edition.
+     *
+     * @generated from protobuf field: optional google.protobuf.FeatureSet fixed_features = 5;
+     */
+    fixed_features?: FeatureSet;
 }
 /**
  * Encapsulates information about the original source file from which a
@@ -1754,7 +1795,7 @@ export interface SourceCodeInfo_Location {
      * location.
      *
      * Each element is a field number or an index.  They form a path from
-     * the root FileDescriptorProto to the place where the definition occurs.
+     * the root FileDescriptorProto to the place where the definition appears.
      * For example, this path:
      *   [ 4, 3, 2, 7, 1 ]
      * refers to:
@@ -1940,6 +1981,13 @@ export declare enum Edition {
      */
     EDITION_UNKNOWN = 0,
     /**
+     * A placeholder edition for specifying default behaviors *before* a feature
+     * was first introduced.  This is effectively an "infinite past".
+     *
+     * @generated from protobuf enum value: EDITION_LEGACY = 900;
+     */
+    EDITION_LEGACY = 900,
+    /**
      * Legacy syntax "editions".  These pre-date editions, but behave much like
      * distinct editions.  These can't be used to specify the edition of proto
      * files, but feature definitions must supply proto2/proto3 defaults for
@@ -1960,6 +2008,10 @@ export declare enum Edition {
      * @generated from protobuf enum value: EDITION_2023 = 1000;
      */
     EDITION_2023 = 1000,
+    /**
+     * @generated from protobuf enum value: EDITION_2024 = 1001;
+     */
+    EDITION_2024 = 1001,
     /**
      * Placeholder editions for testing feature resolution.  These should not be
      * used or relyed on outside of tests.
@@ -1982,7 +2034,15 @@ export declare enum Edition {
     /**
      * @generated from protobuf enum value: EDITION_99999_TEST_ONLY = 99999;
      */
-    EDITION_99999_TEST_ONLY = 99999
+    EDITION_99999_TEST_ONLY = 99999,
+    /**
+     * Placeholder for specifying unbounded edition support.  This should only
+     * ever be used by plugins that can expect to never require any changes to
+     * support a new edition.
+     *
+     * @generated from protobuf enum value: EDITION_MAX = 2147483647;
+     */
+    EDITION_MAX = 2147483647
 }
 declare class FileDescriptorSet$Type extends MessageType<FileDescriptorSet> {
     constructor();
@@ -2164,6 +2224,16 @@ declare class FieldOptions_EditionDefault$Type extends MessageType<FieldOptions_
  * @generated MessageType for protobuf message google.protobuf.FieldOptions.EditionDefault
  */
 export declare const FieldOptions_EditionDefault: FieldOptions_EditionDefault$Type;
+declare class FieldOptions_FeatureSupport$Type extends MessageType<FieldOptions_FeatureSupport> {
+    constructor();
+    create(value?: PartialMessage<FieldOptions_FeatureSupport>): FieldOptions_FeatureSupport;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FieldOptions_FeatureSupport): FieldOptions_FeatureSupport;
+    internalBinaryWrite(message: FieldOptions_FeatureSupport, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message google.protobuf.FieldOptions.FeatureSupport
+ */
+export declare const FieldOptions_FeatureSupport: FieldOptions_FeatureSupport$Type;
 declare class OneofOptions$Type extends MessageType<OneofOptions> {
     constructor();
     create(value?: PartialMessage<OneofOptions>): OneofOptions;
