@@ -3,7 +3,7 @@
 [![vald-client-node](https://img.shields.io/npm/v/vald-client-node/latest?logo=npm&style=flat-square)](https://www.npmjs.com/package/vald-client-node)
 [![Vald version](https://img.shields.io/github/release/vdaas/vald.svg?style=flat-square)](https://github.com/vdaas/vald/releases/latest)
 ![node-current](https://img.shields.io/node/v/vald-client-node)
-![Build version](https://img.shields.io/badge/build_version-v18-green)
+![Build version](https://img.shields.io/badge/build_version-v22-green)
 ![total downloads](https://img.shields.io/npm/dt/vald-client-node)
 
 
