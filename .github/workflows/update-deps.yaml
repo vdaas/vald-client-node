@@ -23,7 +23,7 @@ on:
 jobs:
   update:
     # uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
-    uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@fix/disable-pr-creation
+    uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@fix/add-directory-name
     with:
       config_file_path: .github/dependabot-cli.yaml
       pr_branch_name: chore/update-npm
