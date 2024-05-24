@@ -1,0 +1,13 @@
+job:
+  package-manager: npm
+  allowed-updates:
+    - update-type: all
+  dependency-groups:
+    - name: npm
+      rules:
+        patterns:
+          - "*"
+  source:
+    directory: /
+    provider: github
+    repo: vdaas/vald-client-node
