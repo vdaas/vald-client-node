@@ -1,5 +1,5 @@
 job:
-  package-manager: npm
+  package-manager: npm_and_yarn
   allowed-updates:
     - update-type: all
   dependency-groups:
