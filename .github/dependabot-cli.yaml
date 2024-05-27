@@ -9,7 +9,7 @@ job:
           - "*"
   source:
     directories:
-      - "*"
+      - "/"
       - "./example"
       - "./example-ts"
     provider: github
