@@ -17,3 +17,6 @@ input:
     - type: git_source
       host: github.com
       token: $LOCAL_GITHUB_ACCESS_TOKEN
+    - type: npm_registry
+      host: github.com
+      token: $LOCAL_GITHUB_ACCESS_TOKEN
