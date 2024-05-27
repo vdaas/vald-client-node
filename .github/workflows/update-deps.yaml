@@ -47,10 +47,10 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          registry-url: "https://registry.npmjs.org"
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
+      #     registry-url: "https://registry.npmjs.org"
       - name: Install dependabot CLI
         run: |
           if ! hash dependabot 2> /dev/null; then
