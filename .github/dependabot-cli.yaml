@@ -1,25 +1,27 @@
-job:
-  package-manager: npm_and_yarn
-  allowed-updates:
-    - update-type: all
-  dependency-groups:
-    - name: npm-root
-      rules:
-        patterns:
-          - "*"
-    # - name: npm-example
-    #   rules:
-    #     patterns:
-    #       - "*"
-    # - name: npm-example-ts
-    #   rules:
-    #     patterns:
-    #       - "*"
-  source:
-    directories:
-      - "/"
-    provider: github
-    repo: vdaas/vald-client-node
-credentials:
-  - host: github.com
-    token: $LOCAL_GITHUB_ACCESS_TOKEN
+
+input:
+  job:
+    package-manager: npm_and_yarn
+    allowed-updates:
+      - update-type: all
+    dependency-groups:
+      - name: npm-root
+        rules:
+          patterns:
+            - "*"
+      # - name: npm-example
+      #   rules:
+      #     patterns:
+      #       - "*"
+      # - name: npm-example-ts
+      #   rules:
+      #     patterns:
+      #       - "*"
+    source:
+      directories:
+        - "/"
+      provider: github
+      repo: vdaas/vald-client-node
+  credentials:
+    - host: github.com
+      token: $LOCAL_GITHUB_ACCESS_TOKEN

@@ -61,7 +61,7 @@ jobs:
           DEPENDABOT_CLI_TAR_FILE_NAME: dependabot.tar.gz
       - name: Update dependencies
         run: |
-          dependabot update --file ${CONFIG_FILE_PATH} \
+          dependabot test --file ${CONFIG_FILE_PATH} \
                             --local . \
                             --output /tmp/dependabot-result.yaml
 
