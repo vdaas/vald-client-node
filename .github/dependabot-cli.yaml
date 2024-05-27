@@ -2,9 +2,6 @@ job:
   package-manager: npm_and_yarn
   allowed-updates:
     - update-type: all
-  # ignore-conditions:
-  #   - dependency-name: types/jest
-  #     version-requirement: ">=3.25.1"
   dependency-groups:
     - name: npm
       rules:
