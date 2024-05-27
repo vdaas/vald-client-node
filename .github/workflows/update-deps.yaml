@@ -52,7 +52,12 @@ jobs:
           node-version: 18
       - name: Setup npm
         run: |
+          node --version
+          npm --version
+
           npm i -g npm@9 --registry=https://registry.npmjs.org
+          node --version
+          npm --version
       - name: Install dependabot CLI
         run: |
           if ! hash dependabot 2> /dev/null; then
