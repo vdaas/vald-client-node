@@ -1,4 +1,3 @@
-
 input:
   job:
     package-manager: npm_and_yarn
@@ -14,6 +13,7 @@ input:
         - "/"
       provider: github
       repo: vdaas/vald-client-node
-credentials:
-  - host: github.com
-    token: $LOCAL_GITHUB_ACCESS_TOKEN
+  credentials:
+    - type: git_source
+      host: github.com
+      token: $LOCAL_GITHUB_ACCESS_TOKEN
