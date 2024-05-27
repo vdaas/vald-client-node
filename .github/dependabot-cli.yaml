@@ -3,15 +3,21 @@ job:
   allowed-updates:
     - update-type: all
   dependency-groups:
-    - name: npm
+    - name: npm-root
       rules:
         patterns:
           - "*"
+    # - name: npm-example
+    #   rules:
+    #     patterns:
+    #       - "*"
+    # - name: npm-example-ts
+    #   rules:
+    #     patterns:
+    #       - "*"
   source:
     directories:
       - "/"
-      - "./example"
-      - "./example-ts"
     provider: github
     repo: vdaas/vald-client-node
 credentials:
