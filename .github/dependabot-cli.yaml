@@ -8,20 +8,9 @@ job:
         patterns:
           - "*"
   source:
-    directory: "/"
+    directories:
+      - "*"
+      - "./example"
+      - "./example-ts"
     provider: github
     repo: vdaas/vald-client-node
-# input:
-#   job:
-#     package-manager: npm_and_yarn
-#     allowed-updates:
-#       - update-type: all
-#     dependency-groups:
-#       - name: npm
-#         rules:
-#           patterns:
-#             - "*"
-#     source:
-#       directory: "*"
-#       provider: github
-#       repo: vdaas/vald-client-node
