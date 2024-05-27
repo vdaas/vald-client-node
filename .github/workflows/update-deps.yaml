@@ -33,6 +33,8 @@ jobs:
   #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
   update:
     runs-on: ubuntu-latest
+    env:
+      LOCAL_GITHUB_ACCESS_TOKEN: ${{ secrets.CI_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
