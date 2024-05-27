@@ -14,6 +14,6 @@ input:
       provider: github
       repo: vdaas/vald-client-node
   credentials:
-    - type: git_source
+    - type: npm_registry
       host: github.com
       token: $LOCAL_GITHUB_ACCESS_TOKEN
