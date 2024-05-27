@@ -50,6 +50,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Setup npm
+        run: |
+          npm i -g npm@9 --registry=https://registry.npmjs.org
       - name: Install dependabot CLI
         run: |
           if ! hash dependabot 2> /dev/null; then
@@ -61,32 +64,29 @@ jobs:
           DEPENDABOT_CLI_TAR_FILE_NAME: dependabot.tar.gz
       - name: Update dependencies
         run: |
-          dependabot update npm_and_yarn dummy --local . -o job.yaml
-          cat job.yaml
+          dependabot test --file ${CONFIG_FILE_PATH} \
+                            --local . \
+                            --output /tmp/dependabot-result.yaml
 
-      #     dependabot test --file ${CONFIG_FILE_PATH} \
-      #                       --local . \
-      #                       --output /tmp/dependabot-result.yaml
-      #
-      #     if ! hash yq 2> /dev/null; then
-      #       echo "yq is not installed. Please install yq to proceed."
-      #       exit 1
-      #     fi
-      #
-      #     CHANGED_LIST=$(yq e '.output[] | select(.type == "create_pull_request") | .expect.data.updated-dependency-files' /tmp/dependabot-result.yaml)
-      #     CHANGED_LIST_NUM=$(echo "${CHANGED_LIST}" | yq '. | length')
-      #
-      #     for i in $(seq 0 $((${CHANGED_LIST_NUM}-1))); do
-      #       NAME=$(echo "${CHANGED_LIST}" | yq ".[${i}].name")
-      #       CONTENT=$(echo "${CHANGED_LIST}" | yq ".[${i}].content")
-      #
-      #       echo "CONTENT=${CONTENT}"
-      #       echo "NAME=${NAME}"      # e.g) ./github/actions/dependabot/action.yaml
-      #       echo "${CONTENT}" > "${NAME}"
-      #     done
-      #   env:
-      #     CONFIG_FILE_PATH: .github/dependabot-cli.yaml
-      # - name: Git diff
-      #   run: |
-      #     git diff && git diff --name-only && git status
-      #
+          if ! hash yq 2> /dev/null; then
+            echo "yq is not installed. Please install yq to proceed."
+            exit 1
+          fi
+
+          CHANGED_LIST=$(yq e '.output[] | select(.type == "create_pull_request") | .expect.data.updated-dependency-files' /tmp/dependabot-result.yaml)
+          CHANGED_LIST_NUM=$(echo "${CHANGED_LIST}" | yq '. | length')
+
+          for i in $(seq 0 $((${CHANGED_LIST_NUM}-1))); do
+            NAME=$(echo "${CHANGED_LIST}" | yq ".[${i}].name")
+            CONTENT=$(echo "${CHANGED_LIST}" | yq ".[${i}].content")
+
+            echo "CONTENT=${CONTENT}"
+            echo "NAME=${NAME}"      # e.g) ./github/actions/dependabot/action.yaml
+            echo "${CONTENT}" > "${NAME}"
+          done
+        env:
+          CONFIG_FILE_PATH: .github/dependabot-cli.yaml
+      - name: Git diff
+        run: |
+          git diff && git diff --name-only && git status
+
