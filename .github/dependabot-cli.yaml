@@ -1,17 +1,20 @@
-input:
-  job:
-    package-manager: npm_and_yarn
-    allowed-updates:
-      - update-type: all
-    dependency-groups:
-      - name: npm
-        rules:
-          patterns:
-            - "*"
-    source:
-      directories:
-        - "/"
-        - "./example"
-        - "./example-ts"
-      provider: github
-      repo: vdaas/vald-client-node
+job:
+  package-manager: npm_and_yarn
+  allowed-updates:
+    - update-type: all
+  dependency-groups:
+    - name: npm
+      rules:
+        patterns:
+          - "*"
+  source:
+    directories:
+      - "/"
+      - "./example"
+      - "./example-ts"
+    provider: github
+    repo: vdaas/vald-client-node
+credentials:
+  - type: npm_registry
+    registry: https://registry.npmjs.org
+    token: $CI_TOKEN

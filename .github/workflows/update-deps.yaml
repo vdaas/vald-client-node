@@ -20,6 +20,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 12 * * *"
+env:
+  CI_TOKEN: ${{ secrets.CI_TOKEN }}
 jobs:
   update:
     # uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
