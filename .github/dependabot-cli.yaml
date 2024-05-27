@@ -20,6 +20,6 @@ job:
       - "/"
     provider: github
     repo: vdaas/vald-client-node
-credentials:
-  - host: github.com
-    token: $LOCAL_GITHUB_ACCESS_TOKEN
+# credentials:
+#   - host: github.com
+#     token: $LOCAL_GITHUB_ACCESS_TOKEN
