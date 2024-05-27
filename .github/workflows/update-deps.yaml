@@ -50,7 +50,7 @@ jobs:
       - uses: vdaas/vald-client-ci/.github/actions/setup-language@fix/add-directory-name
         with:
           client_type: node
-      - uses: vdaas/vald-client-ci/.github/actions/actions/dependabot@fix/add-directory-name
+      - uses: vdaas/vald-client-ci/.github/actions/dependabot@fix/add-directory-name
         with:
           config_file_path: ./.github/dependabot-cli.yaml
       - name: Git diff
