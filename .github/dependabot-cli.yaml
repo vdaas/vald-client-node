@@ -9,18 +9,9 @@ input:
         rules:
           patterns:
             - "*"
-      # - name: npm-example
-      #   rules:
-      #     patterns:
-      #       - "*"
-      # - name: npm-example-ts
-      #   rules:
-      #     patterns:
-      #       - "*"
     source:
-      directory: "/"
-      # directories:
-      #   - "/"
+      directories:
+        - "/"
       provider: github
       repo: vdaas/vald-client-node
   credentials:
