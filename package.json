@@ -35,7 +35,6 @@
     "@protobuf-ts/runtime-rpc": "^2.9.4"
   },
   "engines": {
-    "node": ">=18.16.0",
-	"npm": ">=9.5"
+    "node": ">=18.16.0"
   }
 }
