@@ -21,77 +21,77 @@ on:
   schedule:
     - cron: "0 12 * * *"
 jobs:
-  # update:
-  #   # uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
-  #   uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@fix/add-directory-name
-  #   with:
-  #     config_file_path: .github/dependabot-cli.yaml
-  #     pr_branch_name: chore/update-npm
-  #   secrets:
-  #     CI_USER: ${{ secrets.CI_USER }}
-  #     CI_TOKEN: ${{ secrets.CI_TOKEN }}
-  #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
   update:
-    runs-on: ubuntu-latest
-    env:
-      LOCAL_GITHUB_ACCESS_TOKEN: ${{ secrets.CI_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.CI_TOKEN }}
-      - name: Set Git config
-        run: |
-          git config --global --add safe.directory ${GITHUB_WORKSPACE}
-      # - uses: crazy-max/ghaction-import-gpg@v6
-      #   with:
-      #     gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-      #     git_user_signingkey: true
-      #     git_commit_gpgsign: true
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Setup npm
-        run: |
-          node --version
-          npm --version
-
-          npm i -g npm@9 --registry=https://registry.npmjs.org
-          node --version
-          npm --version
-      - name: Install dependabot CLI
-        run: |
-          if ! hash dependabot 2> /dev/null; then
-            curl -fsSL -o ${DEPENDABOT_CLI_TAR_FILE_NAME} $(curl -fsSL ${DEPENDABOT_CLI_URL} | grep "browser_download_url.*linux-amd64.tar.gz" | cut -d '"' -f 4)
-            tar -xvf ${DEPENDABOT_CLI_TAR_FILE_NAME} && sudo mv ./dependabot /usr/local/bin/ && rm -rf ${DEPENDABOT_CLI_TAR_FILE_NAME}
-          fi
-        env:
-          DEPENDABOT_CLI_URL: https://api.github.com/repos/dependabot/cli/releases/latest
-          DEPENDABOT_CLI_TAR_FILE_NAME: dependabot.tar.gz
-      - name: Update dependencies
-        run: |
-          dependabot test --file ${CONFIG_FILE_PATH} \
-                            --local . \
-                            --output /tmp/dependabot-result.yaml
-
-          if ! hash yq 2> /dev/null; then
-            echo "yq is not installed. Please install yq to proceed."
-            exit 1
-          fi
-
-          CHANGED_LIST=$(yq e '.output[] | select(.type == "create_pull_request") | .expect.data.updated-dependency-files' /tmp/dependabot-result.yaml)
-          CHANGED_LIST_NUM=$(echo "${CHANGED_LIST}" | yq '. | length')
-
-          for i in $(seq 0 $((${CHANGED_LIST_NUM}-1))); do
-            NAME=$(echo "${CHANGED_LIST}" | yq ".[${i}].name")
-            CONTENT=$(echo "${CHANGED_LIST}" | yq ".[${i}].content")
-
-            echo "CONTENT=${CONTENT}"
-            echo "NAME=${NAME}"      # e.g) ./github/actions/dependabot/action.yaml
-            echo "${CONTENT}" > "${NAME}"
-          done
-        env:
-          CONFIG_FILE_PATH: .github/dependabot-cli.yaml
-      - name: Git diff
-        run: |
-          git diff && git diff --name-only && git status
-
+    # uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
+    uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@fix/add-directory-name
+    with:
+      config_file_path: .github/dependabot-cli.yaml
+      pr_branch_name: chore/update-npm
+    secrets:
+      CI_USER: ${{ secrets.CI_USER }}
+      CI_TOKEN: ${{ secrets.CI_TOKEN }}
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+  # update:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     LOCAL_GITHUB_ACCESS_TOKEN: ${{ secrets.CI_TOKEN }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         token: ${{ secrets.CI_TOKEN }}
+  #     - name: Set Git config
+  #       run: |
+  #         git config --global --add safe.directory ${GITHUB_WORKSPACE}
+  #     # - uses: crazy-max/ghaction-import-gpg@v6
+  #     #   with:
+  #     #     gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+  #     #     git_user_signingkey: true
+  #     #     git_commit_gpgsign: true
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 18
+  #     - name: Setup npm
+  #       run: |
+  #         node --version
+  #         npm --version
+  #
+  #         npm i -g npm@9 --registry=https://registry.npmjs.org
+  #         node --version
+  #         npm --version
+  #     - name: Install dependabot CLI
+  #       run: |
+  #         if ! hash dependabot 2> /dev/null; then
+  #           curl -fsSL -o ${DEPENDABOT_CLI_TAR_FILE_NAME} $(curl -fsSL ${DEPENDABOT_CLI_URL} | grep "browser_download_url.*linux-amd64.tar.gz" | cut -d '"' -f 4)
+  #           tar -xvf ${DEPENDABOT_CLI_TAR_FILE_NAME} && sudo mv ./dependabot /usr/local/bin/ && rm -rf ${DEPENDABOT_CLI_TAR_FILE_NAME}
+  #         fi
+  #       env:
+  #         DEPENDABOT_CLI_URL: https://api.github.com/repos/dependabot/cli/releases/latest
+  #         DEPENDABOT_CLI_TAR_FILE_NAME: dependabot.tar.gz
+  #     - name: Update dependencies
+  #       run: |
+  #         dependabot test --file ${CONFIG_FILE_PATH} \
+  #                           --local . \
+  #                           --output /tmp/dependabot-result.yaml
+  #
+  #         if ! hash yq 2> /dev/null; then
+  #           echo "yq is not installed. Please install yq to proceed."
+  #           exit 1
+  #         fi
+  #
+  #         CHANGED_LIST=$(yq e '.output[] | select(.type == "create_pull_request") | .expect.data.updated-dependency-files' /tmp/dependabot-result.yaml)
+  #         CHANGED_LIST_NUM=$(echo "${CHANGED_LIST}" | yq '. | length')
+  #
+  #         for i in $(seq 0 $((${CHANGED_LIST_NUM}-1))); do
+  #           NAME=$(echo "${CHANGED_LIST}" | yq ".[${i}].name")
+  #           CONTENT=$(echo "${CHANGED_LIST}" | yq ".[${i}].content")
+  #
+  #           echo "CONTENT=${CONTENT}"
+  #           echo "NAME=${NAME}"      # e.g) ./github/actions/dependabot/action.yaml
+  #           echo "${CONTENT}" > "${NAME}"
+  #         done
+  #       env:
+  #         CONFIG_FILE_PATH: .github/dependabot-cli.yaml
+  #     - name: Git diff
+  #       run: |
+  #         git diff && git diff --name-only && git status
+  #
