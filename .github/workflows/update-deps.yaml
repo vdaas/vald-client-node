@@ -21,8 +21,7 @@ on:
     - cron: "0 12 * * *"
 jobs:
   update:
-    # uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
-    uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@fix/add-directory-name
+    uses: vdaas/vald-client-ci/.github/workflows/_update-deps.yaml@main
     with:
       config_file_path: .github/dependabot-cli.yaml
       pr_branch_name: chore/update-npm
