@@ -2341,6 +2341,7 @@ class EnumValueOptions$Type extends runtime_4.MessageType {
             { no: 1, name: "deprecated", kind: "scalar", opt: true, T: 8 /*ScalarType.BOOL*/ },
             { no: 2, name: "features", kind: "message", T: () => exports.FeatureSet },
             { no: 3, name: "debug_redact", kind: "scalar", localName: "debug_redact", opt: true, T: 8 /*ScalarType.BOOL*/ },
+            { no: 4, name: "feature_support", kind: "message", localName: "feature_support", T: () => exports.FieldOptions_FeatureSupport },
             { no: 999, name: "uninterpreted_option", kind: "message", localName: "uninterpreted_option", repeat: 2 /*RepeatType.UNPACKED*/, T: () => exports.UninterpretedOption }
         ]);
     }
@@ -2364,6 +2365,9 @@ class EnumValueOptions$Type extends runtime_4.MessageType {
                     break;
                 case /* optional bool debug_redact */ 3:
                     message.debug_redact = reader.bool();
+                    break;
+                case /* optional google.protobuf.FieldOptions.FeatureSupport feature_support */ 4:
+                    message.feature_support = exports.FieldOptions_FeatureSupport.internalBinaryRead(reader, reader.uint32(), options, message.feature_support);
                     break;
                 case /* repeated google.protobuf.UninterpretedOption uninterpreted_option */ 999:
                     message.uninterpreted_option.push(exports.UninterpretedOption.internalBinaryRead(reader, reader.uint32(), options));
@@ -2389,6 +2393,9 @@ class EnumValueOptions$Type extends runtime_4.MessageType {
         /* optional bool debug_redact = 3; */
         if (message.debug_redact !== undefined)
             writer.tag(3, runtime_1.WireType.Varint).bool(message.debug_redact);
+        /* optional google.protobuf.FieldOptions.FeatureSupport feature_support = 4; */
+        if (message.feature_support)
+            exports.FieldOptions_FeatureSupport.internalBinaryWrite(message.feature_support, writer.tag(4, runtime_1.WireType.LengthDelimited).fork(), options).join();
         /* repeated google.protobuf.UninterpretedOption uninterpreted_option = 999; */
         for (let i = 0; i < message.uninterpreted_option.length; i++)
             exports.UninterpretedOption.internalBinaryWrite(message.uninterpreted_option[i], writer.tag(999, runtime_1.WireType.LengthDelimited).fork(), options).join();

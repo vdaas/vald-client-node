@@ -1385,6 +1385,12 @@ export interface EnumValueOptions {
      */
     debug_redact?: boolean;
     /**
+     * Information about the support window of a feature value.
+     *
+     * @generated from protobuf field: optional google.protobuf.FieldOptions.FeatureSupport feature_support = 4;
+     */
+    feature_support?: FieldOptions_FeatureSupport;
+    /**
      * The parser stores options it doesn't recognize here. See above.
      *
      * @generated from protobuf field: repeated google.protobuf.UninterpretedOption uninterpreted_option = 999;
