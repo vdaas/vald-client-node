@@ -22,6 +22,8 @@
 //
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
+import type { Object_Timestamp } from "../payload/payload_pb";
+import type { Object_TimestampRequest } from "../payload/payload_pb";
 import type { Object_List_Response } from "../payload/payload_pb";
 import type { Object_List_Request } from "../payload/payload_pb";
 import type { Object_StreamVector } from "../payload/payload_pb";
@@ -67,6 +69,15 @@ export interface IObjectClient {
      */
     streamListObject(input: Object_List_Request, metadata?: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<Object_List_Response>;
     streamListObject(input: Object_List_Request, options?: grpc.CallOptions): grpc.ClientReadableStream<Object_List_Response>;
+    /**
+     * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
+     *
+     * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.TimestampRequest) returns (payload.v1.Object.Timestamp);
+     */
+    getTimestamp(input: Object_TimestampRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
+    getTimestamp(input: Object_TimestampRequest, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
+    getTimestamp(input: Object_TimestampRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
+    getTimestamp(input: Object_TimestampRequest, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
 }
 /**
  * Object service provides ways to fetch indexed vectors.
@@ -100,4 +111,10 @@ export declare class ObjectClient extends grpc.Client implements IObjectClient {
      * @generated from protobuf rpc: StreamListObject(payload.v1.Object.List.Request) returns (stream payload.v1.Object.List.Response);
      */
     streamListObject(input: Object_List_Request, metadata?: grpc.Metadata | grpc.CallOptions, options?: grpc.CallOptions): grpc.ClientReadableStream<Object_List_Response>;
+    /**
+     * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
+     *
+     * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.TimestampRequest) returns (payload.v1.Object.Timestamp);
+     */
+    getTimestamp(input: Object_TimestampRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void)): grpc.ClientUnaryCall;
 }
