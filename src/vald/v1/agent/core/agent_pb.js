@@ -47,17 +47,12 @@ exports.Agent = void 0;
 //
 const payload_pb_1 = require("../../payload/payload_pb");
 const payload_pb_2 = require("../../payload/payload_pb");
-const payload_pb_3 = require("../../payload/payload_pb");
-const payload_pb_4 = require("../../payload/payload_pb");
-const payload_pb_5 = require("../../payload/payload_pb");
 const runtime_rpc_1 = require("@protobuf-ts/runtime-rpc");
 /**
  * @generated ServiceType for protobuf service core.v1.Agent
  */
 exports.Agent = new runtime_rpc_1.ServiceType("core.v1.Agent", [
-    { name: "CreateIndex", options: { "google.api.http": { get: "/index/create" } }, I: payload_pb_5.Control_CreateIndexRequest, O: payload_pb_4.Empty },
-    { name: "SaveIndex", options: { "google.api.http": { get: "/index/save" } }, I: payload_pb_4.Empty, O: payload_pb_4.Empty },
-    { name: "CreateAndSaveIndex", options: { "google.api.http": { get: "/index/createandsave" } }, I: payload_pb_5.Control_CreateIndexRequest, O: payload_pb_4.Empty },
-    { name: "IndexInfo", options: { "google.api.http": { get: "/index/info" } }, I: payload_pb_4.Empty, O: payload_pb_3.Info_Index_Count },
-    { name: "GetTimestamp", options: { "google.api.http": { get: "/object/meta" } }, I: payload_pb_2.Object_GetTimestampRequest, O: payload_pb_1.Object_Timestamp }
+    { name: "CreateIndex", options: { "google.api.http": { get: "/index/create/{pool_size}" } }, I: payload_pb_2.Control_CreateIndexRequest, O: payload_pb_1.Empty },
+    { name: "SaveIndex", options: { "google.api.http": { get: "/index/save" } }, I: payload_pb_1.Empty, O: payload_pb_1.Empty },
+    { name: "CreateAndSaveIndex", options: { "google.api.http": { get: "/index/createandsave/{pool_size}" } }, I: payload_pb_2.Control_CreateIndexRequest, O: payload_pb_1.Empty }
 ]);

@@ -6,6 +6,7 @@ import {
   upsert_grpc,
   remove_grpc,
   object_grpc,
+  index_grpc,
 } from "../src/vald/v1/vald";
 import { agent_grpc } from "../src/vald/v1/agent/core";
 import { payload } from "../src/vald/v1/payload";
@@ -15,6 +16,7 @@ import { SearchClient } from "../src/vald/v1/vald/search_pb.grpc-client";
 import { UpdateClient } from "../src/vald/v1/vald/update_pb.grpc-client";
 import { UpsertClient } from "../src/vald/v1/vald/upsert_pb.grpc-client";
 import { ObjectClient } from "../src/vald/v1/vald/object_pb.grpc-client";
+import { IndexClient }  from "../src/vald/v1/vald/index_pb.grpc-client";
 import { AgentClient } from "../src/vald/v1/agent/core/agent_pb.grpc-client";
 import data = require("./wordvecs1000.json");
 
@@ -199,6 +201,28 @@ describe("Tests for node client", () => {
           done(e);
         }
       });
+    });
+  });
+
+  describe("Test for Index operations", () => {
+    let client: IndexClient;
+
+    beforeAll((done) => {
+      client = new index_grpc.IndexClient(
+        address,
+        grpc.credentials?.createInsecure(),
+      );
+      client.waitForReady(Date.now() + connectDeadlineMs, (e) => {
+        if (e) {
+          done(e);
+        } else {
+          done();
+        }
+      });
+    });
+
+    afterAll(() => {
+      client.close();
     });
 
     test("IndexInfo", (done) => {

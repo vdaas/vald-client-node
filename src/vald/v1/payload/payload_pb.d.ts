@@ -920,9 +920,9 @@ export interface Object_Vector {
 /**
  * Represent a request to fetch vector meta data.
  *
- * @generated from protobuf message payload.v1.Object.GetTimestampRequest
+ * @generated from protobuf message payload.v1.Object.TimestampRequest
  */
-export interface Object_GetTimestampRequest {
+export interface Object_TimestampRequest {
     /**
      * The vector ID to be fetched.
      *
@@ -1256,6 +1256,33 @@ export interface Info_Index_Count {
      * @generated from protobuf field: bool saving = 4;
      */
     saving: boolean;
+}
+/**
+ * Represent the index count for each Agents message.
+ *
+ * @generated from protobuf message payload.v1.Info.Index.Detail
+ */
+export interface Info_Index_Detail {
+    /**
+     * count infos for each agents
+     *
+     * @generated from protobuf field: map<string, payload.v1.Info.Index.Count> counts = 1;
+     */
+    counts: {
+        [key: string]: Info_Index_Count;
+    };
+    /**
+     * index replica of vald cluster
+     *
+     * @generated from protobuf field: uint32 replica = 2;
+     */
+    replica: number;
+    /**
+     * live agent replica of vald cluster
+     *
+     * @generated from protobuf field: uint32 live_agents = 3;
+     */
+    live_agents: number;
 }
 /**
  * Represent the UUID message.
@@ -2082,16 +2109,16 @@ declare class Object_Vector$Type extends MessageType<Object_Vector> {
  * @generated MessageType for protobuf message payload.v1.Object.Vector
  */
 export declare const Object_Vector: Object_Vector$Type;
-declare class Object_GetTimestampRequest$Type extends MessageType<Object_GetTimestampRequest> {
+declare class Object_TimestampRequest$Type extends MessageType<Object_TimestampRequest> {
     constructor();
-    create(value?: PartialMessage<Object_GetTimestampRequest>): Object_GetTimestampRequest;
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Object_GetTimestampRequest): Object_GetTimestampRequest;
-    internalBinaryWrite(message: Object_GetTimestampRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+    create(value?: PartialMessage<Object_TimestampRequest>): Object_TimestampRequest;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Object_TimestampRequest): Object_TimestampRequest;
+    internalBinaryWrite(message: Object_TimestampRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
 }
 /**
- * @generated MessageType for protobuf message payload.v1.Object.GetTimestampRequest
+ * @generated MessageType for protobuf message payload.v1.Object.TimestampRequest
  */
-export declare const Object_GetTimestampRequest: Object_GetTimestampRequest$Type;
+export declare const Object_TimestampRequest: Object_TimestampRequest$Type;
 declare class Object_Timestamp$Type extends MessageType<Object_Timestamp> {
     constructor();
     create(value?: PartialMessage<Object_Timestamp>): Object_Timestamp;
@@ -2282,6 +2309,17 @@ declare class Info_Index_Count$Type extends MessageType<Info_Index_Count> {
  * @generated MessageType for protobuf message payload.v1.Info.Index.Count
  */
 export declare const Info_Index_Count: Info_Index_Count$Type;
+declare class Info_Index_Detail$Type extends MessageType<Info_Index_Detail> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_Detail>): Info_Index_Detail;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_Detail): Info_Index_Detail;
+    private binaryReadMap1;
+    internalBinaryWrite(message: Info_Index_Detail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.Detail
+ */
+export declare const Info_Index_Detail: Info_Index_Detail$Type;
 declare class Info_Index_UUID$Type extends MessageType<Info_Index_UUID> {
     constructor();
     create(value?: PartialMessage<Info_Index_UUID>): Info_Index_UUID;

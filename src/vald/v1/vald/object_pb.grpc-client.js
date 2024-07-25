@@ -93,5 +93,14 @@ class ObjectClient extends grpc.Client {
         const method = object_pb_1.Object.methods[3];
         return this.makeServerStreamRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options);
     }
+    /**
+     * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
+     *
+     * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.TimestampRequest) returns (payload.v1.Object.Timestamp);
+     */
+    getTimestamp(input, metadata, options, callback) {
+        const method = object_pb_1.Object.methods[4];
+        return this.makeUnaryRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
+    }
 }
 exports.ObjectClient = ObjectClient;

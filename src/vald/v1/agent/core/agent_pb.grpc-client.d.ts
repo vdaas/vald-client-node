@@ -22,9 +22,6 @@
 //
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
-import type { Object_Timestamp } from "../../payload/payload_pb";
-import type { Object_GetTimestampRequest } from "../../payload/payload_pb";
-import type { Info_Index_Count } from "../../payload/payload_pb";
 import type { Empty } from "../../payload/payload_pb";
 import type { Control_CreateIndexRequest } from "../../payload/payload_pb";
 import * as grpc from "@grpc/grpc-js";
@@ -61,24 +58,6 @@ export interface IAgentClient {
     createAndSaveIndex(input: Control_CreateIndexRequest, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Empty) => void): grpc.ClientUnaryCall;
     createAndSaveIndex(input: Control_CreateIndexRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Empty) => void): grpc.ClientUnaryCall;
     createAndSaveIndex(input: Control_CreateIndexRequest, callback: (err: grpc.ServiceError | null, value?: Empty) => void): grpc.ClientUnaryCall;
-    /**
-     * Represent the RPC to get the agent index information.
-     *
-     * @generated from protobuf rpc: IndexInfo(payload.v1.Empty) returns (payload.v1.Info.Index.Count);
-     */
-    indexInfo(input: Empty, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Info_Index_Count) => void): grpc.ClientUnaryCall;
-    indexInfo(input: Empty, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Info_Index_Count) => void): grpc.ClientUnaryCall;
-    indexInfo(input: Empty, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Info_Index_Count) => void): grpc.ClientUnaryCall;
-    indexInfo(input: Empty, callback: (err: grpc.ServiceError | null, value?: Info_Index_Count) => void): grpc.ClientUnaryCall;
-    /**
-     * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
-     *
-     * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.GetTimestampRequest) returns (payload.v1.Object.Timestamp);
-     */
-    getTimestamp(input: Object_GetTimestampRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
-    getTimestamp(input: Object_GetTimestampRequest, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
-    getTimestamp(input: Object_GetTimestampRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
-    getTimestamp(input: Object_GetTimestampRequest, callback: (err: grpc.ServiceError | null, value?: Object_Timestamp) => void): grpc.ClientUnaryCall;
 }
 /**
  * Represent the agent service.
@@ -106,16 +85,4 @@ export declare class AgentClient extends grpc.Client implements IAgentClient {
      * @generated from protobuf rpc: CreateAndSaveIndex(payload.v1.Control.CreateIndexRequest) returns (payload.v1.Empty);
      */
     createAndSaveIndex(input: Control_CreateIndexRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Empty) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Empty) => void), callback?: ((err: grpc.ServiceError | null, value?: Empty) => void)): grpc.ClientUnaryCall;
-    /**
-     * Represent the RPC to get the agent index information.
-     *
-     * @generated from protobuf rpc: IndexInfo(payload.v1.Empty) returns (payload.v1.Info.Index.Count);
-     */
-    indexInfo(input: Empty, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_Count) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_Count) => void), callback?: ((err: grpc.ServiceError | null, value?: Info_Index_Count) => void)): grpc.ClientUnaryCall;
-    /**
-     * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
-     *
-     * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.GetTimestampRequest) returns (payload.v1.Object.Timestamp);
-     */
-    getTimestamp(input: Object_GetTimestampRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Timestamp) => void)): grpc.ClientUnaryCall;
 }
