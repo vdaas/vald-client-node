@@ -4,8 +4,6 @@ import insert = require("./insert_pb");
 import insert_grpc = require("./insert_pb.grpc-client");
 import object = require("./object_pb");
 import object_grpc = require("./object_pb.grpc-client");
-import index = require("./index_pb");
-import index_grpc = require("./index_pb.grpc-client");
 import remove = require("./remove_pb");
 import remove_grpc = require("./remove_pb.grpc-client");
 import search = require("./search_pb");
@@ -21,8 +19,6 @@ declare const _default: {
     insert_grpc: typeof insert_grpc,
     object: typeof object,
     object_grpc: typeof object_grpc,
-    index: typeof index,
-    index_grpc: typeof index_grpc,
     remove: typeof remove,
     remove_grpc: typeof remove_grpc,
     search: typeof search,
