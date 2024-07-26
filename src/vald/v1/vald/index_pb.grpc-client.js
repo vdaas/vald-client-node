@@ -75,5 +75,23 @@ class IndexClient extends grpc.Client {
         const method = index_pb_1.Index.methods[1];
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
+    /**
+     * Represent the RPC to get the index statistics.
+     *
+     * @generated from protobuf rpc: IndexStatistics(payload.v1.Empty) returns (payload.v1.Info.Index.Statistics);
+     */
+    indexStatistics(input, metadata, options, callback) {
+        const method = index_pb_1.Index.methods[2];
+        return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
+    }
+    /**
+     * Represent the RPC to get the index statistics for each agents.
+     *
+     * @generated from protobuf rpc: IndexStatisticsDetail(payload.v1.Empty) returns (payload.v1.Info.Index.StatisticsDetail);
+     */
+    indexStatisticsDetail(input, metadata, options, callback) {
+        const method = index_pb_1.Index.methods[3];
+        return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
+    }
 }
 exports.IndexClient = IndexClient;

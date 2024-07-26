@@ -697,7 +697,8 @@ export interface Remove_MultiRequest {
  */
 export interface Remove_TimestampRequest {
     /**
-     * The timestamp comparison list. If more than one is specified, the `AND` search is applied.
+     * The timestamp comparison list. If more than one is specified, the `AND`
+     * search is applied.
      *
      * @generated from protobuf field: repeated payload.v1.Remove.Timestamp timestamps = 1;
      */
@@ -741,7 +742,8 @@ export declare enum Remove_Timestamp_Operator {
      */
     Ne = 1,
     /**
-     * The timestamp is greater than or equal to the specified value in the request.
+     * The timestamp is greater than or equal to the specified value in the
+     * request.
      *
      * @generated from protobuf enum value: Ge = 2;
      */
@@ -753,7 +755,8 @@ export declare enum Remove_Timestamp_Operator {
      */
     Gt = 3,
     /**
-     * The timestamp is less than or equal to the specified value in the request.
+     * The timestamp is less than or equal to the specified value in the
+     * request.
      *
      * @generated from protobuf enum value: Le = 4;
      */
@@ -1312,6 +1315,160 @@ export interface Info_Index_UUID_Uncommitted {
      * @generated from protobuf field: string uuid = 1;
      */
     uuid: string;
+}
+/**
+ * Represents index Statistics
+ *
+ * @generated from protobuf message payload.v1.Info.Index.Statistics
+ */
+export interface Info_Index_Statistics {
+    /**
+     * @generated from protobuf field: bool valid = 1;
+     */
+    valid: boolean;
+    /**
+     * @generated from protobuf field: int32 median_indegree = 2;
+     */
+    median_indegree: number;
+    /**
+     * @generated from protobuf field: int32 median_outdegree = 3;
+     */
+    median_outdegree: number;
+    /**
+     * @generated from protobuf field: uint64 max_number_of_indegree = 4;
+     */
+    max_number_of_indegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 max_number_of_outdegree = 5;
+     */
+    max_number_of_outdegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 min_number_of_indegree = 6;
+     */
+    min_number_of_indegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 min_number_of_outdegree = 7;
+     */
+    min_number_of_outdegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 mode_indegree = 8;
+     */
+    mode_indegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 mode_outdegree = 9;
+     */
+    mode_outdegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 nodes_skipped_for_10_edges = 10;
+     */
+    nodes_skipped_for_10_edges: bigint;
+    /**
+     * @generated from protobuf field: uint64 nodes_skipped_for_indegree_distance = 11;
+     */
+    nodes_skipped_for_indegree_distance: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_edges = 12;
+     */
+    number_of_edges: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_indexed_objects = 13;
+     */
+    number_of_indexed_objects: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_nodes = 14;
+     */
+    number_of_nodes: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_nodes_without_edges = 15;
+     */
+    number_of_nodes_without_edges: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_nodes_without_indegree = 16;
+     */
+    number_of_nodes_without_indegree: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_objects = 17;
+     */
+    number_of_objects: bigint;
+    /**
+     * @generated from protobuf field: uint64 number_of_removed_objects = 18;
+     */
+    number_of_removed_objects: bigint;
+    /**
+     * @generated from protobuf field: uint64 size_of_object_repository = 19;
+     */
+    size_of_object_repository: bigint;
+    /**
+     * @generated from protobuf field: uint64 size_of_refinement_object_repository = 20;
+     */
+    size_of_refinement_object_repository: bigint;
+    /**
+     * @generated from protobuf field: double variance_of_indegree = 21;
+     */
+    variance_of_indegree: number;
+    /**
+     * @generated from protobuf field: double variance_of_outdegree = 22;
+     */
+    variance_of_outdegree: number;
+    /**
+     * @generated from protobuf field: double mean_edge_length = 23;
+     */
+    mean_edge_length: number;
+    /**
+     * @generated from protobuf field: double mean_edge_length_for_10_edges = 24;
+     */
+    mean_edge_length_for_10_edges: number;
+    /**
+     * @generated from protobuf field: double mean_indegree_distance_for_10_edges = 25;
+     */
+    mean_indegree_distance_for_10_edges: number;
+    /**
+     * @generated from protobuf field: double mean_number_of_edges_per_node = 26;
+     */
+    mean_number_of_edges_per_node: number;
+    /**
+     * @generated from protobuf field: double c1_indegree = 27;
+     */
+    c1_indegree: number;
+    /**
+     * @generated from protobuf field: double c5_indegree = 28;
+     */
+    c5_indegree: number;
+    /**
+     * @generated from protobuf field: double c95_outdegree = 29;
+     */
+    c95_outdegree: number;
+    /**
+     * @generated from protobuf field: double c99_outdegree = 30;
+     */
+    c99_outdegree: number;
+    /**
+     * @generated from protobuf field: repeated int64 indegree_count = 31;
+     */
+    indegree_count: bigint[];
+    /**
+     * @generated from protobuf field: repeated uint64 outdegree_histogram = 32;
+     */
+    outdegree_histogram: bigint[];
+    /**
+     * @generated from protobuf field: repeated uint64 indegree_histogram = 33;
+     */
+    indegree_histogram: bigint[];
+}
+/**
+ * Represents index Statistics for each Agents
+ *
+ * @generated from protobuf message payload.v1.Info.Index.StatisticsDetail
+ */
+export interface Info_Index_StatisticsDetail {
+    /**
+     * count infos for each agents
+     *
+     * @generated from protobuf field: map<string, payload.v1.Info.Index.Statistics> details = 1;
+     */
+    details: {
+        [key: string]: Info_Index_Statistics;
+    };
 }
 /**
  * Represent the pod information message.
@@ -2350,6 +2507,27 @@ declare class Info_Index_UUID_Uncommitted$Type extends MessageType<Info_Index_UU
  * @generated MessageType for protobuf message payload.v1.Info.Index.UUID.Uncommitted
  */
 export declare const Info_Index_UUID_Uncommitted: Info_Index_UUID_Uncommitted$Type;
+declare class Info_Index_Statistics$Type extends MessageType<Info_Index_Statistics> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_Statistics>): Info_Index_Statistics;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_Statistics): Info_Index_Statistics;
+    internalBinaryWrite(message: Info_Index_Statistics, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.Statistics
+ */
+export declare const Info_Index_Statistics: Info_Index_Statistics$Type;
+declare class Info_Index_StatisticsDetail$Type extends MessageType<Info_Index_StatisticsDetail> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_StatisticsDetail>): Info_Index_StatisticsDetail;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_StatisticsDetail): Info_Index_StatisticsDetail;
+    private binaryReadMap1;
+    internalBinaryWrite(message: Info_Index_StatisticsDetail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.StatisticsDetail
+ */
+export declare const Info_Index_StatisticsDetail: Info_Index_StatisticsDetail$Type;
 declare class Info_Pod$Type extends MessageType<Info_Pod> {
     constructor();
     create(value?: PartialMessage<Info_Pod>): Info_Pod;

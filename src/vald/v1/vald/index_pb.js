@@ -48,11 +48,15 @@ exports.Index = void 0;
 const payload_pb_1 = require("../payload/payload_pb");
 const payload_pb_2 = require("../payload/payload_pb");
 const payload_pb_3 = require("../payload/payload_pb");
+const payload_pb_4 = require("../payload/payload_pb");
+const payload_pb_5 = require("../payload/payload_pb");
 const runtime_rpc_1 = require("@protobuf-ts/runtime-rpc");
 /**
  * @generated ServiceType for protobuf service vald.v1.Index
  */
 exports.Index = new runtime_rpc_1.ServiceType("vald.v1.Index", [
-    { name: "IndexInfo", options: { "google.api.http": { get: "/index/info" } }, I: payload_pb_3.Empty, O: payload_pb_2.Info_Index_Count },
-    { name: "IndexDetail", options: { "google.api.http": { get: "/index/detail" } }, I: payload_pb_3.Empty, O: payload_pb_1.Info_Index_Detail }
+    { name: "IndexInfo", options: { "google.api.http": { get: "/index/info" } }, I: payload_pb_5.Empty, O: payload_pb_4.Info_Index_Count },
+    { name: "IndexDetail", options: { "google.api.http": { get: "/index/detail" } }, I: payload_pb_5.Empty, O: payload_pb_3.Info_Index_Detail },
+    { name: "IndexStatistics", options: { "google.api.http": { get: "/index/statistics" } }, I: payload_pb_5.Empty, O: payload_pb_2.Info_Index_Statistics },
+    { name: "IndexStatisticsDetail", options: { "google.api.http": { get: "/index/statistics/detail" } }, I: payload_pb_5.Empty, O: payload_pb_1.Info_Index_StatisticsDetail }
 ]);
