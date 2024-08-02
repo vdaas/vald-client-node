@@ -30,7 +30,6 @@ K3D_CLUSTER_NAME  = "vald-cluster"
 K3D_COMMAND       = k3d
 K3D_NODES         = 5
 K3D_PORT          = 6550
-K3D_HOST          = localhost
 K3D_INGRESS_PORT  = 8081
 K3D_HOST_PID_MODE = true
 K3D_OPTIONS       = --port $(K3D_INGRESS_PORT):80@loadbalancer
@@ -314,6 +313,6 @@ k3d/start:
 	  --agents $(K3D_NODES) \
 	  --image docker.io/rancher/k3s:$(K3S_VERSION) \
 	  --host-pid-mode=$(K3D_HOST_PID_MODE) \
-	  --api-port $(K3D_HOST):$(K3D_PORT) \
+	  --api-port localhost:$(K3D_PORT) \
 	  -v "/lib/modules:/lib/modules" \
 	  $(K3D_OPTIONS)
