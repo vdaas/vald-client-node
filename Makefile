@@ -272,7 +272,7 @@ ci/deps/install:
 
 .PHONY: ci/deps/update
 ## update deps for CI environment
-ci/deps/update:
+ci/deps/update: sync/k3d/mk
 	npm update
 
 .PHONY: ci/package/prepare
@@ -304,14 +304,8 @@ K3D_MAKEFILE=Makefile.d/k3d.mk
 Makefile.d:
 	mkdir -p Makefile.d
 
-sync/k3d/mk: \
-	remove/k3d/mk
-	$(K3D_MAKEFILE)
-
-remove/k3d/mk:
+sync/k3d/mk: Makefile.d
 	rm -rf $(K3D_MAKEFILE)
-
-$(K3D_MAKEFILE): Makefile.d
-	@curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
+	curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
 
 include $(K3D_MAKEFILE)
