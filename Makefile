@@ -31,8 +31,9 @@ K3D_COMMAND       = k3d
 K3D_NODES         = 5
 K3D_PORT          = 6550
 K3D_HOST          = localhost
+K3D_INGRESS_PORT  = 8081
 K3D_HOST_PID_MODE = true
-K3D_OPTIONS       =
+K3D_OPTIONS       = --port $(K3D_INGRESS_PORT):80@loadbalancer
 
 PWD    := $(eval PWD := $(shell pwd))$(PWD)
 
