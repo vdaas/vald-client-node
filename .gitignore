@@ -4,3 +4,4 @@ node_modules
 
 /coverage
 /tests/wordvecs1000.json
+/Makefile.d/k3d.mk
