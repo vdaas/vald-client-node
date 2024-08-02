@@ -26,6 +26,9 @@ VALD_SHA    = VALD_SHA
 VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
 VALD_CHECKOUT_REF ?= main
 
+K3D_MAKEFILE_URL=https://raw.githubusercontent.com/vdaas/vald/main/Makefile.d/k3d.mk
+K3D_MAKEFILE=Makefile.d/k3d.mk
+
 PWD    := $(eval PWD := $(shell pwd))$(PWD)
 
 PROTO_ROOT  = $(VALD_DIR)/apis/proto
@@ -272,7 +275,7 @@ ci/deps/install:
 
 .PHONY: ci/deps/update
 ## update deps for CI environment
-ci/deps/update:
+ci/deps/update: sync/k3d/mk
 	npm update
 
 .PHONY: ci/package/prepare
@@ -297,3 +300,12 @@ $(BUF_GEN_PATH):
 ## Print Node version
 version/node:
 	@echo $(NODE_VERSION)
+
+Makefile.d:
+	mkdir -p Makefile.d
+
+sync/k3d/mk: Makefile.d
+	rm -rf $(K3D_MAKEFILE)
+	curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
+
+include $(K3D_MAKEFILE)
