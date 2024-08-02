@@ -304,6 +304,13 @@ K3D_MAKEFILE=Makefile.d/k3d.mk
 Makefile.d:
 	mkdir -p Makefile.d
 
+sync/k3d/mk: \
+	remove/k3d/mk
+	$(K3D_MAKEFILE)
+
+remove/k3d/mk:
+	rm -rf $(K3D_MAKEFILE)
+
 $(K3D_MAKEFILE): Makefile.d
 	@curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
 
