@@ -306,6 +306,6 @@ Makefile.d:
 	mkdir -p Makefile.d
 
 $(K3D_MAKEFILE): Makefile.d
-	curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
+	@curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
 
 include $(K3D_MAKEFILE)
