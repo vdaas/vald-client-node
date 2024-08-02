@@ -21,8 +21,6 @@ LANGUAGE    = node
 PKGNAME     = $(NAME)-client-$(LANGUAGE)
 PKGREPO     = github.com/$(REPO)/$(PKGNAME)
 
-
-
 VALD_DIR    = vald-origin
 VALD_SHA    = VALD_SHA
 VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
