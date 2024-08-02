@@ -21,6 +21,8 @@ LANGUAGE    = node
 PKGNAME     = $(NAME)-client-$(LANGUAGE)
 PKGREPO     = github.com/$(REPO)/$(PKGNAME)
 
+
+
 VALD_DIR    = vald-origin
 VALD_SHA    = VALD_SHA
 VALD_CLIENT_NODE_VERSION = VALD_CLIENT_NODE_VERSION
@@ -297,3 +299,14 @@ $(BUF_GEN_PATH):
 ## Print Node version
 version/node:
 	@echo $(NODE_VERSION)
+
+.PHONY: k3d/start
+## Start k3d (kubernetes in docker) cluster
+k3d/start:
+	k3d cluster create $(K3D_CLUSTER_NAME) \
+	  --agents $(K3D_NODES) \
+	  --image docker.io/rancher/k3s:$(K3S_VERSION) \
+	  --host-pid-mode=$(K3D_HOST_PID_MODE) \
+	  --api-port $(K3D_HOST):$(K3D_PORT) \
+	  -v "/lib/modules:/lib/modules" \
+	  $(K3D_OPTIONS)
