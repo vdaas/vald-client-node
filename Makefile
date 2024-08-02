@@ -304,7 +304,6 @@ k3d/start:
 	k3d cluster create $(K3D_CLUSTER_NAME) \
 	  --agents $(K3D_NODES) \
 	  --image docker.io/rancher/k3s:$(K3S_VERSION) \
-	  --host-pid-mode=$(K3D_HOST_PID_MODE) \
 	  --api-port $(K3D_HOST):$(K3D_PORT) \
 	  -v "/lib/modules:/lib/modules" \
 	  $(K3D_OPTIONS)
