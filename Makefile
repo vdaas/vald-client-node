@@ -298,13 +298,14 @@ $(BUF_GEN_PATH):
 version/node:
 	@echo $(NODE_VERSION)
 
-# K3D_MAKEFILE_URL=https://raw.githubusercontent.com/vdaas/vald/main/Makefile.d/k3d.mk
-# K3D_MAKEFILE=Makefile.d/k3d.mk
-#
-# Makefile.d:
-# 	mkdir -p Makefile.d
-#
-# $(K3D_MAKEFILE): Makefile.d
-# 	curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
-#
-# include $(K3D_MAKEFILE)
+
+K3D_MAKEFILE_URL=https://raw.githubusercontent.com/vdaas/vald/main/Makefile.d/k3d.mk
+K3D_MAKEFILE=Makefile.d/k3d.mk
+
+Makefile.d:
+	mkdir -p Makefile.d
+
+$(K3D_MAKEFILE): Makefile.d
+	curl -fsSLo $(K3D_MAKEFILE) $(K3D_MAKEFILE_URL)
+
+include $(K3D_MAKEFILE)
