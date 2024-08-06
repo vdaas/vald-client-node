@@ -84,12 +84,6 @@ jobs:
       - name: Package creation
         run: |
           make REPO=vdaas ci/package/prepare
-        env:
-          GPG_KEYID: ${{ secrets.GPG_KEYID }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
       - name: Deply Vald and Run E2E test
         uses: vdaas/vald-client-ci/.github/actions/e2e@main
         with:
