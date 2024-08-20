@@ -481,7 +481,8 @@ class Search_Config$Type extends runtime_4.MessageType {
             { no: 7, name: "egress_filters", kind: "message", localName: "egress_filters", T: () => exports.Filter_Config },
             { no: 8, name: "min_num", kind: "scalar", localName: "min_num", T: 13 /*ScalarType.UINT32*/, options: { "buf.validate.field": { uint32: { gte: 0 } } } },
             { no: 9, name: "aggregation_algorithm", kind: "enum", localName: "aggregation_algorithm", T: () => ["payload.v1.Search.AggregationAlgorithm", Search_AggregationAlgorithm] },
-            { no: 10, name: "ratio", kind: "message", T: () => wrappers_pb_1.FloatValue }
+            { no: 10, name: "ratio", kind: "message", T: () => wrappers_pb_1.FloatValue },
+            { no: 11, name: "nprobe", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
     create(value) {
@@ -493,6 +494,7 @@ class Search_Config$Type extends runtime_4.MessageType {
         message.timeout = 0n;
         message.min_num = 0;
         message.aggregation_algorithm = 0;
+        message.nprobe = 0;
         if (value !== undefined)
             runtime_3.reflectionMergePartial(this, message, value);
         return message;
@@ -531,6 +533,9 @@ class Search_Config$Type extends runtime_4.MessageType {
                     break;
                 case /* google.protobuf.FloatValue ratio */ 10:
                     message.ratio = wrappers_pb_1.FloatValue.internalBinaryRead(reader, reader.uint32(), options, message.ratio);
+                    break;
+                case /* uint32 nprobe */ 11:
+                    message.nprobe = reader.uint32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -574,6 +579,9 @@ class Search_Config$Type extends runtime_4.MessageType {
         /* google.protobuf.FloatValue ratio = 10; */
         if (message.ratio)
             wrappers_pb_1.FloatValue.internalBinaryWrite(message.ratio, writer.tag(10, runtime_1.WireType.LengthDelimited).fork(), options).join();
+        /* uint32 nprobe = 11; */
+        if (message.nprobe !== 0)
+            writer.tag(11, runtime_1.WireType.Varint).uint32(message.nprobe);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -203,6 +203,12 @@ export interface Search_Config {
      * @generated from protobuf field: google.protobuf.FloatValue ratio = 10;
      */
     ratio?: FloatValue;
+    /**
+     * Search nprobe.
+     *
+     * @generated from protobuf field: uint32 nprobe = 11;
+     */
+    nprobe: number;
 }
 /**
  * Represent a search response.
