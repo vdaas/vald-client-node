@@ -1477,6 +1477,162 @@ export interface Info_Index_StatisticsDetail {
     };
 }
 /**
+ * Represents index Property
+ *
+ * @generated from protobuf message payload.v1.Info.Index.Property
+ */
+export interface Info_Index_Property {
+    /**
+     * @generated from protobuf field: int32 dimension = 1;
+     */
+    dimension: number;
+    /**
+     * @generated from protobuf field: int32 thread_pool_size = 2;
+     */
+    thread_pool_size: number;
+    /**
+     * @generated from protobuf field: string object_type = 3;
+     */
+    object_type: string;
+    /**
+     * @generated from protobuf field: string distance_type = 4;
+     */
+    distance_type: string;
+    /**
+     * @generated from protobuf field: string index_type = 5;
+     */
+    index_type: string;
+    /**
+     * @generated from protobuf field: string database_type = 6;
+     */
+    database_type: string;
+    /**
+     * @generated from protobuf field: string object_alignment = 7;
+     */
+    object_alignment: string;
+    /**
+     * @generated from protobuf field: int32 path_adjustment_interval = 8;
+     */
+    path_adjustment_interval: number;
+    /**
+     * @generated from protobuf field: int32 graph_shared_memory_size = 9;
+     */
+    graph_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 tree_shared_memory_size = 10;
+     */
+    tree_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 object_shared_memory_size = 11;
+     */
+    object_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 prefetch_offset = 12;
+     */
+    prefetch_offset: number;
+    /**
+     * @generated from protobuf field: int32 prefetch_size = 13;
+     */
+    prefetch_size: number;
+    /**
+     * @generated from protobuf field: string accuracy_table = 14;
+     */
+    accuracy_table: string;
+    /**
+     * @generated from protobuf field: string search_type = 15;
+     */
+    search_type: string;
+    /**
+     * @generated from protobuf field: float max_magnitude = 16;
+     */
+    max_magnitude: number;
+    /**
+     * @generated from protobuf field: int32 n_of_neighbors_for_insertion_order = 17;
+     */
+    n_of_neighbors_for_insertion_order: number;
+    /**
+     * @generated from protobuf field: float epsilon_for_insertion_order = 18;
+     */
+    epsilon_for_insertion_order: number;
+    /**
+     * @generated from protobuf field: string refinement_object_type = 19;
+     */
+    refinement_object_type: string;
+    /**
+     * @generated from protobuf field: int32 truncation_threshold = 20;
+     */
+    truncation_threshold: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_for_creation = 21;
+     */
+    edge_size_for_creation: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_for_search = 22;
+     */
+    edge_size_for_search: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_limit_for_creation = 23;
+     */
+    edge_size_limit_for_creation: number;
+    /**
+     * @generated from protobuf field: double insertion_radius_coefficient = 24;
+     */
+    insertion_radius_coefficient: number;
+    /**
+     * @generated from protobuf field: int32 seed_size = 25;
+     */
+    seed_size: number;
+    /**
+     * @generated from protobuf field: string seed_type = 26;
+     */
+    seed_type: string;
+    /**
+     * @generated from protobuf field: int32 truncation_thread_pool_size = 27;
+     */
+    truncation_thread_pool_size: number;
+    /**
+     * @generated from protobuf field: int32 batch_size_for_creation = 28;
+     */
+    batch_size_for_creation: number;
+    /**
+     * @generated from protobuf field: string graph_type = 29;
+     */
+    graph_type: string;
+    /**
+     * @generated from protobuf field: int32 dynamic_edge_size_base = 30;
+     */
+    dynamic_edge_size_base: number;
+    /**
+     * @generated from protobuf field: int32 dynamic_edge_size_rate = 31;
+     */
+    dynamic_edge_size_rate: number;
+    /**
+     * @generated from protobuf field: float build_time_limit = 32;
+     */
+    build_time_limit: number;
+    /**
+     * @generated from protobuf field: int32 outgoing_edge = 33;
+     */
+    outgoing_edge: number;
+    /**
+     * @generated from protobuf field: int32 incoming_edge = 34;
+     */
+    incoming_edge: number;
+}
+/**
+ * Represents index Properties for each Agents
+ *
+ * @generated from protobuf message payload.v1.Info.Index.PropertyDetail
+ */
+export interface Info_Index_PropertyDetail {
+    /**
+     * @generated from protobuf field: map<string, payload.v1.Info.Index.Property> details = 1;
+     */
+    details: {
+        [key: string]: Info_Index_Property;
+    };
+}
+/**
  * Represent the pod information message.
  *
  * @generated from protobuf message payload.v1.Info.Pod
@@ -2534,6 +2690,27 @@ declare class Info_Index_StatisticsDetail$Type extends MessageType<Info_Index_St
  * @generated MessageType for protobuf message payload.v1.Info.Index.StatisticsDetail
  */
 export declare const Info_Index_StatisticsDetail: Info_Index_StatisticsDetail$Type;
+declare class Info_Index_Property$Type extends MessageType<Info_Index_Property> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_Property>): Info_Index_Property;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_Property): Info_Index_Property;
+    internalBinaryWrite(message: Info_Index_Property, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.Property
+ */
+export declare const Info_Index_Property: Info_Index_Property$Type;
+declare class Info_Index_PropertyDetail$Type extends MessageType<Info_Index_PropertyDetail> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_PropertyDetail>): Info_Index_PropertyDetail;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_PropertyDetail): Info_Index_PropertyDetail;
+    private binaryReadMap1;
+    internalBinaryWrite(message: Info_Index_PropertyDetail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.PropertyDetail
+ */
+export declare const Info_Index_PropertyDetail: Info_Index_PropertyDetail$Type;
 declare class Info_Pod$Type extends MessageType<Info_Pod> {
     constructor();
     create(value?: PartialMessage<Info_Pod>): Info_Pod;

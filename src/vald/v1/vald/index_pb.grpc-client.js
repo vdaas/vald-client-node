@@ -93,5 +93,14 @@ class IndexClient extends grpc.Client {
         const method = index_pb_1.Index.methods[3];
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
+    /**
+     * Represent the RPC to get the index property.
+     *
+     * @generated from protobuf rpc: IndexProperty(payload.v1.Empty) returns (payload.v1.Info.Index.PropertyDetail);
+     */
+    indexProperty(input, metadata, options, callback) {
+        const method = index_pb_1.Index.methods[4];
+        return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
+    }
 }
 exports.IndexClient = IndexClient;
