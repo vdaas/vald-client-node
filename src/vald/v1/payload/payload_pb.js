@@ -22,7 +22,7 @@
 //
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empty = exports.Mirror_Targets = exports.Mirror_Target = exports.Mirror = exports.Info_IPs = exports.Info_Services = exports.Info_Nodes = exports.Info_Pods = exports.Info_Memory = exports.Info_CPU = exports.Info_Annotations = exports.Info_Labels = exports.Info_ServicePort = exports.Info_Service = exports.Info_Node = exports.Info_Pod = exports.Info_Index_PropertyDetail = exports.Info_Index_Property = exports.Info_Index_StatisticsDetail = exports.Info_Index_Statistics = exports.Info_Index_UUID_Uncommitted = exports.Info_Index_UUID_Committed = exports.Info_Index_UUID = exports.Info_Index_Detail = exports.Info_Index_Count = exports.Info_Index = exports.Info = exports.Discoverer_Request = exports.Discoverer = exports.Control_CreateIndexRequest = exports.Control = exports.Object_List_Response = exports.Object_List_Request = exports.Object_List = exports.Object_Locations = exports.Object_StreamLocation = exports.Object_Location = exports.Object_StreamBlob = exports.Object_Blob = exports.Object_ReshapeVector = exports.Object_StreamVector = exports.Object_Vectors = exports.Object_Timestamp = exports.Object_TimestampRequest = exports.Object_Vector = exports.Object_IDs = exports.Object_ID = exports.Object_StreamDistance = exports.Object_Distance = exports.Object_VectorRequest = exports.Object = exports.Flush_Request = exports.Flush = exports.Remove_Config = exports.Remove_Timestamp = exports.Remove_TimestampRequest = exports.Remove_MultiRequest = exports.Remove_Request = exports.Remove = exports.Upsert_Config = exports.Upsert_MultiObjectRequest = exports.Upsert_ObjectRequest = exports.Upsert_MultiRequest = exports.Upsert_Request = exports.Upsert = exports.Update_Config = exports.Update_MultiObjectRequest = exports.Update_ObjectRequest = exports.Update_MultiRequest = exports.Update_Request = exports.Update = exports.Insert_Config = exports.Insert_MultiObjectRequest = exports.Insert_ObjectRequest = exports.Insert_MultiRequest = exports.Insert_Request = exports.Insert = exports.Filter_Config = exports.Filter_Target = exports.Filter = exports.Search_StreamResponse = exports.Search_Responses = exports.Search_Response = exports.Search_Config = exports.Search_MultiObjectRequest = exports.Search_ObjectRequest = exports.Search_MultiIDRequest = exports.Search_IDRequest = exports.Search_MultiRequest = exports.Search_Request = exports.Search = exports.Remove_Timestamp_Operator = exports.Search_AggregationAlgorithm = void 0;
+exports.Empty = exports.Mirror_Targets = exports.Mirror_Target = exports.Mirror = exports.Info_IPs = exports.Info_Services = exports.Info_Nodes = exports.Info_Pods = exports.Info_Memory = exports.Info_CPU = exports.Info_Annotations = exports.Info_Labels = exports.Info_ServicePort = exports.Info_Service = exports.Info_Node = exports.Info_Pod = exports.Info_Index_PropertyDetail = exports.Info_Index_Property = exports.Info_Index_StatisticsDetail = exports.Info_Index_Statistics = exports.Info_Index_UUID_Uncommitted = exports.Info_Index_UUID_Committed = exports.Info_Index_UUID = exports.Info_Index_Detail = exports.Info_Index_Count = exports.Info_Index = exports.Info = exports.Discoverer_Request = exports.Discoverer = exports.Control_CreateIndexRequest = exports.Control = exports.Object_List_Response = exports.Object_List_Request = exports.Object_List = exports.Object_Locations = exports.Object_StreamLocation = exports.Object_Location = exports.Object_StreamBlob = exports.Object_Blob = exports.Object_ReshapeVector = exports.Object_StreamVector = exports.Object_Vectors = exports.Object_Timestamp = exports.Object_TimestampRequest = exports.Object_Vector = exports.Object_IDs = exports.Object_ID = exports.Object_StreamDistance = exports.Object_Distance = exports.Object_VectorRequest = exports.Object = exports.Flush_Request = exports.Flush = exports.Remove_Config = exports.Remove_Timestamp = exports.Remove_TimestampRequest = exports.Remove_MultiRequest = exports.Remove_Request = exports.Remove = exports.Upsert_Config = exports.Upsert_MultiObjectRequest = exports.Upsert_ObjectRequest = exports.Upsert_MultiRequest = exports.Upsert_Request = exports.Upsert = exports.Update_Config = exports.Update_TimestampRequest = exports.Update_MultiObjectRequest = exports.Update_ObjectRequest = exports.Update_MultiRequest = exports.Update_Request = exports.Update = exports.Insert_Config = exports.Insert_MultiObjectRequest = exports.Insert_ObjectRequest = exports.Insert_MultiRequest = exports.Insert_Request = exports.Insert = exports.Filter_Config = exports.Filter_Target = exports.Filter = exports.Search_StreamResponse = exports.Search_Responses = exports.Search_Response = exports.Search_Config = exports.Search_MultiObjectRequest = exports.Search_ObjectRequest = exports.Search_MultiIDRequest = exports.Search_IDRequest = exports.Search_MultiRequest = exports.Search_Request = exports.Search = exports.Remove_Timestamp_Operator = exports.Search_AggregationAlgorithm = void 0;
 /* eslint-disable */
 // @generated by protobuf-ts 2.9.4 with parameter add_pb_suffix,client_grpc1,generate_dependencies,keep_enum_prefix,ts_nocheck,use_proto_field_name,output_javascript,output_legacy_commonjs,eslint_disable
 // @generated from protobuf file "vald/v1/payload/payload.proto" (package "payload.v1", syntax proto3)
@@ -1407,6 +1407,69 @@ class Update_MultiObjectRequest$Type extends runtime_4.MessageType {
  * @generated MessageType for protobuf message payload.v1.Update.MultiObjectRequest
  */
 exports.Update_MultiObjectRequest = new Update_MultiObjectRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Update_TimestampRequest$Type extends runtime_4.MessageType {
+    constructor() {
+        super("payload.v1.Update.TimestampRequest", [
+            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/, options: { "buf.validate.field": { string: { minLen: "1" } } } },
+            { no: 2, name: "timestamp", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 3, name: "force", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+        ]);
+    }
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
+        message.id = "";
+        message.timestamp = 0n;
+        message.force = false;
+        if (value !== undefined)
+            runtime_3.reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string id */ 1:
+                    message.id = reader.string();
+                    break;
+                case /* int64 timestamp */ 2:
+                    message.timestamp = reader.int64().toBigInt();
+                    break;
+                case /* bool force */ 3:
+                    message.force = reader.bool();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? runtime_2.UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* string id = 1; */
+        if (message.id !== "")
+            writer.tag(1, runtime_1.WireType.LengthDelimited).string(message.id);
+        /* int64 timestamp = 2; */
+        if (message.timestamp !== 0n)
+            writer.tag(2, runtime_1.WireType.Varint).int64(message.timestamp);
+        /* bool force = 3; */
+        if (message.force !== false)
+            writer.tag(3, runtime_1.WireType.Varint).bool(message.force);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Update.TimestampRequest
+ */
+exports.Update_TimestampRequest = new Update_TimestampRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class Update_Config$Type extends runtime_4.MessageType {
     constructor() {

@@ -517,6 +517,31 @@ export interface Update_MultiObjectRequest {
     requests: Update_ObjectRequest[];
 }
 /**
+ * Represent a vector meta data.
+ *
+ * @generated from protobuf message payload.v1.Update.TimestampRequest
+ */
+export interface Update_TimestampRequest {
+    /**
+     * The vector ID.
+     *
+     * @generated from protobuf field: string id = 1;
+     */
+    id: string;
+    /**
+     * timestamp represents when this vector inserted.
+     *
+     * @generated from protobuf field: int64 timestamp = 2;
+     */
+    timestamp: bigint;
+    /**
+     * force represents forcefully update the timestamp.
+     *
+     * @generated from protobuf field: bool force = 3;
+     */
+    force: boolean;
+}
+/**
  * Represent the update configuration.
  *
  * @generated from protobuf message payload.v1.Update.Config
@@ -2208,6 +2233,16 @@ declare class Update_MultiObjectRequest$Type extends MessageType<Update_MultiObj
  * @generated MessageType for protobuf message payload.v1.Update.MultiObjectRequest
  */
 export declare const Update_MultiObjectRequest: Update_MultiObjectRequest$Type;
+declare class Update_TimestampRequest$Type extends MessageType<Update_TimestampRequest> {
+    constructor();
+    create(value?: PartialMessage<Update_TimestampRequest>): Update_TimestampRequest;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Update_TimestampRequest): Update_TimestampRequest;
+    internalBinaryWrite(message: Update_TimestampRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Update.TimestampRequest
+ */
+export declare const Update_TimestampRequest: Update_TimestampRequest$Type;
 declare class Update_Config$Type extends MessageType<Update_Config> {
     constructor();
     create(value?: PartialMessage<Update_Config>): Update_Config;
