@@ -26,6 +26,7 @@ import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Any } from "../../../google/protobuf/any_pb";
 import { Status } from "../../../google/rpc/status_pb";
 import { FloatValue } from "../../../google/protobuf/wrappers_pb";
 /**
@@ -1977,6 +1978,42 @@ export interface Mirror_Targets {
     targets: Mirror_Target[];
 }
 /**
+ * @generated from protobuf message payload.v1.Meta
+ */
+export interface Meta {
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.Key
+ */
+export interface Meta_Key {
+    /**
+     * @generated from protobuf field: string key = 1;
+     */
+    key: string;
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.Value
+ */
+export interface Meta_Value {
+    /**
+     * @generated from protobuf field: google.protobuf.Any value = 1;
+     */
+    value?: Any;
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.KeyValue
+ */
+export interface Meta_KeyValue {
+    /**
+     * @generated from protobuf field: payload.v1.Meta.Key key = 1;
+     */
+    key?: Meta_Key;
+    /**
+     * @generated from protobuf field: payload.v1.Meta.Value value = 2;
+     */
+    value?: Meta_Value;
+}
+/**
  * Represent an empty message.
  *
  * @generated from protobuf message payload.v1.Empty
@@ -2898,6 +2935,46 @@ declare class Mirror_Targets$Type extends MessageType<Mirror_Targets> {
  * @generated MessageType for protobuf message payload.v1.Mirror.Targets
  */
 export declare const Mirror_Targets: Mirror_Targets$Type;
+declare class Meta$Type extends MessageType<Meta> {
+    constructor();
+    create(value?: PartialMessage<Meta>): Meta;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta): Meta;
+    internalBinaryWrite(message: Meta, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta
+ */
+export declare const Meta: Meta$Type;
+declare class Meta_Key$Type extends MessageType<Meta_Key> {
+    constructor();
+    create(value?: PartialMessage<Meta_Key>): Meta_Key;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_Key): Meta_Key;
+    internalBinaryWrite(message: Meta_Key, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Key
+ */
+export declare const Meta_Key: Meta_Key$Type;
+declare class Meta_Value$Type extends MessageType<Meta_Value> {
+    constructor();
+    create(value?: PartialMessage<Meta_Value>): Meta_Value;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_Value): Meta_Value;
+    internalBinaryWrite(message: Meta_Value, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Value
+ */
+export declare const Meta_Value: Meta_Value$Type;
+declare class Meta_KeyValue$Type extends MessageType<Meta_KeyValue> {
+    constructor();
+    create(value?: PartialMessage<Meta_KeyValue>): Meta_KeyValue;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_KeyValue): Meta_KeyValue;
+    internalBinaryWrite(message: Meta_KeyValue, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.KeyValue
+ */
+export declare const Meta_KeyValue: Meta_KeyValue$Type;
 declare class Empty$Type extends MessageType<Empty> {
     constructor();
     create(value?: PartialMessage<Empty>): Empty;

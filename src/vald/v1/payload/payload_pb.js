@@ -22,7 +22,7 @@
 //
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empty = exports.Mirror_Targets = exports.Mirror_Target = exports.Mirror = exports.Info_IPs = exports.Info_Services = exports.Info_Nodes = exports.Info_Pods = exports.Info_Memory = exports.Info_CPU = exports.Info_Annotations = exports.Info_Labels = exports.Info_ServicePort = exports.Info_Service = exports.Info_Node = exports.Info_Pod = exports.Info_Index_PropertyDetail = exports.Info_Index_Property = exports.Info_Index_StatisticsDetail = exports.Info_Index_Statistics = exports.Info_Index_UUID_Uncommitted = exports.Info_Index_UUID_Committed = exports.Info_Index_UUID = exports.Info_Index_Detail = exports.Info_Index_Count = exports.Info_Index = exports.Info = exports.Discoverer_Request = exports.Discoverer = exports.Control_CreateIndexRequest = exports.Control = exports.Object_List_Response = exports.Object_List_Request = exports.Object_List = exports.Object_Locations = exports.Object_StreamLocation = exports.Object_Location = exports.Object_StreamBlob = exports.Object_Blob = exports.Object_ReshapeVector = exports.Object_StreamVector = exports.Object_Vectors = exports.Object_Timestamp = exports.Object_TimestampRequest = exports.Object_Vector = exports.Object_IDs = exports.Object_ID = exports.Object_StreamDistance = exports.Object_Distance = exports.Object_VectorRequest = exports.Object = exports.Flush_Request = exports.Flush = exports.Remove_Config = exports.Remove_Timestamp = exports.Remove_TimestampRequest = exports.Remove_MultiRequest = exports.Remove_Request = exports.Remove = exports.Upsert_Config = exports.Upsert_MultiObjectRequest = exports.Upsert_ObjectRequest = exports.Upsert_MultiRequest = exports.Upsert_Request = exports.Upsert = exports.Update_Config = exports.Update_TimestampRequest = exports.Update_MultiObjectRequest = exports.Update_ObjectRequest = exports.Update_MultiRequest = exports.Update_Request = exports.Update = exports.Insert_Config = exports.Insert_MultiObjectRequest = exports.Insert_ObjectRequest = exports.Insert_MultiRequest = exports.Insert_Request = exports.Insert = exports.Filter_Config = exports.Filter_Target = exports.Filter = exports.Search_StreamResponse = exports.Search_Responses = exports.Search_Response = exports.Search_Config = exports.Search_MultiObjectRequest = exports.Search_ObjectRequest = exports.Search_MultiIDRequest = exports.Search_IDRequest = exports.Search_MultiRequest = exports.Search_Request = exports.Search = exports.Remove_Timestamp_Operator = exports.Search_AggregationAlgorithm = void 0;
+exports.Empty = exports.Meta_KeyValue = exports.Meta_Value = exports.Meta_Key = exports.Meta = exports.Mirror_Targets = exports.Mirror_Target = exports.Mirror = exports.Info_IPs = exports.Info_Services = exports.Info_Nodes = exports.Info_Pods = exports.Info_Memory = exports.Info_CPU = exports.Info_Annotations = exports.Info_Labels = exports.Info_ServicePort = exports.Info_Service = exports.Info_Node = exports.Info_Pod = exports.Info_Index_PropertyDetail = exports.Info_Index_Property = exports.Info_Index_StatisticsDetail = exports.Info_Index_Statistics = exports.Info_Index_UUID_Uncommitted = exports.Info_Index_UUID_Committed = exports.Info_Index_UUID = exports.Info_Index_Detail = exports.Info_Index_Count = exports.Info_Index = exports.Info = exports.Discoverer_Request = exports.Discoverer = exports.Control_CreateIndexRequest = exports.Control = exports.Object_List_Response = exports.Object_List_Request = exports.Object_List = exports.Object_Locations = exports.Object_StreamLocation = exports.Object_Location = exports.Object_StreamBlob = exports.Object_Blob = exports.Object_ReshapeVector = exports.Object_StreamVector = exports.Object_Vectors = exports.Object_Timestamp = exports.Object_TimestampRequest = exports.Object_Vector = exports.Object_IDs = exports.Object_ID = exports.Object_StreamDistance = exports.Object_Distance = exports.Object_VectorRequest = exports.Object = exports.Flush_Request = exports.Flush = exports.Remove_Config = exports.Remove_Timestamp = exports.Remove_TimestampRequest = exports.Remove_MultiRequest = exports.Remove_Request = exports.Remove = exports.Upsert_Config = exports.Upsert_MultiObjectRequest = exports.Upsert_ObjectRequest = exports.Upsert_MultiRequest = exports.Upsert_Request = exports.Upsert = exports.Update_Config = exports.Update_TimestampRequest = exports.Update_MultiObjectRequest = exports.Update_ObjectRequest = exports.Update_MultiRequest = exports.Update_Request = exports.Update = exports.Insert_Config = exports.Insert_MultiObjectRequest = exports.Insert_ObjectRequest = exports.Insert_MultiRequest = exports.Insert_Request = exports.Insert = exports.Filter_Config = exports.Filter_Target = exports.Filter = exports.Search_StreamResponse = exports.Search_Responses = exports.Search_Response = exports.Search_Config = exports.Search_MultiObjectRequest = exports.Search_ObjectRequest = exports.Search_MultiIDRequest = exports.Search_IDRequest = exports.Search_MultiRequest = exports.Search_Request = exports.Search = exports.Remove_Timestamp_Operator = exports.Search_AggregationAlgorithm = void 0;
 /* eslint-disable */
 // @generated by protobuf-ts 2.9.4 with parameter add_pb_suffix,client_grpc1,generate_dependencies,keep_enum_prefix,ts_nocheck,use_proto_field_name,output_javascript,output_legacy_commonjs,eslint_disable
 // @generated from protobuf file "vald/v1/payload/payload.proto" (package "payload.v1", syntax proto3)
@@ -49,6 +49,7 @@ const runtime_1 = require("@protobuf-ts/runtime");
 const runtime_2 = require("@protobuf-ts/runtime");
 const runtime_3 = require("@protobuf-ts/runtime");
 const runtime_4 = require("@protobuf-ts/runtime");
+const any_pb_1 = require("../../../google/protobuf/any_pb");
 const status_pb_1 = require("../../../google/rpc/status_pb");
 const wrappers_pb_1 = require("../../../google/protobuf/wrappers_pb");
 /**
@@ -5336,6 +5337,177 @@ class Mirror_Targets$Type extends runtime_4.MessageType {
  * @generated MessageType for protobuf message payload.v1.Mirror.Targets
  */
 exports.Mirror_Targets = new Mirror_Targets$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Meta$Type extends runtime_4.MessageType {
+    constructor() {
+        super("payload.v1.Meta", []);
+    }
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
+        if (value !== undefined)
+            runtime_3.reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        return target ?? this.create();
+    }
+    internalBinaryWrite(message, writer, options) {
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta
+ */
+exports.Meta = new Meta$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Meta_Key$Type extends runtime_4.MessageType {
+    constructor() {
+        super("payload.v1.Meta.Key", [
+            { no: 1, name: "key", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
+        message.key = "";
+        if (value !== undefined)
+            runtime_3.reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string key */ 1:
+                    message.key = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? runtime_2.UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* string key = 1; */
+        if (message.key !== "")
+            writer.tag(1, runtime_1.WireType.LengthDelimited).string(message.key);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Key
+ */
+exports.Meta_Key = new Meta_Key$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Meta_Value$Type extends runtime_4.MessageType {
+    constructor() {
+        super("payload.v1.Meta.Value", [
+            { no: 1, name: "value", kind: "message", T: () => any_pb_1.Any }
+        ]);
+    }
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
+        if (value !== undefined)
+            runtime_3.reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* google.protobuf.Any value */ 1:
+                    message.value = any_pb_1.Any.internalBinaryRead(reader, reader.uint32(), options, message.value);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? runtime_2.UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* google.protobuf.Any value = 1; */
+        if (message.value)
+            any_pb_1.Any.internalBinaryWrite(message.value, writer.tag(1, runtime_1.WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Value
+ */
+exports.Meta_Value = new Meta_Value$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Meta_KeyValue$Type extends runtime_4.MessageType {
+    constructor() {
+        super("payload.v1.Meta.KeyValue", [
+            { no: 1, name: "key", kind: "message", T: () => exports.Meta_Key },
+            { no: 2, name: "value", kind: "message", T: () => exports.Meta_Value }
+        ]);
+    }
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
+        if (value !== undefined)
+            runtime_3.reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* payload.v1.Meta.Key key */ 1:
+                    message.key = exports.Meta_Key.internalBinaryRead(reader, reader.uint32(), options, message.key);
+                    break;
+                case /* payload.v1.Meta.Value value */ 2:
+                    message.value = exports.Meta_Value.internalBinaryRead(reader, reader.uint32(), options, message.value);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? runtime_2.UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* payload.v1.Meta.Key key = 1; */
+        if (message.key)
+            exports.Meta_Key.internalBinaryWrite(message.key, writer.tag(1, runtime_1.WireType.LengthDelimited).fork(), options).join();
+        /* payload.v1.Meta.Value value = 2; */
+        if (message.value)
+            exports.Meta_Value.internalBinaryWrite(message.value, writer.tag(2, runtime_1.WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.KeyValue
+ */
+exports.Meta_KeyValue = new Meta_KeyValue$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class Empty$Type extends runtime_4.MessageType {
     constructor() {
