@@ -50,12 +50,14 @@ const payload_pb_2 = require("../payload/payload_pb");
 const payload_pb_3 = require("../payload/payload_pb");
 const payload_pb_4 = require("../payload/payload_pb");
 const payload_pb_5 = require("../payload/payload_pb");
+const payload_pb_6 = require("../payload/payload_pb");
 const runtime_rpc_1 = require("@protobuf-ts/runtime-rpc");
 /**
  * @generated ServiceType for protobuf service vald.v1.Update
  */
 exports.Update = new runtime_rpc_1.ServiceType("vald.v1.Update", [
-    { name: "Update", options: { "google.api.http": { post: "/update", body: "*" } }, I: payload_pb_5.Update_Request, O: payload_pb_4.Object_Location },
-    { name: "StreamUpdate", serverStreaming: true, clientStreaming: true, options: {}, I: payload_pb_5.Update_Request, O: payload_pb_3.Object_StreamLocation },
-    { name: "MultiUpdate", options: { "google.api.http": { post: "/update/multiple", body: "*" } }, I: payload_pb_2.Update_MultiRequest, O: payload_pb_1.Object_Locations }
+    { name: "Update", options: { "google.api.http": { post: "/update", body: "*" } }, I: payload_pb_6.Update_Request, O: payload_pb_5.Object_Location },
+    { name: "StreamUpdate", serverStreaming: true, clientStreaming: true, options: {}, I: payload_pb_6.Update_Request, O: payload_pb_4.Object_StreamLocation },
+    { name: "MultiUpdate", options: { "google.api.http": { post: "/update/multiple", body: "*" } }, I: payload_pb_3.Update_MultiRequest, O: payload_pb_2.Object_Locations },
+    { name: "UpdateTimestamp", options: { "google.api.http": { post: "/update/timestamp", body: "*" } }, I: payload_pb_1.Update_TimestampRequest, O: payload_pb_5.Object_Location }
 ]);

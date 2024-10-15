@@ -26,6 +26,7 @@ import type { BinaryReadOptions } from "@protobuf-ts/runtime";
 import type { IBinaryReader } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Any } from "../../../google/protobuf/any_pb";
 import { Status } from "../../../google/rpc/status_pb";
 import { FloatValue } from "../../../google/protobuf/wrappers_pb";
 /**
@@ -203,6 +204,12 @@ export interface Search_Config {
      * @generated from protobuf field: google.protobuf.FloatValue ratio = 10;
      */
     ratio?: FloatValue;
+    /**
+     * Search nprobe.
+     *
+     * @generated from protobuf field: uint32 nprobe = 11;
+     */
+    nprobe: number;
 }
 /**
  * Represent a search response.
@@ -509,6 +516,31 @@ export interface Update_MultiObjectRequest {
      * @generated from protobuf field: repeated payload.v1.Update.ObjectRequest requests = 1;
      */
     requests: Update_ObjectRequest[];
+}
+/**
+ * Represent a vector meta data.
+ *
+ * @generated from protobuf message payload.v1.Update.TimestampRequest
+ */
+export interface Update_TimestampRequest {
+    /**
+     * The vector ID.
+     *
+     * @generated from protobuf field: string id = 1;
+     */
+    id: string;
+    /**
+     * timestamp represents when this vector inserted.
+     *
+     * @generated from protobuf field: int64 timestamp = 2;
+     */
+    timestamp: bigint;
+    /**
+     * force represents forcefully update the timestamp.
+     *
+     * @generated from protobuf field: bool force = 3;
+     */
+    force: boolean;
 }
 /**
  * Represent the update configuration.
@@ -1471,6 +1503,162 @@ export interface Info_Index_StatisticsDetail {
     };
 }
 /**
+ * Represents index Property
+ *
+ * @generated from protobuf message payload.v1.Info.Index.Property
+ */
+export interface Info_Index_Property {
+    /**
+     * @generated from protobuf field: int32 dimension = 1;
+     */
+    dimension: number;
+    /**
+     * @generated from protobuf field: int32 thread_pool_size = 2;
+     */
+    thread_pool_size: number;
+    /**
+     * @generated from protobuf field: string object_type = 3;
+     */
+    object_type: string;
+    /**
+     * @generated from protobuf field: string distance_type = 4;
+     */
+    distance_type: string;
+    /**
+     * @generated from protobuf field: string index_type = 5;
+     */
+    index_type: string;
+    /**
+     * @generated from protobuf field: string database_type = 6;
+     */
+    database_type: string;
+    /**
+     * @generated from protobuf field: string object_alignment = 7;
+     */
+    object_alignment: string;
+    /**
+     * @generated from protobuf field: int32 path_adjustment_interval = 8;
+     */
+    path_adjustment_interval: number;
+    /**
+     * @generated from protobuf field: int32 graph_shared_memory_size = 9;
+     */
+    graph_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 tree_shared_memory_size = 10;
+     */
+    tree_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 object_shared_memory_size = 11;
+     */
+    object_shared_memory_size: number;
+    /**
+     * @generated from protobuf field: int32 prefetch_offset = 12;
+     */
+    prefetch_offset: number;
+    /**
+     * @generated from protobuf field: int32 prefetch_size = 13;
+     */
+    prefetch_size: number;
+    /**
+     * @generated from protobuf field: string accuracy_table = 14;
+     */
+    accuracy_table: string;
+    /**
+     * @generated from protobuf field: string search_type = 15;
+     */
+    search_type: string;
+    /**
+     * @generated from protobuf field: float max_magnitude = 16;
+     */
+    max_magnitude: number;
+    /**
+     * @generated from protobuf field: int32 n_of_neighbors_for_insertion_order = 17;
+     */
+    n_of_neighbors_for_insertion_order: number;
+    /**
+     * @generated from protobuf field: float epsilon_for_insertion_order = 18;
+     */
+    epsilon_for_insertion_order: number;
+    /**
+     * @generated from protobuf field: string refinement_object_type = 19;
+     */
+    refinement_object_type: string;
+    /**
+     * @generated from protobuf field: int32 truncation_threshold = 20;
+     */
+    truncation_threshold: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_for_creation = 21;
+     */
+    edge_size_for_creation: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_for_search = 22;
+     */
+    edge_size_for_search: number;
+    /**
+     * @generated from protobuf field: int32 edge_size_limit_for_creation = 23;
+     */
+    edge_size_limit_for_creation: number;
+    /**
+     * @generated from protobuf field: double insertion_radius_coefficient = 24;
+     */
+    insertion_radius_coefficient: number;
+    /**
+     * @generated from protobuf field: int32 seed_size = 25;
+     */
+    seed_size: number;
+    /**
+     * @generated from protobuf field: string seed_type = 26;
+     */
+    seed_type: string;
+    /**
+     * @generated from protobuf field: int32 truncation_thread_pool_size = 27;
+     */
+    truncation_thread_pool_size: number;
+    /**
+     * @generated from protobuf field: int32 batch_size_for_creation = 28;
+     */
+    batch_size_for_creation: number;
+    /**
+     * @generated from protobuf field: string graph_type = 29;
+     */
+    graph_type: string;
+    /**
+     * @generated from protobuf field: int32 dynamic_edge_size_base = 30;
+     */
+    dynamic_edge_size_base: number;
+    /**
+     * @generated from protobuf field: int32 dynamic_edge_size_rate = 31;
+     */
+    dynamic_edge_size_rate: number;
+    /**
+     * @generated from protobuf field: float build_time_limit = 32;
+     */
+    build_time_limit: number;
+    /**
+     * @generated from protobuf field: int32 outgoing_edge = 33;
+     */
+    outgoing_edge: number;
+    /**
+     * @generated from protobuf field: int32 incoming_edge = 34;
+     */
+    incoming_edge: number;
+}
+/**
+ * Represents index Properties for each Agents
+ *
+ * @generated from protobuf message payload.v1.Info.Index.PropertyDetail
+ */
+export interface Info_Index_PropertyDetail {
+    /**
+     * @generated from protobuf field: map<string, payload.v1.Info.Index.Property> details = 1;
+     */
+    details: {
+        [key: string]: Info_Index_Property;
+    };
+}
+/**
  * Represent the pod information message.
  *
  * @generated from protobuf message payload.v1.Info.Pod
@@ -1790,6 +1978,42 @@ export interface Mirror_Targets {
     targets: Mirror_Target[];
 }
 /**
+ * @generated from protobuf message payload.v1.Meta
+ */
+export interface Meta {
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.Key
+ */
+export interface Meta_Key {
+    /**
+     * @generated from protobuf field: string key = 1;
+     */
+    key: string;
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.Value
+ */
+export interface Meta_Value {
+    /**
+     * @generated from protobuf field: google.protobuf.Any value = 1;
+     */
+    value?: Any;
+}
+/**
+ * @generated from protobuf message payload.v1.Meta.KeyValue
+ */
+export interface Meta_KeyValue {
+    /**
+     * @generated from protobuf field: payload.v1.Meta.Key key = 1;
+     */
+    key?: Meta_Key;
+    /**
+     * @generated from protobuf field: payload.v1.Meta.Value value = 2;
+     */
+    value?: Meta_Value;
+}
+/**
  * Represent an empty message.
  *
  * @generated from protobuf message payload.v1.Empty
@@ -2046,6 +2270,16 @@ declare class Update_MultiObjectRequest$Type extends MessageType<Update_MultiObj
  * @generated MessageType for protobuf message payload.v1.Update.MultiObjectRequest
  */
 export declare const Update_MultiObjectRequest: Update_MultiObjectRequest$Type;
+declare class Update_TimestampRequest$Type extends MessageType<Update_TimestampRequest> {
+    constructor();
+    create(value?: PartialMessage<Update_TimestampRequest>): Update_TimestampRequest;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Update_TimestampRequest): Update_TimestampRequest;
+    internalBinaryWrite(message: Update_TimestampRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Update.TimestampRequest
+ */
+export declare const Update_TimestampRequest: Update_TimestampRequest$Type;
 declare class Update_Config$Type extends MessageType<Update_Config> {
     constructor();
     create(value?: PartialMessage<Update_Config>): Update_Config;
@@ -2528,6 +2762,27 @@ declare class Info_Index_StatisticsDetail$Type extends MessageType<Info_Index_St
  * @generated MessageType for protobuf message payload.v1.Info.Index.StatisticsDetail
  */
 export declare const Info_Index_StatisticsDetail: Info_Index_StatisticsDetail$Type;
+declare class Info_Index_Property$Type extends MessageType<Info_Index_Property> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_Property>): Info_Index_Property;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_Property): Info_Index_Property;
+    internalBinaryWrite(message: Info_Index_Property, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.Property
+ */
+export declare const Info_Index_Property: Info_Index_Property$Type;
+declare class Info_Index_PropertyDetail$Type extends MessageType<Info_Index_PropertyDetail> {
+    constructor();
+    create(value?: PartialMessage<Info_Index_PropertyDetail>): Info_Index_PropertyDetail;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_Index_PropertyDetail): Info_Index_PropertyDetail;
+    private binaryReadMap1;
+    internalBinaryWrite(message: Info_Index_PropertyDetail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.Index.PropertyDetail
+ */
+export declare const Info_Index_PropertyDetail: Info_Index_PropertyDetail$Type;
 declare class Info_Pod$Type extends MessageType<Info_Pod> {
     constructor();
     create(value?: PartialMessage<Info_Pod>): Info_Pod;
@@ -2680,6 +2935,46 @@ declare class Mirror_Targets$Type extends MessageType<Mirror_Targets> {
  * @generated MessageType for protobuf message payload.v1.Mirror.Targets
  */
 export declare const Mirror_Targets: Mirror_Targets$Type;
+declare class Meta$Type extends MessageType<Meta> {
+    constructor();
+    create(value?: PartialMessage<Meta>): Meta;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta): Meta;
+    internalBinaryWrite(message: Meta, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta
+ */
+export declare const Meta: Meta$Type;
+declare class Meta_Key$Type extends MessageType<Meta_Key> {
+    constructor();
+    create(value?: PartialMessage<Meta_Key>): Meta_Key;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_Key): Meta_Key;
+    internalBinaryWrite(message: Meta_Key, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Key
+ */
+export declare const Meta_Key: Meta_Key$Type;
+declare class Meta_Value$Type extends MessageType<Meta_Value> {
+    constructor();
+    create(value?: PartialMessage<Meta_Value>): Meta_Value;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_Value): Meta_Value;
+    internalBinaryWrite(message: Meta_Value, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.Value
+ */
+export declare const Meta_Value: Meta_Value$Type;
+declare class Meta_KeyValue$Type extends MessageType<Meta_KeyValue> {
+    constructor();
+    create(value?: PartialMessage<Meta_KeyValue>): Meta_KeyValue;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Meta_KeyValue): Meta_KeyValue;
+    internalBinaryWrite(message: Meta_KeyValue, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Meta.KeyValue
+ */
+export declare const Meta_KeyValue: Meta_KeyValue$Type;
 declare class Empty$Type extends MessageType<Empty> {
     constructor();
     create(value?: PartialMessage<Empty>): Empty;

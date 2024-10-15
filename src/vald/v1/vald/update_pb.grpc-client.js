@@ -84,5 +84,14 @@ class UpdateClient extends grpc.Client {
         const method = update_pb_1.Update.methods[2];
         return this.makeUnaryRequest(`/${update_pb_1.Update.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
+    /**
+     * A method to update timestamp an indexed vector.
+     *
+     * @generated from protobuf rpc: UpdateTimestamp(payload.v1.Update.TimestampRequest) returns (payload.v1.Object.Location);
+     */
+    updateTimestamp(input, metadata, options, callback) {
+        const method = update_pb_1.Update.methods[3];
+        return this.makeUnaryRequest(`/${update_pb_1.Update.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
+    }
 }
 exports.UpdateClient = UpdateClient;

@@ -22,6 +22,7 @@
 //
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
+import type { Update_TimestampRequest } from "../payload/payload_pb";
 import type { Object_Locations } from "../payload/payload_pb";
 import type { Update_MultiRequest } from "../payload/payload_pb";
 import type { Object_StreamLocation } from "../payload/payload_pb";
@@ -59,6 +60,15 @@ export interface IUpdateClient {
     multiUpdate(input: Update_MultiRequest, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
     multiUpdate(input: Update_MultiRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
     multiUpdate(input: Update_MultiRequest, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
+    /**
+     * A method to update timestamp an indexed vector.
+     *
+     * @generated from protobuf rpc: UpdateTimestamp(payload.v1.Update.TimestampRequest) returns (payload.v1.Object.Location);
+     */
+    updateTimestamp(input: Update_TimestampRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
+    updateTimestamp(input: Update_TimestampRequest, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
+    updateTimestamp(input: Update_TimestampRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
+    updateTimestamp(input: Update_TimestampRequest, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
 }
 /**
  * Update service provides ways to update indexed vectors.
@@ -86,4 +96,10 @@ export declare class UpdateClient extends grpc.Client implements IUpdateClient {
      * @generated from protobuf rpc: MultiUpdate(payload.v1.Update.MultiRequest) returns (payload.v1.Object.Locations);
      */
     multiUpdate(input: Update_MultiRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Locations) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Locations) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Locations) => void)): grpc.ClientUnaryCall;
+    /**
+     * A method to update timestamp an indexed vector.
+     *
+     * @generated from protobuf rpc: UpdateTimestamp(payload.v1.Update.TimestampRequest) returns (payload.v1.Object.Location);
+     */
+    updateTimestamp(input: Update_TimestampRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Location) => void)): grpc.ClientUnaryCall;
 }

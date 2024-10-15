@@ -22,6 +22,7 @@
 //
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { BinaryReadOptions } from "@protobuf-ts/runtime";
+import type { Info_Index_PropertyDetail } from "../payload/payload_pb";
 import type { Info_Index_StatisticsDetail } from "../payload/payload_pb";
 import type { Info_Index_Statistics } from "../payload/payload_pb";
 import type { Info_Index_Detail } from "../payload/payload_pb";
@@ -70,6 +71,15 @@ export interface IIndexClient {
     indexStatisticsDetail(input: Empty, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void): grpc.ClientUnaryCall;
     indexStatisticsDetail(input: Empty, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void): grpc.ClientUnaryCall;
     indexStatisticsDetail(input: Empty, callback: (err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void): grpc.ClientUnaryCall;
+    /**
+     * Represent the RPC to get the index property.
+     *
+     * @generated from protobuf rpc: IndexProperty(payload.v1.Empty) returns (payload.v1.Info.Index.PropertyDetail);
+     */
+    indexProperty(input: Empty, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void): grpc.ClientUnaryCall;
+    indexProperty(input: Empty, metadata: grpc.Metadata, callback: (err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void): grpc.ClientUnaryCall;
+    indexProperty(input: Empty, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void): grpc.ClientUnaryCall;
+    indexProperty(input: Empty, callback: (err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void): grpc.ClientUnaryCall;
 }
 /**
  * Represent the index manager service.
@@ -103,4 +113,10 @@ export declare class IndexClient extends grpc.Client implements IIndexClient {
      * @generated from protobuf rpc: IndexStatisticsDetail(payload.v1.Empty) returns (payload.v1.Info.Index.StatisticsDetail);
      */
     indexStatisticsDetail(input: Empty, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void), callback?: ((err: grpc.ServiceError | null, value?: Info_Index_StatisticsDetail) => void)): grpc.ClientUnaryCall;
+    /**
+     * Represent the RPC to get the index property.
+     *
+     * @generated from protobuf rpc: IndexProperty(payload.v1.Empty) returns (payload.v1.Info.Index.PropertyDetail);
+     */
+    indexProperty(input: Empty, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void), callback?: ((err: grpc.ServiceError | null, value?: Info_Index_PropertyDetail) => void)): grpc.ClientUnaryCall;
 }
