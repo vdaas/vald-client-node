@@ -36,10 +36,6 @@ NODE_VERSION := $(eval NODE_VERSION := $(shell cat NODE_VERSION))$(NODE_VERSION)
 NODE_ROOT   = src
 NPM_BIN = $(shell npm prefix)
 
-BUF_CONFIGS = \
-	$(PROTO_ROOT)/buf.yaml \
-	$(PROTO_ROOT)/buf.lock
-
 SHADOW_ROOT = vald
 SHADOW_PROTO_ROOT = $(SHADOW_ROOT)/$(SHADOW_ROOT)
 
@@ -211,7 +207,6 @@ $(NODESOURCES): \
 	$(SHADOWS)
 $(NODE_ROOT)/$(SHADOW_ROOT)/%_grpc_pb.js: $(SHADOW_PROTO_ROOT)/%.proto
 	@$(call green, "generating node files...")
-	cp -f $(BUF_CONFIGS) $(SHADOW_ROOT)
 	$(BUF_GEN_PATH) generate --include-imports
 
 $(VALD_DIR):
