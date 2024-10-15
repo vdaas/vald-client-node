@@ -1,10 +1,9 @@
-version: v1
+version: v2
 managed:
   enabled: true
 plugins:
-  - plugin: buf.build/community/timostamm-protobuf-ts
+  - remote: buf.build/community/timostamm-protobuf-ts
     out: src
-    # https://github.com/timostamm/protobuf-ts/blob/main/MANUAL.md#the-protoc-plugin
     opt:
       - add_pb_suffix
       - client_grpc1
