@@ -48,7 +48,8 @@ exports.ObjectClient = void 0;
 const object_pb_1 = require("./object_pb");
 const grpc = require("@grpc/grpc-js");
 /**
- * Object service provides ways to fetch indexed vectors.
+ * Overview
+ * Object Service is responsible for getting inserted vectors and checking whether vectors are inserted into the `vald-agent`.
  *
  * @generated from protobuf service vald.v1.Object
  */
@@ -58,7 +59,29 @@ class ObjectClient extends grpc.Client {
         this._binaryOptions = binaryOptions;
     }
     /**
-     * A method to check whether a specified ID is indexed or not.
+     * Overview
+     * Exists RPC is the method to check that a vector exists in the `vald-agent`.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
+     * ---
+     * Troubleshooting
+     * The request process may not be completed when the response code is NOT `0 (OK)`.
+     *
+     * Here are some common reasons and how to resolve each error.
+     *
+     * | name              | common reason                                                                                   | how to resolve                                                                           |
+     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
+     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
+     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
+     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
+     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
      *
      * @generated from protobuf rpc: Exists(payload.v1.Object.ID) returns (payload.v1.Object.ID);
      */
@@ -67,7 +90,29 @@ class ObjectClient extends grpc.Client {
         return this.makeUnaryRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
-     * A method to fetch a vector.
+     * Overview
+     * GetObject RPC is the method to get the metadata of a vector inserted into the `vald-agent`.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
+     * ---
+     * Troubleshooting
+     * The request process may not be completed when the response code is NOT `0 (OK)`.
+     *
+     * Here are some common reasons and how to resolve each error.
+     *
+     * | name              | common reason                                                                                   | how to resolve                                                                           |
+     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
+     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
+     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
+     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
+     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
      *
      * @generated from protobuf rpc: GetObject(payload.v1.Object.VectorRequest) returns (payload.v1.Object.Vector);
      */
@@ -76,7 +121,31 @@ class ObjectClient extends grpc.Client {
         return this.makeUnaryRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
-     * A method to fetch vectors by bidirectional streaming.
+     * Overview
+     * StreamGetObject RPC is the method to get the metadata of multiple existing vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
+     * Using the bidirectional streaming RPC, the GetObject request can be communicated in any order between client and server.
+     * Each Upsert request and response are independent.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
+     * ---
+     * Troubleshooting
+     * The request process may not be completed when the response code is NOT `0 (OK)`.
+     *
+     * Here are some common reasons and how to resolve each error.
+     *
+     * | name              | common reason                                                                                   | how to resolve                                                                           |
+     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
+     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
+     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
+     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
+     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
      *
      * @generated from protobuf rpc: StreamGetObject(stream payload.v1.Object.VectorRequest) returns (stream payload.v1.Object.StreamVector);
      */
@@ -85,7 +154,14 @@ class ObjectClient extends grpc.Client {
         return this.makeBidiStreamRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), metadata, options);
     }
     /**
+     * Overview
      * A method to get all the vectors with server streaming
+     * ---
+     * Status Code
+     * TODO
+     * ---
+     * Troubleshooting
+     * TODO
      *
      * @generated from protobuf rpc: StreamListObject(payload.v1.Object.List.Request) returns (stream payload.v1.Object.List.Response);
      */
@@ -94,7 +170,14 @@ class ObjectClient extends grpc.Client {
         return this.makeServerStreamRequest(`/${object_pb_1.Object.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options);
     }
     /**
+     * Overview
      * Represent the RPC to get the vector metadata. This RPC is mainly used for index correction process
+     * ---
+     * Status Code
+     * TODO
+     * ---
+     * Troubleshooting
+     * TODO
      *
      * @generated from protobuf rpc: GetTimestamp(payload.v1.Object.TimestampRequest) returns (payload.v1.Object.Timestamp);
      */
