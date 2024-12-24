@@ -30,39 +30,13 @@ import type { Object_Location } from "../payload/payload_pb";
 import type { Update_Request } from "../payload/payload_pb";
 import * as grpc from "@grpc/grpc-js";
 /**
- * Overview
- * Update Service updates to new vector from inserted vector in the `vald-agent` components.
+ * Update service provides ways to update indexed vectors.
  *
  * @generated from protobuf service vald.v1.Update
  */
 export interface IUpdateClient {
     /**
-     * Overview
-     * Update RPC is the method to update a single vector.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update an indexed vector.
      *
      * @generated from protobuf rpc: Update(payload.v1.Update.Request) returns (payload.v1.Object.Location);
      */
@@ -71,72 +45,14 @@ export interface IUpdateClient {
     update(input: Update_Request, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
     update(input: Update_Request, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
     /**
-     * Overview
-     * StreamUpdate RPC is the method to update multiple vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
-     * Using the bidirectional streaming RPC, the update request can be communicated in any order between client and server.
-     * Each Update request and response are independent.
-     * It's the recommended method to update the large amount of vectors.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update multiple indexed vectors by bidirectional streaming.
      *
      * @generated from protobuf rpc: StreamUpdate(stream payload.v1.Update.Request) returns (stream payload.v1.Object.StreamLocation);
      */
     streamUpdate(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<Update_Request, Object_StreamLocation>;
     streamUpdate(options?: grpc.CallOptions): grpc.ClientDuplexStream<Update_Request, Object_StreamLocation>;
     /**
-     * Overview
-     * MultiUpdate is the method to update multiple vectors in **1** request.
-     *
-     * <div class="notice">
-     * gRPC has a message size limitation.<br>
-     * Please be careful that the size of the request exceeds the limit.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update multiple indexed vectors in a single request.
      *
      * @generated from protobuf rpc: MultiUpdate(payload.v1.Update.MultiRequest) returns (payload.v1.Object.Locations);
      */
@@ -145,14 +61,7 @@ export interface IUpdateClient {
     multiUpdate(input: Update_MultiRequest, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
     multiUpdate(input: Update_MultiRequest, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
     /**
-     * Overview
      * A method to update timestamp an indexed vector.
-     * ---
-     * Status Code
-     * TODO
-     * ---
-     * Troubleshooting
-     * TODO
      *
      * @generated from protobuf rpc: UpdateTimestamp(payload.v1.Update.TimestampRequest) returns (payload.v1.Object.Location);
      */
@@ -162,8 +71,7 @@ export interface IUpdateClient {
     updateTimestamp(input: Update_TimestampRequest, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
 }
 /**
- * Overview
- * Update Service updates to new vector from inserted vector in the `vald-agent` components.
+ * Update service provides ways to update indexed vectors.
  *
  * @generated from protobuf service vald.v1.Update
  */
@@ -171,115 +79,25 @@ export declare class UpdateClient extends grpc.Client implements IUpdateClient {
     private readonly _binaryOptions;
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: grpc.ClientOptions, binaryOptions?: Partial<BinaryReadOptions & BinaryWriteOptions>);
     /**
-     * Overview
-     * Update RPC is the method to update a single vector.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update an indexed vector.
      *
      * @generated from protobuf rpc: Update(payload.v1.Update.Request) returns (payload.v1.Object.Location);
      */
     update(input: Update_Request, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Location) => void)): grpc.ClientUnaryCall;
     /**
-     * Overview
-     * StreamUpdate RPC is the method to update multiple vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
-     * Using the bidirectional streaming RPC, the update request can be communicated in any order between client and server.
-     * Each Update request and response are independent.
-     * It's the recommended method to update the large amount of vectors.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update multiple indexed vectors by bidirectional streaming.
      *
      * @generated from protobuf rpc: StreamUpdate(stream payload.v1.Update.Request) returns (stream payload.v1.Object.StreamLocation);
      */
     streamUpdate(metadata?: grpc.Metadata | grpc.CallOptions, options?: grpc.CallOptions): grpc.ClientDuplexStream<Update_Request, Object_StreamLocation>;
     /**
-     * Overview
-     * MultiUpdate is the method to update multiple vectors in **1** request.
-     *
-     * <div class="notice">
-     * gRPC has a message size limitation.<br>
-     * Please be careful that the size of the request exceeds the limit.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                                                                       | Send a request with an ID that is already inserted.                                      |
-     * | ALREADY_EXISTS    | Request pair of ID and vector is already inserted.                                                                                                  | Change request ID.                                                                       |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to update multiple indexed vectors in a single request.
      *
      * @generated from protobuf rpc: MultiUpdate(payload.v1.Update.MultiRequest) returns (payload.v1.Object.Locations);
      */
     multiUpdate(input: Update_MultiRequest, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Locations) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Locations) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Locations) => void)): grpc.ClientUnaryCall;
     /**
-     * Overview
      * A method to update timestamp an indexed vector.
-     * ---
-     * Status Code
-     * TODO
-     * ---
-     * Troubleshooting
-     * TODO
      *
      * @generated from protobuf rpc: UpdateTimestamp(payload.v1.Update.TimestampRequest) returns (payload.v1.Object.Location);
      */

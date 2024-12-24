@@ -48,8 +48,7 @@ exports.RemoveClient = void 0;
 const remove_pb_1 = require("./remove_pb");
 const grpc = require("@grpc/grpc-js");
 /**
- * Overview
- * Remove Service is responsible for removing vectors indexed in the `vald-agent`.
+ * Remove service provides ways to remove indexed vectors.
  *
  * @generated from protobuf service vald.v1.Remove
  */
@@ -59,30 +58,7 @@ class RemoveClient extends grpc.Client {
         this._binaryOptions = binaryOptions;
     }
     /**
-     * Overview
-     * Remove RPC is the method to remove a single vector.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                   | how to resolve                                                                           |
-     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to remove an indexed vector.
      *
      * @generated from protobuf rpc: Remove(payload.v1.Remove.Request) returns (payload.v1.Object.Location);
      */
@@ -91,33 +67,7 @@ class RemoveClient extends grpc.Client {
         return this.makeUnaryRequest(`/${remove_pb_1.Remove.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
-     * Overview
-     * RemoveByTimestamp RPC is the method to remove vectors based on timestamp.
-     *
-     * <div class="notice">
-     * In the TimestampRequest message, the 'timestamps' field is repeated, allowing the inclusion of multiple Timestamp.<br>
-     * When multiple Timestamps are provided, it results in an `AND` condition, enabling the realization of deletions with specified ranges.<br>
-     * This design allows for versatile deletion operations, facilitating tasks such as removing data within a specific time range.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                   | how to resolve                                                                                                       |
-     * | :---------------- | :---------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.                              |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed.                             |
-     * | NOT_FOUND         | No vectors in the system match the specified timestamp conditions.                              | Check whether vectors matching the specified timestamp conditions exist in the system, and fix conditions if needed. |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.
+     * A method to remove an indexed vector based on timestamp.
      *
      * @generated from protobuf rpc: RemoveByTimestamp(payload.v1.Remove.TimestampRequest) returns (payload.v1.Object.Locations);
      */
@@ -126,35 +76,7 @@ class RemoveClient extends grpc.Client {
         return this.makeUnaryRequest(`/${remove_pb_1.Remove.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
-     * Overview
      * A method to remove multiple indexed vectors by bidirectional streaming.
-     *
-     * StreamRemove RPC is the method to remove multiple vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
-     * Using the bidirectional streaming RPC, the remove request can be communicated in any order between client and server.
-     * Each Remove request and response are independent.
-     * It's the recommended method to remove a large number of vectors.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     *   The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                   | how to resolve                                                                           |
-     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
      *
      * @generated from protobuf rpc: StreamRemove(stream payload.v1.Remove.Request) returns (stream payload.v1.Object.StreamLocation);
      */
@@ -163,35 +85,7 @@ class RemoveClient extends grpc.Client {
         return this.makeBidiStreamRequest(`/${remove_pb_1.Remove.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), metadata, options);
     }
     /**
-     * Overview
-     * MultiRemove is the method to remove multiple vectors in **1** request.
-     *
-     * <div class="notice">
-     * gRPC has a message size limitation.<br>
-     * Please be careful that the size of the request exceeds the limit.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                   | how to resolve                                                                           |
-     * | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server. | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Requested vector's ID is empty, or some request payload is invalid.                         | Check request payload and fix request payload.                                           |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                 | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | NOT_FOUND         | Requested ID is NOT inserted.                                                                   | Send a request with an ID that is already inserted.                                      |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                   | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to remove multiple indexed vectors in a single request.
      *
      * @generated from protobuf rpc: MultiRemove(payload.v1.Remove.MultiRequest) returns (payload.v1.Object.Locations);
      */
