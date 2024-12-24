@@ -29,38 +29,13 @@ import type { Object_Location } from "../payload/payload_pb";
 import type { Upsert_Request } from "../payload/payload_pb";
 import * as grpc from "@grpc/grpc-js";
 /**
- * Overview
- * Upsert Service is responsible for updating existing vectors in the `vald-agent` or inserting new vectors into the `vald-agent` if the vector does not exist.
+ * Upsert service provides ways to insert/update vectors.
  *
  * @generated from protobuf service vald.v1.Upsert
  */
 export interface IUpsertClient {
     /**
-     * Overview
-     * Upsert RPC is the method to update the inserted vector to a new single vector or add a new single vector if not inserted before.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update a vector.
      *
      * @generated from protobuf rpc: Upsert(payload.v1.Upsert.Request) returns (payload.v1.Object.Location);
      */
@@ -69,70 +44,14 @@ export interface IUpsertClient {
     upsert(input: Upsert_Request, options: grpc.CallOptions, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
     upsert(input: Upsert_Request, callback: (err: grpc.ServiceError | null, value?: Object_Location) => void): grpc.ClientUnaryCall;
     /**
-     * Overview
-     * StreamUpsert RPC is the method to update multiple existing vectors or add new multiple vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
-     * Using the bidirectional streaming RPC, the upsert request can be communicated in any order between the client and server.
-     * Each Upsert request and response are independent.
-     * It’s the recommended method to upsert a large number of vectors.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update multiple vectors by bidirectional streaming.
      *
      * @generated from protobuf rpc: StreamUpsert(stream payload.v1.Upsert.Request) returns (stream payload.v1.Object.StreamLocation);
      */
     streamUpsert(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<Upsert_Request, Object_StreamLocation>;
     streamUpsert(options?: grpc.CallOptions): grpc.ClientDuplexStream<Upsert_Request, Object_StreamLocation>;
     /**
-     * Overview
-     * MultiUpsert is the method to update existing multiple vectors and add new multiple vectors in **1** request.
-     *
-     * <div class="notice">
-     * gRPC has a message size limitation.<br>
-     * Please be careful that the size of the request exceeds the limit.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update multiple vectors in a single request.
      *
      * @generated from protobuf rpc: MultiUpsert(payload.v1.Upsert.MultiRequest) returns (payload.v1.Object.Locations);
      */
@@ -142,8 +61,7 @@ export interface IUpsertClient {
     multiUpsert(input: Upsert_MultiRequest, callback: (err: grpc.ServiceError | null, value?: Object_Locations) => void): grpc.ClientUnaryCall;
 }
 /**
- * Overview
- * Upsert Service is responsible for updating existing vectors in the `vald-agent` or inserting new vectors into the `vald-agent` if the vector does not exist.
+ * Upsert service provides ways to insert/update vectors.
  *
  * @generated from protobuf service vald.v1.Upsert
  */
@@ -151,99 +69,19 @@ export declare class UpsertClient extends grpc.Client implements IUpsertClient {
     private readonly _binaryOptions;
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: grpc.ClientOptions, binaryOptions?: Partial<BinaryReadOptions & BinaryWriteOptions>);
     /**
-     * Overview
-     * Upsert RPC is the method to update the inserted vector to a new single vector or add a new single vector if not inserted before.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update a vector.
      *
      * @generated from protobuf rpc: Upsert(payload.v1.Upsert.Request) returns (payload.v1.Object.Location);
      */
     upsert(input: Upsert_Request, metadata: grpc.Metadata | grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), options?: grpc.CallOptions | ((err: grpc.ServiceError | null, value?: Object_Location) => void), callback?: ((err: grpc.ServiceError | null, value?: Object_Location) => void)): grpc.ClientUnaryCall;
     /**
-     * Overview
-     * StreamUpsert RPC is the method to update multiple existing vectors or add new multiple vectors using the [bidirectional streaming RPC](https://grpc.io/docs/what-is-grpc/core-concepts/#bidirectional-streaming-rpc).<br>
-     * Using the bidirectional streaming RPC, the upsert request can be communicated in any order between the client and server.
-     * Each Upsert request and response are independent.
-     * It’s the recommended method to upsert a large number of vectors.
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update multiple vectors by bidirectional streaming.
      *
      * @generated from protobuf rpc: StreamUpsert(stream payload.v1.Upsert.Request) returns (stream payload.v1.Object.StreamLocation);
      */
     streamUpsert(metadata?: grpc.Metadata | grpc.CallOptions, options?: grpc.CallOptions): grpc.ClientDuplexStream<Upsert_Request, Object_StreamLocation>;
     /**
-     * Overview
-     * MultiUpsert is the method to update existing multiple vectors and add new multiple vectors in **1** request.
-     *
-     * <div class="notice">
-     * gRPC has a message size limitation.<br>
-     * Please be careful that the size of the request exceeds the limit.
-     * </div>
-     * ---
-     * Status Code
-     * |  0   | OK                |
-     * |  1   | CANCELLED         |
-     * |  3   | INVALID_ARGUMENT  |
-     * |  4   | DEADLINE_EXCEEDED |
-     * |  5   | NOT_FOUND         |
-     * |  6   | ALREADY_EXISTS    |
-     * |  10  | ABORTED           |
-     * |  13  | INTERNAL          |
-     * ---
-     * Troubleshooting
-     * The request process may not be completed when the response code is NOT `0 (OK)`.
-     *
-     * Here are some common reasons and how to resolve each error.
-     *
-     * | name              | common reason                                                                                                                                       | how to resolve                                                                           |
-     * | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-     * | CANCELLED         | Executed cancel() of rpc from client/server-side or network problems between client and server.                                                     | Check the code, especially around timeout and connection management, and fix if needed.  |
-     * | INVALID_ARGUMENT  | The Dimension of the request vector is NOT the same as Vald Agent's config, the requested vector's ID is empty, or some request payload is invalid. | Check Agent config, request payload, and fix request payload or Agent config.            |
-     * | DEADLINE_EXCEEDED | The RPC timeout setting is too short on the client/server side.                                                                                     | Check the gRPC timeout setting on both the client and server sides and fix it if needed. |
-     * | ALREADY_EXISTS    | Requested pair of ID and vector is already inserted                                                                                                 | Change request payload or nothing to do if update is unnecessary.                        |
-     * | INTERNAL          | Target Vald cluster or network route has some critical error.                                                                                       | Check target Vald cluster first and check network route including ingress as second.     |
+     * A method to insert/update multiple vectors in a single request.
      *
      * @generated from protobuf rpc: MultiUpsert(payload.v1.Upsert.MultiRequest) returns (payload.v1.Object.Locations);
      */

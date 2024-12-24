@@ -1,5 +1,7 @@
 import filter = require("./filter_pb");
 import filter_grpc = require("./filter_pb.grpc-client");
+import flush = require("./flush_pb");
+import flush_grpc = require("./flush_pb.grpc-client");
 import insert = require("./insert_pb");
 import insert_grpc = require("./insert_pb.grpc-client");
 import object = require("./object_pb");
@@ -17,6 +19,8 @@ import upsert_grpc = require("./upsert_pb.grpc-client");
 declare const _default: {
     filter: typeof filter,
     filter_grpc: typeof filter_grpc,
+    flush: typeof flush,
+    flush_grpc: typeof flush_grpc,
     insert: typeof insert,
     insert_grpc: typeof insert_grpc,
     object: typeof object,

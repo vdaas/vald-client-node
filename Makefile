@@ -44,6 +44,7 @@ TEST_DATASET_PATH = tests/wordvecs1000.json
 PROTOS = \
 	v1/agent/core/agent.proto \
 	v1/vald/filter.proto \
+	v1/vald/flush.proto \
 	v1/vald/insert.proto \
 	v1/vald/object.proto \
 	v1/vald/index.proto  \
