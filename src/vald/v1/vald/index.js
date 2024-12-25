@@ -1,5 +1,7 @@
 module.exports.filter = require("./filter_pb");
 module.exports.filter_grpc = require("./filter_pb.grpc-client");
+module.exports.flush = require("./flush_pb");
+module.exports.flush_grpc = require("./flush_pb.grpc-client");
 module.exports.insert = require("./insert_pb");
 module.exports.insert_grpc = require("./insert_pb.grpc-client");
 module.exports.object = require("./object_pb");

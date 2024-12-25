@@ -48,6 +48,7 @@ exports.IndexClient = void 0;
 const index_pb_1 = require("./index_pb");
 const grpc = require("@grpc/grpc-js");
 /**
+ * Overview
  * Represent the index manager service.
  *
  * @generated from protobuf service vald.v1.Index
@@ -58,6 +59,7 @@ class IndexClient extends grpc.Client {
         this._binaryOptions = binaryOptions;
     }
     /**
+     * Overview
      * Represent the RPC to get the index information.
      *
      * @generated from protobuf rpc: IndexInfo(payload.v1.Empty) returns (payload.v1.Info.Index.Count);
@@ -67,6 +69,7 @@ class IndexClient extends grpc.Client {
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
+     * Overview
      * Represent the RPC to get the index information for each agents.
      *
      * @generated from protobuf rpc: IndexDetail(payload.v1.Empty) returns (payload.v1.Info.Index.Detail);
@@ -76,6 +79,7 @@ class IndexClient extends grpc.Client {
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
+     * Overview
      * Represent the RPC to get the index statistics.
      *
      * @generated from protobuf rpc: IndexStatistics(payload.v1.Empty) returns (payload.v1.Info.Index.Statistics);
@@ -85,6 +89,7 @@ class IndexClient extends grpc.Client {
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
+     * Overview
      * Represent the RPC to get the index statistics for each agents.
      *
      * @generated from protobuf rpc: IndexStatisticsDetail(payload.v1.Empty) returns (payload.v1.Info.Index.StatisticsDetail);
@@ -94,6 +99,7 @@ class IndexClient extends grpc.Client {
         return this.makeUnaryRequest(`/${index_pb_1.Index.typeName}/${method.name}`, (value) => Buffer.from(method.I.toBinary(value, this._binaryOptions)), (value) => method.O.fromBinary(value, this._binaryOptions), input, metadata, options, callback);
     }
     /**
+     * Overview
      * Represent the RPC to get the index property.
      *
      * @generated from protobuf rpc: IndexProperty(payload.v1.Empty) returns (payload.v1.Info.Index.PropertyDetail);
