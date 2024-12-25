@@ -48,7 +48,8 @@ exports.FlushClient = void 0;
 const flush_pb_1 = require("./flush_pb");
 const grpc = require("@grpc/grpc-js");
 /**
- * Flush service provides ways to flush all indexed vectors.
+ * Overview
+ * Flush Service is responsible for removing all vectors that are indexed and uncommitted in the `vald-agent`.
  *
  * @generated from protobuf service vald.v1.Flush
  */
@@ -58,7 +59,16 @@ class FlushClient extends grpc.Client {
         this._binaryOptions = binaryOptions;
     }
     /**
-     * A method to flush all indexed vector.
+     * Overview
+     * Flush RPC is the method to remove all vectors.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
      *
      * @generated from protobuf rpc: Flush(payload.v1.Flush.Request) returns (payload.v1.Info.Index.Count);
      */

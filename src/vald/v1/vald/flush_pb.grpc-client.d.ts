@@ -26,13 +26,23 @@ import type { Info_Index_Count } from "../payload/payload_pb";
 import type { Flush_Request } from "../payload/payload_pb";
 import * as grpc from "@grpc/grpc-js";
 /**
- * Flush service provides ways to flush all indexed vectors.
+ * Overview
+ * Flush Service is responsible for removing all vectors that are indexed and uncommitted in the `vald-agent`.
  *
  * @generated from protobuf service vald.v1.Flush
  */
 export interface IFlushClient {
     /**
-     * A method to flush all indexed vector.
+     * Overview
+     * Flush RPC is the method to remove all vectors.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
      *
      * @generated from protobuf rpc: Flush(payload.v1.Flush.Request) returns (payload.v1.Info.Index.Count);
      */
@@ -42,7 +52,8 @@ export interface IFlushClient {
     flush(input: Flush_Request, callback: (err: grpc.ServiceError | null, value?: Info_Index_Count) => void): grpc.ClientUnaryCall;
 }
 /**
- * Flush service provides ways to flush all indexed vectors.
+ * Overview
+ * Flush Service is responsible for removing all vectors that are indexed and uncommitted in the `vald-agent`.
  *
  * @generated from protobuf service vald.v1.Flush
  */
@@ -50,7 +61,16 @@ export declare class FlushClient extends grpc.Client implements IFlushClient {
     private readonly _binaryOptions;
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: grpc.ClientOptions, binaryOptions?: Partial<BinaryReadOptions & BinaryWriteOptions>);
     /**
-     * A method to flush all indexed vector.
+     * Overview
+     * Flush RPC is the method to remove all vectors.
+     * ---
+     * Status Code
+     * |  0   | OK                |
+     * |  1   | CANCELLED         |
+     * |  3   | INVALID_ARGUMENT  |
+     * |  4   | DEADLINE_EXCEEDED |
+     * |  5   | NOT_FOUND         |
+     * |  13  | INTERNAL          |
      *
      * @generated from protobuf rpc: Flush(payload.v1.Flush.Request) returns (payload.v1.Info.Index.Count);
      */
