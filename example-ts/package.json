@@ -10,6 +10,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@grpc/grpc-js": "^1.12.5",
-    "vald-client-node": "^1.7.15"
+    "vald-client-node": "^1.7.16"
   }
 }
