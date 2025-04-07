@@ -37,7 +37,7 @@ import * as grpc from "@grpc/grpc-js";
 export interface IInsertClient {
     /**
      * Overview
-     * Inset RPC is the method to add a new single vector.
+     * Insert RPC is the method to add a new single vector.
      * ---
      * Status Code
      * | 0    | OK                |
@@ -148,7 +148,7 @@ export declare class InsertClient extends grpc.Client implements IInsertClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: grpc.ClientOptions, binaryOptions?: Partial<BinaryReadOptions & BinaryWriteOptions>);
     /**
      * Overview
-     * Inset RPC is the method to add a new single vector.
+     * Insert RPC is the method to add a new single vector.
      * ---
      * Status Code
      * | 0    | OK                |
