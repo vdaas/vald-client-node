@@ -130,12 +130,18 @@ export interface FileDescriptorProto {
      * The supported values are "proto2", "proto3", and "editions".
      *
      * If `edition` is present, this value must be "editions".
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional string syntax = 12;
      */
     syntax?: string;
     /**
      * The edition of the proto file.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.Edition edition = 14;
      */
@@ -854,6 +860,9 @@ export interface FileOptions {
     ruby_package?: string;
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 50;
      */
@@ -985,6 +994,9 @@ export interface MessageOptions {
     deprecated_legacy_json_field_conflicts?: boolean;
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 12;
      */
@@ -1111,6 +1123,9 @@ export interface FieldOptions {
     edition_defaults: FieldOptions_EditionDefault[];
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 21;
      */
@@ -1299,6 +1314,9 @@ export declare enum FieldOptions_OptionTargetType {
 export interface OneofOptions {
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 1;
      */
@@ -1344,6 +1362,9 @@ export interface EnumOptions {
     deprecated_legacy_json_field_conflicts?: boolean;
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 7;
      */
@@ -1370,6 +1391,9 @@ export interface EnumValueOptions {
     deprecated?: boolean;
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 2;
      */
@@ -1401,6 +1425,9 @@ export interface EnumValueOptions {
 export interface ServiceOptions {
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 34;
      */
@@ -1440,6 +1467,9 @@ export interface MethodOptions {
     idempotency_level?: MethodOptions_IdempotencyLevel;
     /**
      * Any features defined in the specific edition.
+     * WARNING: This field should only be used by protobuf plugins or special
+     * cases like the proto compiler. Other uses are discouraged and
+     * developers should rely on the protoreflect APIs for their client language.
      *
      * @generated from protobuf field: optional google.protobuf.FeatureSet features = 35;
      */
@@ -1573,6 +1603,10 @@ export interface FeatureSet {
      * @generated from protobuf field: optional google.protobuf.FeatureSet.JsonFormat json_format = 6;
      */
     json_format?: FeatureSet_JsonFormat;
+    /**
+     * @generated from protobuf field: optional google.protobuf.FeatureSet.EnforceNamingStyle enforce_naming_style = 7;
+     */
+    enforce_naming_style?: FeatureSet_EnforceNamingStyle;
 }
 /**
  * @generated from protobuf enum google.protobuf.FeatureSet.FieldPresence
@@ -1679,6 +1713,23 @@ export declare enum FeatureSet_JsonFormat {
      * @generated from protobuf enum value: LEGACY_BEST_EFFORT = 2;
      */
     LEGACY_BEST_EFFORT = 2
+}
+/**
+ * @generated from protobuf enum google.protobuf.FeatureSet.EnforceNamingStyle
+ */
+export declare enum FeatureSet_EnforceNamingStyle {
+    /**
+     * @generated from protobuf enum value: ENFORCE_NAMING_STYLE_UNKNOWN = 0;
+     */
+    ENFORCE_NAMING_STYLE_UNKNOWN = 0,
+    /**
+     * @generated from protobuf enum value: STYLE2024 = 1;
+     */
+    STYLE2024 = 1,
+    /**
+     * @generated from protobuf enum value: STYLE_LEGACY = 2;
+     */
+    STYLE_LEGACY = 2
 }
 /**
  * A compiled specification for the defaults of a set of features.  These

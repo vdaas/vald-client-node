@@ -34,10 +34,17 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// Wrappers for primitive (non-message) types. These types are useful
-// for embedding primitives in the `google.protobuf.Any` type and for places
-// where we need to distinguish between the absence of a primitive
-// typed field and its default value.
+// Wrappers for primitive (non-message) types. These types were needed
+// for legacy reasons and are not recommended for use in new APIs.
+//
+// Historically these wrappers were useful to have presence on proto3 primitive
+// fields, but proto3 syntax has been updated to support the `optional` keyword.
+// Using that keyword is now the strongly preferred way to add presence to
+// proto3 primitive fields.
+//
+// A secondary usecase was to embed primitives in the `google.protobuf.Any`
+// type: it is now recommended that you embed your value in your own wrapper
+// message which can be specifically documented.
 //
 // These wrappers have no meaningful use within repeated fields as they lack
 // the ability to detect presence on individual elements.
@@ -83,10 +90,17 @@ exports.BytesValue = exports.StringValue = exports.BoolValue = exports.UInt32Val
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// Wrappers for primitive (non-message) types. These types are useful
-// for embedding primitives in the `google.protobuf.Any` type and for places
-// where we need to distinguish between the absence of a primitive
-// typed field and its default value.
+// Wrappers for primitive (non-message) types. These types were needed
+// for legacy reasons and are not recommended for use in new APIs.
+//
+// Historically these wrappers were useful to have presence on proto3 primitive
+// fields, but proto3 syntax has been updated to support the `optional` keyword.
+// Using that keyword is now the strongly preferred way to add presence to
+// proto3 primitive fields.
+//
+// A secondary usecase was to embed primitives in the `google.protobuf.Any`
+// type: it is now recommended that you embed your value in your own wrapper
+// message which can be specifically documented.
 //
 // These wrappers have no meaningful use within repeated fields as they lack
 // the ability to detect presence on individual elements.

@@ -45,7 +45,7 @@
 //
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GeneratedCodeInfo_Annotation = exports.GeneratedCodeInfo = exports.SourceCodeInfo_Location = exports.SourceCodeInfo = exports.FeatureSetDefaults_FeatureSetEditionDefault = exports.FeatureSetDefaults = exports.FeatureSet = exports.UninterpretedOption_NamePart = exports.UninterpretedOption = exports.MethodOptions = exports.ServiceOptions = exports.EnumValueOptions = exports.EnumOptions = exports.OneofOptions = exports.FieldOptions_FeatureSupport = exports.FieldOptions_EditionDefault = exports.FieldOptions = exports.MessageOptions = exports.FileOptions = exports.MethodDescriptorProto = exports.ServiceDescriptorProto = exports.EnumValueDescriptorProto = exports.EnumDescriptorProto_EnumReservedRange = exports.EnumDescriptorProto = exports.OneofDescriptorProto = exports.FieldDescriptorProto = exports.ExtensionRangeOptions_Declaration = exports.ExtensionRangeOptions = exports.DescriptorProto_ReservedRange = exports.DescriptorProto_ExtensionRange = exports.DescriptorProto = exports.FileDescriptorProto = exports.FileDescriptorSet = exports.Edition = exports.GeneratedCodeInfo_Annotation_Semantic = exports.FeatureSet_JsonFormat = exports.FeatureSet_MessageEncoding = exports.FeatureSet_Utf8Validation = exports.FeatureSet_RepeatedFieldEncoding = exports.FeatureSet_EnumType = exports.FeatureSet_FieldPresence = exports.MethodOptions_IdempotencyLevel = exports.FieldOptions_OptionTargetType = exports.FieldOptions_OptionRetention = exports.FieldOptions_JSType = exports.FieldOptions_CType = exports.FileOptions_OptimizeMode = exports.FieldDescriptorProto_Label = exports.FieldDescriptorProto_Type = exports.ExtensionRangeOptions_VerificationState = void 0;
+exports.GeneratedCodeInfo_Annotation = exports.GeneratedCodeInfo = exports.SourceCodeInfo_Location = exports.SourceCodeInfo = exports.FeatureSetDefaults_FeatureSetEditionDefault = exports.FeatureSetDefaults = exports.FeatureSet = exports.UninterpretedOption_NamePart = exports.UninterpretedOption = exports.MethodOptions = exports.ServiceOptions = exports.EnumValueOptions = exports.EnumOptions = exports.OneofOptions = exports.FieldOptions_FeatureSupport = exports.FieldOptions_EditionDefault = exports.FieldOptions = exports.MessageOptions = exports.FileOptions = exports.MethodDescriptorProto = exports.ServiceDescriptorProto = exports.EnumValueDescriptorProto = exports.EnumDescriptorProto_EnumReservedRange = exports.EnumDescriptorProto = exports.OneofDescriptorProto = exports.FieldDescriptorProto = exports.ExtensionRangeOptions_Declaration = exports.ExtensionRangeOptions = exports.DescriptorProto_ReservedRange = exports.DescriptorProto_ExtensionRange = exports.DescriptorProto = exports.FileDescriptorProto = exports.FileDescriptorSet = exports.Edition = exports.GeneratedCodeInfo_Annotation_Semantic = exports.FeatureSet_EnforceNamingStyle = exports.FeatureSet_JsonFormat = exports.FeatureSet_MessageEncoding = exports.FeatureSet_Utf8Validation = exports.FeatureSet_RepeatedFieldEncoding = exports.FeatureSet_EnumType = exports.FeatureSet_FieldPresence = exports.MethodOptions_IdempotencyLevel = exports.FieldOptions_OptionTargetType = exports.FieldOptions_OptionRetention = exports.FieldOptions_JSType = exports.FieldOptions_CType = exports.FileOptions_OptimizeMode = exports.FieldDescriptorProto_Label = exports.FieldDescriptorProto_Type = exports.ExtensionRangeOptions_VerificationState = void 0;
 const runtime_1 = require("@protobuf-ts/runtime");
 const runtime_2 = require("@protobuf-ts/runtime");
 const runtime_3 = require("@protobuf-ts/runtime");
@@ -492,6 +492,24 @@ var FeatureSet_JsonFormat;
      */
     FeatureSet_JsonFormat[FeatureSet_JsonFormat["LEGACY_BEST_EFFORT"] = 2] = "LEGACY_BEST_EFFORT";
 })(FeatureSet_JsonFormat = exports.FeatureSet_JsonFormat || (exports.FeatureSet_JsonFormat = {}));
+/**
+ * @generated from protobuf enum google.protobuf.FeatureSet.EnforceNamingStyle
+ */
+var FeatureSet_EnforceNamingStyle;
+(function (FeatureSet_EnforceNamingStyle) {
+    /**
+     * @generated from protobuf enum value: ENFORCE_NAMING_STYLE_UNKNOWN = 0;
+     */
+    FeatureSet_EnforceNamingStyle[FeatureSet_EnforceNamingStyle["ENFORCE_NAMING_STYLE_UNKNOWN"] = 0] = "ENFORCE_NAMING_STYLE_UNKNOWN";
+    /**
+     * @generated from protobuf enum value: STYLE2024 = 1;
+     */
+    FeatureSet_EnforceNamingStyle[FeatureSet_EnforceNamingStyle["STYLE2024"] = 1] = "STYLE2024";
+    /**
+     * @generated from protobuf enum value: STYLE_LEGACY = 2;
+     */
+    FeatureSet_EnforceNamingStyle[FeatureSet_EnforceNamingStyle["STYLE_LEGACY"] = 2] = "STYLE_LEGACY";
+})(FeatureSet_EnforceNamingStyle = exports.FeatureSet_EnforceNamingStyle || (exports.FeatureSet_EnforceNamingStyle = {}));
 /**
  * Represents the identified object's effect on the element in the original
  * .proto file.
@@ -2688,7 +2706,8 @@ class FeatureSet$Type extends runtime_4.MessageType {
             { no: 3, name: "repeated_field_encoding", kind: "enum", localName: "repeated_field_encoding", opt: true, T: () => ["google.protobuf.FeatureSet.RepeatedFieldEncoding", FeatureSet_RepeatedFieldEncoding] },
             { no: 4, name: "utf8_validation", kind: "enum", localName: "utf8_validation", opt: true, T: () => ["google.protobuf.FeatureSet.Utf8Validation", FeatureSet_Utf8Validation] },
             { no: 5, name: "message_encoding", kind: "enum", localName: "message_encoding", opt: true, T: () => ["google.protobuf.FeatureSet.MessageEncoding", FeatureSet_MessageEncoding] },
-            { no: 6, name: "json_format", kind: "enum", localName: "json_format", opt: true, T: () => ["google.protobuf.FeatureSet.JsonFormat", FeatureSet_JsonFormat] }
+            { no: 6, name: "json_format", kind: "enum", localName: "json_format", opt: true, T: () => ["google.protobuf.FeatureSet.JsonFormat", FeatureSet_JsonFormat] },
+            { no: 7, name: "enforce_naming_style", kind: "enum", localName: "enforce_naming_style", opt: true, T: () => ["google.protobuf.FeatureSet.EnforceNamingStyle", FeatureSet_EnforceNamingStyle] }
         ]);
     }
     create(value) {
@@ -2720,6 +2739,9 @@ class FeatureSet$Type extends runtime_4.MessageType {
                 case /* optional google.protobuf.FeatureSet.JsonFormat json_format */ 6:
                     message.json_format = reader.int32();
                     break;
+                case /* optional google.protobuf.FeatureSet.EnforceNamingStyle enforce_naming_style */ 7:
+                    message.enforce_naming_style = reader.int32();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2750,6 +2772,9 @@ class FeatureSet$Type extends runtime_4.MessageType {
         /* optional google.protobuf.FeatureSet.JsonFormat json_format = 6; */
         if (message.json_format !== undefined)
             writer.tag(6, runtime_1.WireType.Varint).int32(message.json_format);
+        /* optional google.protobuf.FeatureSet.EnforceNamingStyle enforce_naming_style = 7; */
+        if (message.enforce_naming_style !== undefined)
+            writer.tag(7, runtime_1.WireType.Varint).int32(message.enforce_naming_style);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
