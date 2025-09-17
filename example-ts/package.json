@@ -9,7 +9,7 @@
   "author": "Vald authors (https://vald.vdaas.org)",
   "license": "Apache-2.0",
   "dependencies": {
-    "@grpc/grpc-js": "^1.13.4",
+    "@grpc/grpc-js": "^1.14.0",
     "vald-client-node": "^1.7.17"
   }
 }
