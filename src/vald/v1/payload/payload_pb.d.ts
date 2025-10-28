@@ -1659,6 +1659,56 @@ export interface Info_Index_PropertyDetail {
     };
 }
 /**
+ * Represent the resource stats
+ *
+ * @generated from protobuf message payload.v1.Info.ResourceStats
+ */
+export interface Info_ResourceStats {
+    /**
+     * @generated from protobuf field: string name = 1
+     */
+    name: string;
+    /**
+     * @generated from protobuf field: string ip = 2
+     */
+    ip: string;
+    /**
+     * Container resource usage statistics
+     *
+     * @generated from protobuf field: payload.v1.Info.CgroupStats cgroup_stats = 3
+     */
+    cgroup_stats?: Info_CgroupStats;
+}
+/**
+ * @generated from protobuf message payload.v1.Info.CgroupStats
+ */
+export interface Info_CgroupStats {
+    /**
+     * CPU cores available
+     *
+     * @generated from protobuf field: double cpu_limit_cores = 1
+     */
+    cpu_limit_cores: number;
+    /**
+     * CPU usage in cores (not percentage)
+     *
+     * @generated from protobuf field: double cpu_usage_cores = 2
+     */
+    cpu_usage_cores: number;
+    /**
+     * Memory limit in bytes
+     *
+     * @generated from protobuf field: uint64 memory_limit_bytes = 3
+     */
+    memory_limit_bytes: bigint;
+    /**
+     * Memory usage in bytes
+     *
+     * @generated from protobuf field: uint64 memory_usage_bytes = 4
+     */
+    memory_usage_bytes: bigint;
+}
+/**
  * Represent the pod information message.
  *
  * @generated from protobuf message payload.v1.Info.Pod
@@ -2783,6 +2833,26 @@ declare class Info_Index_PropertyDetail$Type extends MessageType<Info_Index_Prop
  * @generated MessageType for protobuf message payload.v1.Info.Index.PropertyDetail
  */
 export declare const Info_Index_PropertyDetail: Info_Index_PropertyDetail$Type;
+declare class Info_ResourceStats$Type extends MessageType<Info_ResourceStats> {
+    constructor();
+    create(value?: PartialMessage<Info_ResourceStats>): Info_ResourceStats;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_ResourceStats): Info_ResourceStats;
+    internalBinaryWrite(message: Info_ResourceStats, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.ResourceStats
+ */
+export declare const Info_ResourceStats: Info_ResourceStats$Type;
+declare class Info_CgroupStats$Type extends MessageType<Info_CgroupStats> {
+    constructor();
+    create(value?: PartialMessage<Info_CgroupStats>): Info_CgroupStats;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Info_CgroupStats): Info_CgroupStats;
+    internalBinaryWrite(message: Info_CgroupStats, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message payload.v1.Info.CgroupStats
+ */
+export declare const Info_CgroupStats: Info_CgroupStats$Type;
 declare class Info_Pod$Type extends MessageType<Info_Pod> {
     constructor();
     create(value?: PartialMessage<Info_Pod>): Info_Pod;
