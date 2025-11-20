@@ -1644,6 +1644,10 @@ export interface Info_Index_Property {
      * @generated from protobuf field: int32 incoming_edge = 34
      */
     incoming_edge: number;
+    /**
+     * @generated from protobuf field: float epsilon_for_creation = 35
+     */
+    epsilon_for_creation: number;
 }
 /**
  * Represents index Properties for each Agents

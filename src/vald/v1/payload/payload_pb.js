@@ -4321,7 +4321,8 @@ class Info_Index_Property$Type extends runtime_4.MessageType {
             { no: 31, name: "dynamic_edge_size_rate", kind: "scalar", localName: "dynamic_edge_size_rate", T: 5 /*ScalarType.INT32*/ },
             { no: 32, name: "build_time_limit", kind: "scalar", localName: "build_time_limit", T: 2 /*ScalarType.FLOAT*/ },
             { no: 33, name: "outgoing_edge", kind: "scalar", localName: "outgoing_edge", T: 5 /*ScalarType.INT32*/ },
-            { no: 34, name: "incoming_edge", kind: "scalar", localName: "incoming_edge", T: 5 /*ScalarType.INT32*/ }
+            { no: 34, name: "incoming_edge", kind: "scalar", localName: "incoming_edge", T: 5 /*ScalarType.INT32*/ },
+            { no: 35, name: "epsilon_for_creation", kind: "scalar", localName: "epsilon_for_creation", T: 2 /*ScalarType.FLOAT*/ }
         ]);
     }
     create(value) {
@@ -4360,6 +4361,7 @@ class Info_Index_Property$Type extends runtime_4.MessageType {
         message.build_time_limit = 0;
         message.outgoing_edge = 0;
         message.incoming_edge = 0;
+        message.epsilon_for_creation = 0;
         if (value !== undefined)
             runtime_3.reflectionMergePartial(this, message, value);
         return message;
@@ -4470,6 +4472,9 @@ class Info_Index_Property$Type extends runtime_4.MessageType {
                     break;
                 case /* int32 incoming_edge */ 34:
                     message.incoming_edge = reader.int32();
+                    break;
+                case /* float epsilon_for_creation */ 35:
+                    message.epsilon_for_creation = reader.float();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -4585,6 +4590,9 @@ class Info_Index_Property$Type extends runtime_4.MessageType {
         /* int32 incoming_edge = 34; */
         if (message.incoming_edge !== 0)
             writer.tag(34, runtime_1.WireType.Varint).int32(message.incoming_edge);
+        /* float epsilon_for_creation = 35; */
+        if (message.epsilon_for_creation !== 0)
+            writer.tag(35, runtime_1.WireType.Bit32).float(message.epsilon_for_creation);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
