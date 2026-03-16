@@ -210,6 +210,12 @@ export interface Search_Config {
      * @generated from protobuf field: uint32 nprobe = 11
      */
     nprobe: number;
+    /**
+     * Search edge size
+     *
+     * @generated from protobuf field: int32 edge_size = 12
+     */
+    edge_size: number;
 }
 /**
  * Represent a search response.

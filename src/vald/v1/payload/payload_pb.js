@@ -496,7 +496,8 @@ class Search_Config$Type extends runtime_4.MessageType {
             { no: 8, name: "min_num", kind: "scalar", localName: "min_num", T: 13 /*ScalarType.UINT32*/, options: { "buf.validate.field": { uint32: { gte: 0 } } } },
             { no: 9, name: "aggregation_algorithm", kind: "enum", localName: "aggregation_algorithm", T: () => ["payload.v1.Search.AggregationAlgorithm", Search_AggregationAlgorithm] },
             { no: 10, name: "ratio", kind: "message", T: () => wrappers_pb_1.FloatValue },
-            { no: 11, name: "nprobe", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
+            { no: 11, name: "nprobe", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 12, name: "edge_size", kind: "scalar", localName: "edge_size", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value) {
@@ -509,6 +510,7 @@ class Search_Config$Type extends runtime_4.MessageType {
         message.min_num = 0;
         message.aggregation_algorithm = 0;
         message.nprobe = 0;
+        message.edge_size = 0;
         if (value !== undefined)
             runtime_3.reflectionMergePartial(this, message, value);
         return message;
@@ -550,6 +552,9 @@ class Search_Config$Type extends runtime_4.MessageType {
                     break;
                 case /* uint32 nprobe */ 11:
                     message.nprobe = reader.uint32();
+                    break;
+                case /* int32 edge_size */ 12:
+                    message.edge_size = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -596,6 +601,9 @@ class Search_Config$Type extends runtime_4.MessageType {
         /* uint32 nprobe = 11; */
         if (message.nprobe !== 0)
             writer.tag(11, runtime_1.WireType.Varint).uint32(message.nprobe);
+        /* int32 edge_size = 12; */
+        if (message.edge_size !== 0)
+            writer.tag(12, runtime_1.WireType.Varint).int32(message.edge_size);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
