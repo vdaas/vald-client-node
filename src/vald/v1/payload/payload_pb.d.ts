@@ -4,21 +4,19 @@
 // tslint:disable
 // @ts-nocheck
 //
-//
 // Copyright (C) 2019-2026 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    https://www.apache.org/licenses/LICENSE-2.0
+//	https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
 import type { IBinaryWriter } from "@protobuf-ts/runtime";
@@ -770,41 +768,41 @@ export declare enum Remove_Timestamp_Operator {
     /**
      * The timestamp is equal to the specified value in the request.
      *
-     * @generated from protobuf enum value: Eq = 0;
+     * @generated from protobuf enum value: EQ = 0;
      */
-    Eq = 0,
+    EQ = 0,
     /**
      * The timestamp is not equal to the specified value in the request.
      *
-     * @generated from protobuf enum value: Ne = 1;
+     * @generated from protobuf enum value: NE = 1;
      */
-    Ne = 1,
+    NE = 1,
     /**
      * The timestamp is greater than or equal to the specified value in the
      * request.
      *
-     * @generated from protobuf enum value: Ge = 2;
+     * @generated from protobuf enum value: GE = 2;
      */
-    Ge = 2,
+    GE = 2,
     /**
      * The timestamp is greater than the specified value in the request.
      *
-     * @generated from protobuf enum value: Gt = 3;
+     * @generated from protobuf enum value: GT = 3;
      */
-    Gt = 3,
+    GT = 3,
     /**
      * The timestamp is less than or equal to the specified value in the
      * request.
      *
-     * @generated from protobuf enum value: Le = 4;
+     * @generated from protobuf enum value: LE = 4;
      */
-    Le = 4,
+    LE = 4,
     /**
      * The timestamp is less than the specified value in the request.
      *
-     * @generated from protobuf enum value: Lt = 5;
+     * @generated from protobuf enum value: LT = 5;
      */
-    Lt = 5
+    LT = 5
 }
 /**
  * Represent the remove configuration.

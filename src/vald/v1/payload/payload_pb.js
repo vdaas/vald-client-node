@@ -4,21 +4,19 @@
 // tslint:disable
 // @ts-nocheck
 //
-//
 // Copyright (C) 2019-2026 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    https://www.apache.org/licenses/LICENSE-2.0
+//	https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -29,21 +27,19 @@ exports.Empty = exports.Meta_KeyValue = exports.Meta_Value = exports.Meta_Key = 
 // tslint:disable
 // @ts-nocheck
 //
-//
 // Copyright (C) 2019-2026 vdaas.org vald team <vald@vdaas.org>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    https://www.apache.org/licenses/LICENSE-2.0
+//	https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 const runtime_1 = require("@protobuf-ts/runtime");
 const runtime_2 = require("@protobuf-ts/runtime");
@@ -90,41 +86,41 @@ var Remove_Timestamp_Operator;
     /**
      * The timestamp is equal to the specified value in the request.
      *
-     * @generated from protobuf enum value: Eq = 0;
+     * @generated from protobuf enum value: EQ = 0;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Eq"] = 0] = "Eq";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["EQ"] = 0] = "EQ";
     /**
      * The timestamp is not equal to the specified value in the request.
      *
-     * @generated from protobuf enum value: Ne = 1;
+     * @generated from protobuf enum value: NE = 1;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Ne"] = 1] = "Ne";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["NE"] = 1] = "NE";
     /**
      * The timestamp is greater than or equal to the specified value in the
      * request.
      *
-     * @generated from protobuf enum value: Ge = 2;
+     * @generated from protobuf enum value: GE = 2;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Ge"] = 2] = "Ge";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["GE"] = 2] = "GE";
     /**
      * The timestamp is greater than the specified value in the request.
      *
-     * @generated from protobuf enum value: Gt = 3;
+     * @generated from protobuf enum value: GT = 3;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Gt"] = 3] = "Gt";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["GT"] = 3] = "GT";
     /**
      * The timestamp is less than or equal to the specified value in the
      * request.
      *
-     * @generated from protobuf enum value: Le = 4;
+     * @generated from protobuf enum value: LE = 4;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Le"] = 4] = "Le";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["LE"] = 4] = "LE";
     /**
      * The timestamp is less than the specified value in the request.
      *
-     * @generated from protobuf enum value: Lt = 5;
+     * @generated from protobuf enum value: LT = 5;
      */
-    Remove_Timestamp_Operator[Remove_Timestamp_Operator["Lt"] = 5] = "Lt";
+    Remove_Timestamp_Operator[Remove_Timestamp_Operator["LT"] = 5] = "LT";
 })(Remove_Timestamp_Operator = exports.Remove_Timestamp_Operator || (exports.Remove_Timestamp_Operator = {}));
 // @generated message type with reflection information, may provide speed optimized methods
 class Search$Type extends runtime_4.MessageType {
