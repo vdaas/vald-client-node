@@ -1116,9 +1116,11 @@ export interface FieldOptions {
      */
     deprecated?: boolean;
     /**
+     * DEPRECATED. DO NOT USE!
      * For Google-internal migration only. Do not use.
      *
-     * @generated from protobuf field: optional bool weak = 10 [default = false]
+     * @deprecated
+     * @generated from protobuf field: optional bool weak = 10 [default = false, deprecated = true]
      */
     weak?: boolean;
     /**
@@ -2130,6 +2132,12 @@ export declare enum Edition {
      * @generated from protobuf enum value: EDITION_2024 = 1001;
      */
     EDITION_2024 = 1001,
+    /**
+     * A placeholder edition for developing and testing unscheduled features.
+     *
+     * @generated from protobuf enum value: EDITION_UNSTABLE = 9999;
+     */
+    EDITION_UNSTABLE = 9999,
     /**
      * Placeholder editions for testing feature resolution.  These should not be
      * used or relied on outside of tests.

@@ -619,6 +619,12 @@ var Edition;
      */
     Edition[Edition["EDITION_2024"] = 1001] = "EDITION_2024";
     /**
+     * A placeholder edition for developing and testing unscheduled features.
+     *
+     * @generated from protobuf enum value: EDITION_UNSTABLE = 9999;
+     */
+    Edition[Edition["EDITION_UNSTABLE"] = 9999] = "EDITION_UNSTABLE";
+    /**
      * Placeholder editions for testing feature resolution.  These should not be
      * used or relied on outside of tests.
      *
@@ -2090,7 +2096,7 @@ class FieldOptions$Type extends runtime_4.MessageType {
                 case /* optional bool deprecated = 3 [default = false] */ 3:
                     message.deprecated = reader.bool();
                     break;
-                case /* optional bool weak = 10 [default = false] */ 10:
+                case /* optional bool weak = 10 [default = false, deprecated = true] */ 10:
                     message.weak = reader.bool();
                     break;
                 case /* optional bool debug_redact = 16 [default = false] */ 16:
@@ -2145,7 +2151,7 @@ class FieldOptions$Type extends runtime_4.MessageType {
         /* optional google.protobuf.FieldOptions.JSType jstype = 6 [default = JS_NORMAL]; */
         if (message.jstype !== undefined)
             writer.tag(6, runtime_1.WireType.Varint).int32(message.jstype);
-        /* optional bool weak = 10 [default = false]; */
+        /* optional bool weak = 10 [default = false, deprecated = true]; */
         if (message.weak !== undefined)
             writer.tag(10, runtime_1.WireType.Varint).bool(message.weak);
         /* optional bool unverified_lazy = 15 [default = false]; */
