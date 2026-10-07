@@ -5,34 +5,11 @@
 // @ts-nocheck
 //
 // Protocol Buffers - Google's data interchange format
-// Copyright 2008 Google Inc.  All rights reserved.
-// https://developers.google.com/protocol-buffers/
+// Copyright 2008 Google LLC.  All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd
 //
 //
 // Author: kenton@google.com (Kenton Varda)
@@ -1211,6 +1188,13 @@ export interface FieldOptions_FeatureSupport {
      * @generated from protobuf field: optional google.protobuf.Edition edition_removed = 4
      */
     edition_removed?: Edition;
+    /**
+     * The removal error text if this feature is used after the edition it was
+     * removed in.
+     *
+     * @generated from protobuf field: optional string removal_error = 5
+     */
+    removal_error?: string;
 }
 /**
  * @generated from protobuf enum google.protobuf.FieldOptions.CType
@@ -1794,7 +1778,11 @@ export declare enum FeatureSet_EnforceNamingStyle {
     /**
      * @generated from protobuf enum value: STYLE_LEGACY = 2;
      */
-    STYLE_LEGACY = 2
+    STYLE_LEGACY = 2,
+    /**
+     * @generated from protobuf enum value: STYLE2026 = 3;
+     */
+    STYLE2026 = 3
 }
 /**
  * A compiled specification for the defaults of a set of features.  These
@@ -2132,6 +2120,10 @@ export declare enum Edition {
      * @generated from protobuf enum value: EDITION_2024 = 1001;
      */
     EDITION_2024 = 1001,
+    /**
+     * @generated from protobuf enum value: EDITION_2026 = 1002;
+     */
+    EDITION_2026 = 1002,
     /**
      * A placeholder edition for developing and testing unscheduled features.
      *

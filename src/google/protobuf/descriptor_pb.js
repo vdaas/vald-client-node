@@ -5,34 +5,11 @@
 // @ts-nocheck
 //
 // Protocol Buffers - Google's data interchange format
-// Copyright 2008 Google Inc.  All rights reserved.
-// https://developers.google.com/protocol-buffers/
+// Copyright 2008 Google LLC.  All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd
 //
 //
 // Author: kenton@google.com (Kenton Varda)
@@ -545,6 +522,10 @@ var FeatureSet_EnforceNamingStyle;
      * @generated from protobuf enum value: STYLE_LEGACY = 2;
      */
     FeatureSet_EnforceNamingStyle[FeatureSet_EnforceNamingStyle["STYLE_LEGACY"] = 2] = "STYLE_LEGACY";
+    /**
+     * @generated from protobuf enum value: STYLE2026 = 3;
+     */
+    FeatureSet_EnforceNamingStyle[FeatureSet_EnforceNamingStyle["STYLE2026"] = 3] = "STYLE2026";
 })(FeatureSet_EnforceNamingStyle = exports.FeatureSet_EnforceNamingStyle || (exports.FeatureSet_EnforceNamingStyle = {}));
 /**
  * Represents the identified object's effect on the element in the original
@@ -618,6 +599,10 @@ var Edition;
      * @generated from protobuf enum value: EDITION_2024 = 1001;
      */
     Edition[Edition["EDITION_2024"] = 1001] = "EDITION_2024";
+    /**
+     * @generated from protobuf enum value: EDITION_2026 = 1002;
+     */
+    Edition[Edition["EDITION_2026"] = 1002] = "EDITION_2026";
     /**
      * A placeholder edition for developing and testing unscheduled features.
      *
@@ -2248,7 +2233,8 @@ class FieldOptions_FeatureSupport$Type extends runtime_4.MessageType {
             { no: 1, name: "edition_introduced", kind: "enum", localName: "edition_introduced", opt: true, T: () => ["google.protobuf.Edition", Edition] },
             { no: 2, name: "edition_deprecated", kind: "enum", localName: "edition_deprecated", opt: true, T: () => ["google.protobuf.Edition", Edition] },
             { no: 3, name: "deprecation_warning", kind: "scalar", localName: "deprecation_warning", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "edition_removed", kind: "enum", localName: "edition_removed", opt: true, T: () => ["google.protobuf.Edition", Edition] }
+            { no: 4, name: "edition_removed", kind: "enum", localName: "edition_removed", opt: true, T: () => ["google.protobuf.Edition", Edition] },
+            { no: 5, name: "removal_error", kind: "scalar", localName: "removal_error", opt: true, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value) {
@@ -2274,6 +2260,9 @@ class FieldOptions_FeatureSupport$Type extends runtime_4.MessageType {
                 case /* optional google.protobuf.Edition edition_removed */ 4:
                     message.edition_removed = reader.int32();
                     break;
+                case /* optional string removal_error */ 5:
+                    message.removal_error = reader.string();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -2298,6 +2287,9 @@ class FieldOptions_FeatureSupport$Type extends runtime_4.MessageType {
         /* optional google.protobuf.Edition edition_removed = 4; */
         if (message.edition_removed !== undefined)
             writer.tag(4, runtime_1.WireType.Varint).int32(message.edition_removed);
+        /* optional string removal_error = 5; */
+        if (message.removal_error !== undefined)
+            writer.tag(5, runtime_1.WireType.LengthDelimited).string(message.removal_error);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? runtime_2.UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
